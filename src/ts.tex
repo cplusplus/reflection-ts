@@ -1,0 +1,142 @@
+%% main file for the C++ standard.
+%%
+
+%%--------------------------------------------------
+%% basics
+\documentclass[ebook,10pt,oneside,openany,final]{memoir}
+
+\usepackage[american]
+           {babel}        % needed for iso dates
+\usepackage[iso,american]
+           {isodate}      % use iso format for dates
+\usepackage[final]
+           {listings}     % code listings
+\usepackage{longtable}    % auto-breaking tables
+\usepackage{ltcaption}    % fix captions for long tables
+\usepackage{booktabs}     % fancy tables
+\usepackage{relsize}      % provide relative font size changes
+\usepackage{underscore}   % remove special status of '_' in ordinary text
+\usepackage{verbatim}     % improved verbatim environment
+\usepackage{parskip}      % handle non-indented paragraphs "properly"
+\usepackage{array}        % new column definitions for tables
+\usepackage[normalem]{ulem}
+\usepackage{color}        % define colors for strikeouts and underlines
+\usepackage{amsmath}      % additional math symbols
+\usepackage{mathrsfs}     % mathscr font
+\usepackage{microtype}
+\usepackage{multicol}
+\usepackage{xspace}
+\usepackage{fixme}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[pdftex, final]{graphicx}
+\usepackage[pdftex,
+            pdftitle={C++ Technical Specification --- Extensions for Reflection},
+            pdfsubject={C++ Technical Specification --- Extensions for Reflection},
+            pdfcreator={Jonathan Wakely},
+            bookmarks=true,
+            bookmarksnumbered=true,
+            pdfpagelabels=true,
+            pdfpagemode=UseOutlines,
+            pdfstartview=FitH,
+            linktocpage=true,
+            colorlinks=true,
+            linkcolor=blue,
+            plainpages=false
+           ]{hyperref}
+\usepackage{memhfixc}     % fix interactions between hyperref and memoir
+\usepackage{xstring}
+
+\input{layout}
+\input{styles}
+\input{macros}
+\input{tables}
+
+\makeindex[generalindex]
+\makeindex[libraryindex]
+\makeindex[impldefindex]
+
+%%--------------------------------------------------
+%% macros specific to the Networking TS
+\newcommand{\completionsig}{\Fundesc{Completion signature}}
+\newcommand{\DEDUCED}{\placeholdernc{\texttt{DEDUCED}}}
+\newcommand{\nativeref}{see~\ref{socket.reqmts.native}}
+% The base standard:
+\newcommand{\CppStd}{\CppXIV}
+\newcommand{\CppXref}[1]{\CppStd [#1]}
+% Alternative formatting of cross-references, resolving stable name to number.
+% \input{cxx}
+% \newcommand{\CppXref}[1]{\CppStd, \cxxref{#1}}
+
+% Add an extensible implementation entry to the main and library name indices
+\newcommand{\indexextensible}[1]{%
+\indextext{extensible implementation!\idxcode{#1}}%
+\indextext{\idxcode{#1}!extensible implementation}%
+}
+
+%%--------------------------------------------------
+%% fix interaction between hyperref and other
+%% commands
+\pdfstringdefDisableCommands{\def\smaller#1{#1}}
+\pdfstringdefDisableCommands{\def\textbf#1{#1}}
+\pdfstringdefDisableCommands{\def\raisebox#1{}}
+\pdfstringdefDisableCommands{\def\hspace#1{}}
+
+%%--------------------------------------------------
+%% add special hyphenation rules
+\hyphenation{tem-plate ex-am-ple in-put-it-er-a-tor name-space name-spaces}
+
+%%--------------------------------------------------
+%% turn off all ligatures inside \texttt
+\DisableLigatures{encoding = T1, family = tt*}
+
+%%--------------------------------------------------
+%% make overfull hboxes visible
+%\setlength\overfullrule{5pt}
+
+\begin{document}
+\chapterstyle{cppstd}
+\pagestyle{cpppage}
+
+%%--------------------------------------------------
+%% configuration
+\input{config}
+
+%%--------------------------------------------------
+%% front matter
+\frontmatter
+\include{front}
+
+%%--------------------------------------------------
+%% main body of the document
+\mainmatter
+\setglobalstyles
+
+\include{intro}
+\include{references}
+\include{definitions}
+\include{general}
+\include{lexicalconventions}
+\include{basicconcepts}
+\include{declarations}
+\include{declarators}
+\include{templates}
+\include{libraryintroduction}
+
+\include{languagesupport}
+
+%%--------------------------------------------------
+%% appendices
+
+%\appendix
+%\include{compatibility}
+
+%%--------------------------------------------------
+%% back matter
+\backmatter
+\include{back}
+
+
+%%--------------------------------------------------
+%% End of document
+\end{document}

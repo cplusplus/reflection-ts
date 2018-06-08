@@ -1,0 +1,40 @@
+%!TEX root = ts.tex
+
+\rSec0[basic]{Basic concepts}
+
+\pnum
+In C++ [basic], add the following last paragraph:
+
+\begin{std.txt}
+\added{
+An \emph{alias} is a name introduced by a \tcode{typedef} declaration, an
+\emph{alias-declaration}, or a \emph{using-declaration}. }
+\end{std.txt}
+
+
+\rSec1[basic.fundamental]{Fundamental types}
+
+\pnum
+In C++ [basic.fundamental], apply the following change:
+
+\begin{std.txt}
+An expression of type \emph{cv} \tcode{void} shall be used only as an expression
+statement (9.2), as an operand of a comma expression (8.19), as a second or
+third operand of \tcode{?:} (8.16), as the operand of \tcode{typeid},
+\tcode{noexcept}, \added{\tcode{reflexpr},} or \tcode{decltype}, as the
+expression in a return statement (9.6.3) for a function with the return type
+\emph{cv} \tcode{void}, or as the operand of an explicit conversion to type
+\emph{cv} \tcode{void}.
+\end{std.txt}
+
+\rSec0[conv]{Standard conversions}
+
+No changes are made to Clause \the\value{chapter} of the \Cpp Standard.
+
+\rSec0[expr]{Expressions}
+
+No changes are made to Clause \the\value{chapter} of the \Cpp Standard.
+
+\rSec0[stmt.stmt]{Statements}
+
+No changes are made to Clause \the\value{chapter} of the \Cpp Standard.

@@ -1,0 +1,52 @@
+%!TEX root = ts.tex
+
+\rSec0[intro]{General}
+
+\rSec1[intro.compliance]{Implementation compliance}
+
+\pnum
+Conformance requirements for this specification are those defined in subclause
+4.1 in the Concepts TS, except that references to the Concepts TS or the C++
+Standard therein shall be taken as referring to the document that is the result
+of applying the editing instructions. Similarly, all references to the Concepts
+TS or the C++ Standard in the resulting document shall be taken as referring to
+the resulting document itself.
+\begin{note}
+Conformance is defined in terms of the behavior of programs.
+\end{note}
+
+\rSec1[intro.namespaces]{Namespaces and headers}
+
+\pnum
+Whenever a name \tcode{x} declared in subclause 21.11 at namespace scope is
+mentioned, the name \tcode{x} is assumed to be fully qualified as
+\tcode{::std::experimental::reflect::v1::x}, unless otherwise specified.
+The header described in this specification (see Table~\ref{tab:info.headers})
+shall import the contents of \tcode{::std::experimental::reflect::v1} into
+\tcode{::std::experimental::reflect} as if by:
+
+\begin{codeblock}
+namespace std::experimental::reflect {
+  inline namespace v1 {}
+}
+\end{codeblock}
+
+\pnum
+Whenever a name \tcode{x} declared in the standard library at namespace scope is
+mentioned, the name \tcode{x} is assumed to be fully qualified as
+\tcode{::std::x}, unless otherwise specified.
+
+\begin{floattable}{Reflection library headers}{tab:info.headers}
+{l}
+\topline
+\tcode{<experimental/reflect>} \\
+\end{floattable}
+
+\rSec1[intro.ack]{Acknowledgements}
+
+\pnum
+This work is the result of a collaboration of researchers in industry and
+academia.  We wish to thank people who made valuable contributions within and
+outside these groups, including Ricardo Fabiano de Andrade, Roland Bock,
+Chandler Carruth, Klaim-Jol Lamotte, Jens Maurer, and many others not
+named here who contributed to the discussion.

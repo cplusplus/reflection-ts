@@ -1,0 +1,34 @@
+%!TEX root = ts.tex
+
+\rSec0[temp]{Templates}
+
+\setcounter{section}{6}
+\setcounter{subsection}{2}
+
+%% TODO: skip to this section
+%% 17.6.2.1
+\rSec3[temp.dep.type]{Dependent types}
+
+\begin{std.txt}
+A type is dependent if it is \newline
+[...]
+
+\begin{itemize}
+  \item a \grammarterm{simple-template-id} in which either the template name is
+  a template parameter or any of the template arguments is a dependent type or
+  an expression that is type-dependent or value-dependent, \removed{or}
+  \item denoted by \tcode{decltype(}\grammarterm{expression}\tcode{)}, where
+        \grammarterm{expression} is type-dependent (14.6.2.2)\removed{.}\added{, or}
+  \item \added{denoted by \tcode{reflexpr(}\emph{operand} \tcode{)},
+  where \grammarterm{operand} designates a dependent type or a member of an unknown
+  specialization.}
+\end{itemize}
+\end{std.txt}
+
+\rSec0[except]{Exception handling}
+
+No changes are made to Clause \the\value{chapter} of the \Cpp Standard.
+
+\rSec0[cpp]{Preprocessing directives}
+
+No changes are made to Clause \the\value{chapter} of the \Cpp Standard.

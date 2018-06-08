@@ -1,0 +1,248 @@
+%!TEX root = ts.tex
+
+\rSec0[dcl.dcl]{Declarations}
+
+\rSec1[dcl.spec]{Specifiers}
+
+%% 10.1.7
+\setcounter{subsection}{6}
+\rSec2[dcl.type]{Type specifiers}
+
+%% 10.1.7.2
+\setcounter{subsubsection}{1}
+\rSec3[dcl.type.simple]{Simple type specifiers}
+
+In C++ [dcl.type.simple], apply the following change
+
+\begin{std.txt}
+The simple type specifiers are
+
+\begin{bnf}
+\nontermdef{simple-type-specifier}\br
+    nested-name-specifier\opt type-name\br
+    nested-name-specifier \terminal{template} simple-template-id\br
+    nested-name-specifier\opt template-name\br
+    \terminal{char}\br
+    \terminal{char16_t}\br
+    \terminal{char32_t}\br
+    \terminal{wchar_t}\br
+    \terminal{bool}\br
+    \terminal{short}\br
+    \terminal{int}\br
+    \terminal{long}\br
+    \terminal{signed}\br
+    \terminal{unsigned}\br
+    \terminal{float}\br
+    \terminal{double}\br
+    \terminal{void}\br
+    \terminal{auto}\br
+    decltype-specifier\br
+    constrained-type-specifier\br
+    \added{reflexpr-specifier}
+\end{bnf}
+
+\begin{bnf}
+\nontermdef{type-name}\br
+    class-name\br
+    enum-name\br
+    typedef-name\br
+    simple-template-id
+\end{bnf}
+
+\begin{bnf}
+\nontermdef{decltype-specifier}\br
+  \terminal{decltype} \terminal{(} expression \terminal{)}\br
+  \terminal{decltype} \terminal{(} \terminal{auto} \terminal{)}
+\end{bnf}
+
+\begin{bnf}
+\added{\nontermdef{reflexpr-specifier}}\br
+  \added{\terminal{reflexpr} \terminal{(} reflexpr-operand \terminal{)}\br}
+\end{bnf}
+
+\begin{bnf}
+\added{\nontermdef{reflexpr-operand}}\br
+  \added{\terminal{::}}\br
+  \added{type-id}\br
+  \added{nested-name-specifier\opt identifier}\br
+  \added{nested-name-specifier\opt simple-template-id}\br
+\end{bnf}
+
+...
+
+The other \grammarterm{simple-type-specifiers} specify either a
+previously-declared type, a type determined from an expression, \added{a
+reflection meta-object type (10.1.7.6)}, or one of the fundamental types (6.9.1).
+\end{std.txt}
+
+Add the following row to Table 11
+
+\begin{center}
+\begin{TableBase}
+\begin{tabular}{|ll|}
+\topline
+\added{\tcode{reflexpr} \tcode{(} \grammarterm{reflexpr-operand} \tcode{)}\br} &
+\added{The type as defined below} \\
+\bottomline
+\end{tabular}
+\end{TableBase}
+\end{center}
+
+At the end of 10.1.7.2, insert the following paragraph:
+
+\begin{std.txt}
+\added{For a \grammarterm{reflexpr-operand} \tcode{x}, the type denoted
+by \tcode{reflexpr(x)} is an implementation-defined type that satisfies
+constraints as laid out in 10.1.7.6.}
+\end{std.txt}
+
+
+%% 10.1.7.6
+\setcounter{subsubsection}{5}
+\rSec3[dcl.type.reflexpr]{Reflection type specifiers}
+
+Insert the following section:
+
+\begin{std.txt}\color{addclr}
+
+    The \emph{reflexpr} operator yields a type \tcode{T} that allows inspection
+    of some properties of its operand through type traits or type transformations
+    on \tcode{T} (21.11.4).  The operand to the \tcode{reflexpr} operator shall
+    be a type, namespace, enumerator, variable, structured binding or data
+    member.  Any such \tcode{T} satisfies the requirements of
+    \tcode{reflect::Object} (21.11.3) and other \tcode{reflect} concepts,
+    depending on the operand.  A type satisfying the requirements of
+    \tcode{reflect::Object} is called a \emph{meta-object type}.  A meta-object
+    type is an incomplete namespace-scope class type ([class]).
+
+    An entity or alias \tcode{A} is \emph{reflection-related} to an entity or
+    alias \tcode{B} if
+
+    \begin{itemize}
+      \item \tcode{A} and \tcode{B} are the same entity or alias,
+      \item \tcode{A} is a variable or enumerator and \tcode{B} is the type of \tcode{A},
+      \item \tcode{A} is an enumeration and \tcode{B} is the underlying type of \tcode{A},
+      \item \tcode{A} is a class and \tcode{B} is a member or base class of \tcode{A},
+      \item \tcode{A} is a non-template alias that designates the entity \tcode{B},
+      \item \tcode{A} is a class nested in \tcode{B} (12.2.5 [class.nest]),
+      \item \tcode{A} is not the global namespace and \tcode{B} is an enclosing namespace of \tcode{A}, or
+      \item \tcode{A} is reflection-related to an entity or alias \tcode{X} and \tcode{X} is reflection-related to \tcode{B}.
+    \end{itemize}
+
+\begin{note}
+This relationship is reflexive and transitive, but not symmetric.
+\end{note}
+
+\begin{example}
+\begin{codeblock}
+struct X;
+struct B  {
+   using X = ::X;
+   typedef X Y;
+};
+struct D : B {
+   using B::Y;
+};
+\end{codeblock}
+
+The alias \tcode{D::Y} is reflection-related to \tcode{::X}, but not to \tcode{B::Y} or \tcode{B::X}.
+\end{example}
+
+Zero or more successive applications of type transformations that yield
+meta-object types (21.11.4) to the type denoted by a \emph{reflexpr-specifier}
+enable inspection of entities and aliases that are reflection-related to the
+operand; such a meta-object type is said to \emph{reflect} the respective
+reflection-related entity or alias.
+
+\begin{example}
+\begin{codeblock}
+template <typename T> std::string get_type_name() {
+   namespace reflect = std::experimental::reflect;
+   // T_t is an Alias reflecting T:
+   using T_t = reflexpr(T);
+   // aliased_T_t is a Type reflecting the type for which T is a synonym:
+   using aliased_T_t = reflect::get_aliased_t<T_t>;
+   return reflect::get_name_v<aliased_T_t>;
+}
+
+std::cout << get_type_name<std::string>(); // prints "basic_string"
+\end{codeblock}
+\end{example}
+
+The type specified by the \emph{reflexpr-specifier} is implementation-defined.
+It is unspecified whether repeatedly applying \tcode{reflexpr} to the same
+operand yields the same type or a different type.
+\begin{note}
+If a meta-object type reflects an incomplete class type, certain type
+transformations (21.11.4) cannot be applied.
+\end{note}
+
+\begin{example}
+\begin{codeblock}
+class X;
+using X1_m = reflexpr(X);
+class X {};
+using X2_m = reflexpr(X);
+using X_bases_1 = std::experimental::reflect::get_base_classes_t<X1_m>; // ok, X1_m reflects complete class X
+using X_bases_2 = std::experimental::reflect::get_base_classes_t<X2_m>; // ok
+std::experimental::reflect::get_reflected_type_t<X1_m> x; // ok, type X is complete
+\end{codeblock}
+\end{example}
+
+For the operand \tcode{::}, the type specified by the \tcode{reflexpr-specifier}
+satisfies \tcode{reflect::GlobalScope}.  For an operand of the form
+\emph{identifier} where \emph{identifier} is a template \emph{type-parameter},
+the type satisfies both \tcode{reflect::Type} and \tcode{reflect::Alias}.
+
+The \grammarterm{identifier} or \grammarterm{simple-template-id} is looked up
+using the rules for name lookup (6.4): if a \grammarterm{nested-name-specifier}
+is included in the operand, qualified lookup (6.4.3) of
+\grammarterm{nested-name-specifier identifier} or
+\grammarterm{nested-name-specifier simple-template-id} will be performed,
+otherwise unqualified lookup (6.4.1) of \grammarterm{identifier} or
+\grammarterm{simple-template-id} will be performed.  The type specified by the
+\grammarterm{reflexpr-specifier} satisfies concepts depending on the result of
+the name lookup, as shown in Table~\ref{tab:reflect.concepts}.
+
+\setcounter{table}{11}
+
+\begin{floattable}{\added{\tcode{reflect} concept (21.11.3) that the type specified by
+a \emph{reflexpr-specifier} satisfies, for a given \emph{reflexpr-operand}
+\emph{identifier} or \emph{simple-template-id}.}}{tab:reflect.concepts}{l|l|l}
+\topline
+\added{\hdstyle{Category}} & \added{\hdstyle{\grammarterm{identifier} or \grammarterm{simple-template-id} kind }} & \added{\hdstyle{\tcode{reflect} Concept}}       \\ \capsep
+\added{type}        & \added{\grammarterm{class-name} designating a union}                           & \added{\tcode{reflect::Record}}         \\ \cline{2-3}
+            & \added{\grammarterm{class-name} designating a non-union class}                  & \added{\tcode{reflect::Class}}           \\ \cline{2-3}
+            & \added{\grammarterm{enum-name}}                                                 & \added{\tcode{reflect::Enum}}            \\ \cline{2-3}
+            & \added{\grammarterm{type-name} introduced by a \grammarterm{using-declaration}} & \added{both \tcode{reflect::Type}}       \\
+            &                                                                         & \added{and \tcode{reflect::Alias}}       \\ \cline{2-3}
+            & \added{any other \grammarterm{typedef-name}}                                    & \added{both \tcode{reflect::Type}}       \\
+            &                                                                         & \added{and \tcode{reflect::Alias}}       \\ \cline{1-3}
+\added{namespace}   & \added{\grammarterm{namespace-alias}}                                           & \added{both \tcode{reflect::Namespace}}  \\
+            &                                                                         & \added{and \tcode{reflect::Alias}}       \\ \cline{2-3}
+            & \added{any other \grammarterm{namespace-name}}                                  & \added{both \tcode{reflect::Namespace}}  \\
+            &                                                                         & \added{and \tcode{reflect::ScopeMember}} \\ \cline{1-3}
+\added{data member} & \added{the name of a data member}                                               & \added{\tcode{reflect::Variable}}        \\ \cline{1-3}
+\added{value}       & \added{the name of a variable or structured binding}                            & \added{\tcode{reflect::Variable}}        \\
+            & \added{that is not a local entity}                                              &                                  \\ \cline{2-3}
+            & \added{the name of an enumerator}                                               & \added{both \tcode{reflect::Enumerator}} \\
+            &                                                                         & \added{and \tcode{reflect::Constant}}    \\
+\bottomline
+\end{floattable}
+
+If the \grammarterm{reflexpr-operand} designates a \grammarterm{type-id} not
+explicitly mentioned in Table~\ref{tab:reflect.concepts}, the type represented
+by the \grammarterm{reflexpr-specifier} satisfies \tcode{reflect::Type}.  Any
+other \grammarterm{reflexpr-operand} renders the program ill-formed.
+
+If the \grammarterm{reflexpr-operand} designates an entity or alias at block
+scope (6.3.3) or function prototype scope (6.3.4), the program is ill-formed.
+If the \grammarterm{reflexpr-operand} designates a class member, the type
+represented by the \grammarterm{reflexpr-specifier} also satisfies
+\tcode{reflect::RecordMember}.  If the \grammarterm{reflexpr-operand}
+designates an variable or a data member, it is an unevaluated operand
+(expr.context).  If the \grammarterm{reflexpr-operand} designates both an alias
+and a class name, the type represented by the \grammarterm{reflexpr-specifier}
+reflects the alias and satisfies \tcode{Alias}.
+
+\end{std.txt}
