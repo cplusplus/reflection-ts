@@ -37,30 +37,53 @@ inline namespace v1 {
 
 // \ref{reflect.concepts} Concepts for meta-object types
 template <class T> concept Object;
-template <class T> concept ObjectSequence;
-template <class T> concept Named;
-template <class T> concept Alias;
-template <class T> concept RecordMember;
-template <class T> concept Enumerator;
-template <class T> concept Variable;
-template <class T> concept ScopeMember;
-template <class T> concept Typed;
-template <class T> concept Namespace;
-template <class T> concept GlobalScope;
-template <class T> concept Class;
-template <class T> concept Enum;
-template <class T> concept Record;
-template <class T> concept Scope;
-template <class T> concept Type;
-template <class T> concept Constant;
-template <class T> concept Base;
+template <class T> concept ObjectSequence;            // refines Object
+template <class T> concept Named;                     // refines Object
+template <class T> concept Alias;                     // refines Named and ScopeMember
+template <class T> concept RecordMember;              // refines ScopeMember
+template <class T> concept Enumerator;                // refines Constant
+template <class T> concept Variable;                  // refines Typed and ScopeMember
+template <class T> concept ScopeMember;               // refines Named
+template <class T> concept Typed;                     // refines Object
+template <class T> concept Namespace;                 // refines Named and Scope
+template <class T> concept GlobalScope;               // refines Namespace
+template <class T> concept Class;                     // refines Record
+template <class T> concept Enum;                      // refines Type and Scope
+template <class T> concept Record;                    // refines Type and Scope
+template <class T> concept Scope;                     // refines Object
+template <class T> concept Type;                      // refines Named and ScopeMember
+template <class T> concept Constant;                  // refines Scope and ScopeMember
+template <class T> concept Base;                      // refines Object
+template <class T> concept FunctionParameter;         // refines Typed and ScopeMember
+template <class T> concept Callable;                  // refines Scope and ScopeMember
+template <class T> concept Expression;                // refines Object
+template <class T> concept ParenthesizedExpression;   // refines Expression
+template <class T> concept FunctionCallExpression;    // refines Expression
+template <class T> concept FunctionalTypeConversion;  // refines Expression
+template <class T> concept Function;                  // refines Typed and Callable
+template <class T> concept MemberFunction;            // refines RecordMember and Function
+template <class T> concept SpecialMemberFunction;     // refines RecordMember
+template <class T> concept Constructor;               // refines Callable and RecordMember
+template <class T> concept Destructor;                // refines Callable and SpecialMemberFunction
+template <class T> concept Operator;                  // refines Function
+template <class T> concept ConversionOperator;        // refines MemberFunction and Operator
+template <class T> concept Lambda;                    // refines Type and Scope
+template <class T> concept LambdaCapture;             // refines Variable
 
 
 // \ref{reflect.ops} Meta-object operations
 // \ref{reflect.ops.over} Multi-concept operations
-template <class T> struct is_public;
-template <class T> struct is_protected;
-template <class T> struct is_private;
+template <Object T> struct is_public;
+template <Object T> struct is_protected;
+template <Object T> struct is_private;
+template <Object T> struct is_constexpr;
+template <Object T> struct is_static;
+template <Object T> struct is_final;
+template <Object T> struct is_explicit;
+template <Object T> struct is_inline;
+template <Object T> struct is_virtual;
+template <Object T> struct is_pure_virtual;
+template <Object T> struct get_pointer;
 
 template <class T>
   constexpr auto is_public_v = is_public<T>::value;
@@ -68,6 +91,22 @@ template <class T>
   constexpr auto is_protected_v = is_protected<T>::value;
 template <class T>
   constexpr auto is_private_v = is_private<T>::value;
+template <class T>
+   constexpr auto is_constexpr_v = is_constexpr<T>::value;
+template <class T>
+   constexpr auto is_static_v = is_static<T>::value;
+template <class T>
+   constexpr auto is_final_v = is_final<T>::value;
+template <class T>
+   constexpr auto is_explicit_v = is_explicit<T>::value;
+template <class T>
+   constexpr auto is_inline_v = is_inline<T>::value;
+template <class T>
+   constexpr auto is_virtual_v = is_virtual<T>::value;
+template <class T>
+   constexpr auto is_pure_virtual_v = is_pure_virtual<T>::value;
+template <class T>
+   constexpr auto get_pointer_v = get_pointer<T>::value;
 
 // \ref{reflect.ops.object} Object operations
 template <Object T1, Object T2> struct reflects_same;
@@ -149,13 +188,19 @@ template <ScopeMember T>
 template <Record T> struct get_public_data_members;
 template <Record T> struct get_accessible_data_members;
 template <Record T> struct get_data_members;
+template <Record T> struct get_public_member_functions;
+template <Record T> struct get_accessible_member_functions;
+template <Record T> struct get_member_functions;
 template <Record T> struct get_public_member_types;
 template <Record T> struct get_accessible_member_types;
 template <Record T> struct get_member_types;
+template <Record T> struct get_constructors;
+template <Record T> struct get_destructor;
+template <Record T> struct get_operators;
 template <Class T> struct get_public_base_classes;
 template <Class T> struct get_accessible_base_classes;
 template <Class T> struct get_base_classes;
-template <Class T> struct is_final;
+template <Class T> struct is_final<T>;
 
 template <Record T>
   using get_public_data_members_t = typename get_public_data_members<T>::type;
@@ -164,19 +209,29 @@ template <Record T>
 template <Record T>
   using get_data_members_t = typename get_data_members<T>::type;
 template <Record T>
+  using get_public_member_functions_t = typename get_public_member_functions<T>::type;
+template <Record T>
+  using get_accessible_member_functions_t = typename get_accessible_member_functions<T>::type;
+template <Record T>
+  using get_member_functions_t = typename get_member_functions<T>::type;
+template <Record T>
   using get_public_member_types_t = typename get_public_member_types<T>::type;
 template <Record T>
   using get_accessible_member_types_t = typename get_accessible_member_types<T>::type;
 template <Record T>
   using get_member_types_t = typename get_member_types<T>::type;
+template <Record T>
+  using get_constructors_t = typename get_constructors<T>::type;
+template <Record T>
+  using get_destructor_t = typename get_destructor<T>::type;
+template <Record T>
+  using get_operators_t = typename get_operators<T>::type;
 template <Class T>
   using get_public_base_classes_t = typename get_public_base_classes<T>::type;
 template <Class T>
   using get_accessible_base_classes_t = typename get_accessible_base_classes<T>::type;
 template <Class T>
   using get_base_classes_t = typename get_base_classes<T>::type;
-template <Class T>
-  constexpr auto is_final_v = is_final<T>::value;
 
 // \ref{reflect.ops.enum} Enum operations
 template <Enum T> struct is_scoped_enum;
@@ -192,36 +247,132 @@ template <Enum T>
 
 // \ref{reflect.ops.value} Value operations
 template <Constant T> struct get_constant;
-template <Variable T> struct is_constexpr;
-template <Variable T> struct is_static;
-template <Variable T> struct get_pointer;
+template <Variable T> struct is_constexpr<T>;
+template <Variable T> struct is_static<T>;
+template <Variable T> struct get_pointer<T>;
 
 template <Constant T>
   constexpr auto get_constant_v = get_constant<T>::value;
-template <Variable T>
-  constexpr auto is_constexpr_v = is_constexpr<T>::value;
-template <Variable T>
-  constexpr auto is_static_v = is_static<T>::value;
-template <Variable T>
-  const auto get_pointer_v = get_pointer<T>::value;
 
 // \ref{reflect.ops.derived} Base operations
 template <Base T> struct get_class;
-template <Base T> struct is_virtual;
+template <Base T> struct is_virtual<T>;
 template <Base T> struct is_public<T>;
 template <Base T> struct is_protected<T>;
 template <Base T> struct is_private<T>;
 
 template <Base T>
   using get_class_t = typename get_class<T>::type;
-template <Base T>
-  constexpr auto is_virtual_v = is_virtual<T>::value;
 
 // \ref{reflect.ops.namespace} Namespace operations
-template <Namespace T> struct is_inline;
+template <Namespace T> struct is_inline<T>;
 
-template <Namespace T>
-  constexpr auto is_inline_v = is_inline<T>::value;
+// \ref{reflect.ops.fctparam} FunctionParameter operations
+template <FunctionParameter T> struct has_default_argument;
+
+template <FunctionParameter T>
+  constexpr auto has_default_argument_v = has_default_argument<T>::value;
+
+// \ref{reflect.ops.callable} Callable operations
+template <Callable T> struct get_parameters;
+template <Callable T> struct is_vararg;
+template <Callable T> struct is_constexpr<T>;
+template <Callable T> struct is_noexcept<T>;
+template <Callable T> struct is_inline<T>;
+template <Callable T> struct is_deleted;
+
+template <Callable T>
+  using get_parameters_t = typename get_parameters<T>::type;
+template <Callable T>
+  constexpr auto is_vararg_v = is_vararg<T>::value;
+template <Callable T>
+  constexpr auto is_deleted_v = is_deleted<T>::value;
+
+// \ref{reflect.ops.expr.paren} ParenthesizedExpression operations
+template <ParenthesizedExpression T> struct get_subexpression;
+
+template <ParenthesizedExpression T>
+   using get_subexpression_t = typename get_subexpression<T>::type;
+
+// \ref{reflect.ops.expr.fctcall} FunctionCallExpression operations
+template <FunctionCallExpression T> struct get_callable;
+
+template <FunctionCallExpression T>
+  using get_callable_t = typename get_callable<T>::type;
+
+// \ref{reflect.ops.expr.fcttypeconf} FunctionalTypeConversion operations
+template <FunctionalTypeConversion T> struct get_constructor;
+
+template <FunctionalTypeConversion T>
+  using get_constructor_t = typename get_constructor<T>::type;
+
+// \ref{reflect.ops.fct} Function operations
+template <Function T> struct get_pointer<T>;
+
+// \ref{reflect.ops.memfct} MemberFunction operations
+template <MemberFunction T> struct is_static<T>;
+template <MemberFunction T> struct is_const;
+template <MemberFunction T> struct is_volatile;
+template <MemberFunction T> struct has_lvalueref_qualifier;
+template <MemberFunction T> struct has_rvalueref_qualifier;
+template <MemberFunction T> struct is_virtual<T>;
+template <MemberFunction T> struct is_pure_virtual<T>;
+template <MemberFunction T> struct is_override;
+template <MemberFunction T> struct is_final<T>;
+
+template <MemberFunction T>
+  constexpr auto is_const_v = is_const<T>::value;
+template <MemberFunction T>
+  constexpr auto is_volatile_v = is_volatile<T>::value;
+template <MemberFunction T>
+  constexpr auto has_lvalueref_qualifier_v = has_lvalueref_qualifier<T>::value;
+template <MemberFunction T>
+  constexpr auto has_rvalueref_qualifier_v = has_rvalueref_qualifier<T>::value;
+template <MemberFunction T>
+  constexpr auto is_override_v = is_override<T>::value;
+
+// \ref{reflect.ops.specialfct} SpecialMemberFunction operations
+template <SpecialMemberFunction T> struct is_implicitly_declared;
+template <SpecialMemberFunction T> struct is_defaulted;
+
+template <SpecialMemberFunction T>
+  constexpr auto is_implicitly_declared_v = is_implicitly_declared<T>::value;
+template <SpecialMemberFunction T>
+  constexpr auto is_defaulted_v = is_defaulted<T>::value;
+
+// \ref{reflect.ops.ctor} Constructor operations
+template <Constructor T> struct is_explicit<T>;
+
+// \ref{reflect.ops.dtor} Destructor operations
+template <Destructor T> struct is_virtual<T>;
+template <Destructor T> struct is_pure_virtual<T>;
+
+// \ref{reflect.ops.convfct} ConversionOperator operations
+template <ConversionOperator T> struct is_explicit<T>;
+
+// \ref{reflect.ops.lambda} Lambda operations
+template <Lambda T> struct get_captures;
+template <Lambda T> struct uses_default_copy_capture;
+template <Lambda T> struct uses_default_reference_capture;
+template <Lambda T> struct is_call_operator_const;
+
+template <Lambda T>
+  using get_captures_t = typename get_captures<T>::type;
+template <Lambda T>
+  constexpr auto uses_default_copy_capture_v = uses_default_copy_capture<T>::value;
+template <Lambda T>
+  constexpr auto uses_default_reference_capture_v = uses_default_reference_capture<T>::value;
+template <Lambda T>
+  constexpr auto is_call_operator_const_v = is_call_operator_const<T>::value;
+
+// \ref{reflect.ops.lambdacapture} LambdaCapture operations
+template <LambdaCapture T> struct is_explicitly_captured;
+template <LambdaCapture T> struct is_init_capture;
+
+template <LambdaCapture T>
+  constexpr auto is_explicitly_captured_v = is_explicitly_captured<T>::value;
+template <LambdaCapture T>
+  constexpr auto is_init_capture_v = is_init_capture<T>::value;
 
 } // inline namespace v1
 } // namespace std::experimental::reflect
@@ -250,7 +401,7 @@ template <class T> concept Object = @\seebelow@;
 
 \begin{itemdescr}
 \pnum
-\tcode{Object<T>} is satisfied if and only if \tcode{T} is a meta-object type, as generated by the \tcode{reflexpr} operator or any of the meta-object operations that in turn generate meta-object types.
+\tcode{Object<T>} is true if and only if \tcode{T} is a meta-object type, as generated by the \tcode{reflexpr} operator or any of the meta-object operations that in turn generate meta-object types.
 
 \end{itemdescr}
 \end{std.txt}
@@ -260,12 +411,12 @@ template <class T> concept Object = @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept ObjectSequence = @\seebelow@;
+template <class T> concept ObjectSequence = Object<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-\tcode{ObjectSequence<T>} is satisfied if and only if \tcode{T} is a sequence of \tcode{Object}s, generated by a meta-object operation.
+\tcode{ObjectSequence<T>} is true if and only if \tcode{T} is a sequence of \tcode{Object}s, generated by a meta-object operation.
 
 \end{itemdescr}
 \end{std.txt}
@@ -276,12 +427,12 @@ template <class T> concept ObjectSequence = @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Named = @\seebelow@;
+template <class T> concept Named = Object<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-\tcode{Named<T>} is satisfied if and only if \tcode{T} is an \tcode{Object} with an associated (possibly empty) name.
+\tcode{Named<T>} is true if and only if \tcode{T} has an associated (possibly empty) name.
 
 \end{itemdescr}
 \end{std.txt}
@@ -293,13 +444,15 @@ template <class T> concept Named = @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Alias = Named<T> && @\seebelow@;
+template <class T> concept Alias = Named<T> && ScopeMember<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-\tcode{Alias<T>} is satisfied if and only if \tcode{T} is a \tcode{Named} that reflects a \tcode{typedef} declaration, an \grammarterm{alias-declaration}, a \grammarterm{namespace-alias}, a template \grammarterm{type-parameter}, a \grammarterm{decltype-specifier}, or a declaration introduced by a \grammarterm{using-declaration}.
-Any such \tcode{T} also satisfies \tcode{ScopeMember}; its scope is the scope that the alias was injected into.
+\tcode{Alias<T>} is true if and only if \tcode{T} reflects a \tcode{typedef} declaration, an \grammarterm{alias-declaration}, a \grammarterm{namespace-alias}, a template \grammarterm{type-parameter}, a \grammarterm{decltype-specifier}, or a declaration introduced by a \grammarterm{using-declaration}.
+\begin{note}
+The \tcode{Scope} of an \tcode{Alias} is the scope that the alias was injected into.
+\end{note}
 \begin{example}
 \begin{codeblock}
 namespace N {
@@ -327,12 +480,12 @@ properties resulting from type transformations (\ref{reflect.ops}) are not retai
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept RecordMember = @\seebelow@;
+template <class T> concept RecordMember = ScopeMember<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-\tcode{RecordMember<T>} is satisfied if and only if \tcode{T} reflects a \grammarterm{member-declaration}. Any such \tcode{T} also satisfies \tcode{ScopeMember}.
+\tcode{RecordMember<T>} is true if and only if \tcode{T} reflects a \grammarterm{member-declaration}.
 
 \end{itemdescr}
 \end{std.txt}
@@ -343,12 +496,12 @@ template <class T> concept RecordMember = @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Enumerator = @\seebelow@;
+template <class T> concept Enumerator = Typed<T> && ScopeMember<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-\tcode{Enumerator<T>} is satisfied if and only if \tcode{T} reflects an enumerator. Any such \tcode{T} also satisfies \tcode{Typed} and \tcode{ScopeMember}; the \tcode{Scope} of an \tcode{Enumerator} is its type also for enumerations that are unscoped enumeration types.
+\tcode{Enumerator<T>} is true if and only if \tcode{T} reflects an enumerator. \begin{note} The \tcode{Scope} of an \tcode{Enumerator} is its type also for enumerations that are unscoped enumeration types. \end{note}
 
 \end{itemdescr}
 \end{std.txt}
@@ -359,12 +512,12 @@ template <class T> concept Enumerator = @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Variable = @\seebelow@;
+template <class T> concept Variable = Typed<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-\tcode{Variable<T>} is satisfied if and only if \tcode{T} reflects a variable or non-static data member. Any such \tcode{T} also satisfies \tcode{Typed}.
+\tcode{Variable<T>} is true if and only if \tcode{T} reflects a variable or non-static data member.
 
 \end{itemdescr}
 \end{std.txt}
@@ -375,12 +528,12 @@ template <class T> concept Variable = @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept ScopeMember = @\seebelow@;
+template <class T> concept ScopeMember = Named<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-\tcode{ScopeMember<T>} is satisfied if and only if \tcode{T} satisfies \tcode{RecordMember}, \tcode{Enumerator}, or \tcode{Variable}, or if \tcode{T} reflects a namespace that is not the global namespace. Any such \tcode{T} also satisfies \tcode{Named}. The scope of members of an unnamed union is the unnamed union; the scope of enumerators is their type.
+\tcode{ScopeMember<T>} is true if and only if \tcode{T} satisfies \tcode{RecordMember}, \tcode{Enumerator}, or \tcode{Variable}, or if \tcode{T} reflects a namespace that is not the global namespace. \begin{note} The scope of members of an unnamed union is the unnamed union; the scope of enumerators is their type. \end{note}
 
 \end{itemdescr}
 \end{std.txt}
@@ -391,12 +544,12 @@ template <class T> concept ScopeMember = @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Typed = Variable<T> || Constant<T>;
+template <class T> concept Typed = Named<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-\tcode{Typed<T>} is satisfied if and only if \tcode{T} reflects a variable or enumerator.  Any such \tcode{T} also satisfies \tcode{Named}.
+\tcode{Typed<T>} is true if and only if \tcode{T} reflects an entity with a type.
 
 \end{itemdescr}
 \end{std.txt}
@@ -407,12 +560,12 @@ template <class T> concept Typed = Variable<T> || Constant<T>;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Namespace = @\seebelow@;
+template <class T> concept Namespace = Scope<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-\tcode{Namespace<T>} is satisfied if and only if \tcode{T} reflects a namespace (including the global namespace). Any such \tcode{T} also satisfies \tcode{Scope}. Any such \tcode{T} that does not reflect the global namespace also satisfies \tcode{ScopeMember}.
+\tcode{Namespace<T>} is true if and only if \tcode{T} reflects a namespace (including the global namespace). \begin{note} Any such \tcode{T} that does not reflect the global namespace also satisfies \tcode{ScopeMember}. \end{note}
 
 \end{itemdescr}
 \end{std.txt}
@@ -423,12 +576,12 @@ template <class T> concept Namespace = @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept GlobalScope = @\seebelow@;
+template <class T> concept GlobalScope = Namespace<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-\tcode{GlobalScope<T>} is satisfied if and only if \tcode{T} reflects the global namespace. Any such \tcode{T} also satisfies \tcode{Namespace}; it does not satisfy \tcode{ScopeMember}.
+\tcode{GlobalScope<T>} is true if and only if \tcode{T} reflects the global namespace. \begin{note} Any such \tcode{T} does not satisfy \tcode{ScopeMember}. \end{note}
 
 \end{itemdescr}
 \end{std.txt}
@@ -439,12 +592,12 @@ template <class T> concept GlobalScope = @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Class = @\seebelow@;
+template <class T> concept Class = Record<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-\tcode{Class<T>} is satisfied if and only if \tcode{T} reflects a non-union class type. Any such \tcode{T} also satisfies \tcode{Record}.
+\tcode{Class<T>} is true if and only if \tcode{T} reflects a non-union class type.
 
 \end{itemdescr}
 \end{std.txt}
@@ -455,12 +608,12 @@ template <class T> concept Class = @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Enum = @\seebelow@;
+template <class T> concept Enum = Type<T> && Scope<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-\tcode{Enum<T>} is satisfied if and only if \tcode{T} reflects an enumeration type. Any such \tcode{T} also satisfies \tcode{Type} and \tcode{Scope}.
+\tcode{Enum<T>} is true if and only if \tcode{T} reflects an enumeration type.
 
 \end{itemdescr}
 \end{std.txt}
@@ -471,12 +624,12 @@ template <class T> concept Enum = @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Record = @\seebelow@;
+template <class T> concept Record = Type<T> && Scope<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-\tcode{Record<T>} is satisfied if and only if \tcode{T} reflects a class type. Any such \tcode{T} also satisfies \tcode{Type} and \tcode{Scope}.
+\tcode{Record<T>} is true if and only if \tcode{T} reflects a class type.
 
 \end{itemdescr}
 \end{std.txt}
@@ -487,12 +640,12 @@ template <class T> concept Record = @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Scope = Namespace<T> || Record<T> || Enum<T>;
+template <class T> concept Scope = Object<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-\tcode{Scope<T>} is satisfied if and only if \tcode{T} reflects a namespace (including the global namespace), class, or enumeration. Any such \tcode{T} that does not reflect the global namespace also satisfies \tcode{ScopeMember}.
+\tcode{Scope<T>} is true if and only if \tcode{T} reflects a namespace (including the global namespace), class, enumeration, function or closure type. Any such \tcode{T} that does not reflect the global namespace also satisfies \tcode{ScopeMember}.
 
 \end{itemdescr}
 \end{std.txt}
@@ -503,12 +656,12 @@ template <class T> concept Scope = Namespace<T> || Record<T> || Enum<T>;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Type = @\seebelow@;
+template <class T> concept Type = Named<T> && ScopeMember<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-\tcode{Type<T>} is satisfied if and only if \tcode{T} reflects a type. Any such \tcode{T} also satisfies \tcode{Named} and \tcode{ScopeMember}.
+\tcode{Type<T>} is true if and only if \tcode{T} reflects a type.
 
 \end{itemdescr}
 \end{std.txt}
@@ -519,12 +672,12 @@ template <class T> concept Type = @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Constant = @\seebelow@;
+template <class T> concept Constant = ScopeMember<T> && Typed<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-\tcode{Constant<T>} is satisfied if and only if \tcode{T} reflects a constant expression ([expr.const]). Any such \tcode{T} also satisfies \tcode{ScopeMember} and \tcode{Typed}.
+\tcode{Constant<T>} is true if and only if \tcode{T} reflects a constant expression ([expr.const]).
 
 \end{itemdescr}
 \end{std.txt}
@@ -535,13 +688,195 @@ template <class T> concept Constant = @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Base = @\seebelow@;
+template <class T> concept Base = Object<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-\tcode{Base<T>} is satisfied if and only if \tcode{T} reflects a direct base class, as returned by the template \tcode{get_base_classes}.
+\tcode{Base<T>} is true if and only if \tcode{T} reflects a direct base class, as returned by the template \tcode{get_base_classes}.
 
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.3.19
+\rSec3[reflect.concepts.fctparam]{Concept \tcode{FunctionParameter}}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <class T> concept FunctionParameter = Typed<T> && ScopeMember<T> && @\seebelow@;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+\tcode{FunctionParameter<T>} is \tcode{true} if and only if \tcode{T} reflects a function parameter.
+\begin{note} The \tcode{Scope} of a \tcode{FunctionParameter} is the \tcode{Callable} to which this parameter appertains. \end{note}
+\begin{note} A \tcode{FunctionParameter} does not satisfy \tcode{Variable}, and thus does not offer an interface for getting the pointer to a parameter. \end{note}
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.3.20
+\rSec3[reflect.concepts.callable]{Concept \tcode{Callable}}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <class T> concept Callable = ScopeMember<T> && Scope<T> && @\seebelow@;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+\tcode{Callable<T>} is \tcode{true} if and only if \tcode{T} reflects a function, including constructors and destructors.
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.3.21
+\rSec3[reflect.concepts.expr]{Concept \tcode{Expression}}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <class T> concept Expression = Object<T> && @\seebelow@;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+\tcode{Expression<T>} is \tcode{true} if and only if \tcode{T} reflects an expression [expr].
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.3.22
+\rSec3[reflect.concepts.expr.paren]{Concept \tcode{ParenthesizedExpression}}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <class T> concept ParenthesizedExpression = Expression<T> && @\seebelow@;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+\tcode{ParenthesizedExpression<T>} is \tcode{true} if and only if \tcode{T} reflects a parenthesized expression [expr.prim.paren].
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.3.23
+\rSec3[reflect.concepts.expr.fctcall]{Concept \tcode{FunctionCallExpression}}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <class T> concept FunctionCallExpression = Expression<T> && @\seebelow@;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+\tcode{FunctionCallExpression<T>} is \tcode{true} if and only if \tcode{T} reflects a \grammarterm{function-call-expression} [expr.call].
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.3.24
+\rSec3[reflect.concepts.expr.type.fctconv]{Concept \tcode{FunctionalTypeConversion}}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <class T> concept FunctionalTypeConversion = Expression<T> && @\seebelow@;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+\tcode{FunctionalTypeConversion<T>} is \tcode{true} if and only if \tcode{T} reflects a \grammarterm{functional-type-conv-expression} [expr.type.conv].
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.3.25
+\rSec3[reflect.concepts.fct]{Concept \tcode{Function}}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <class T> concept Function = Callable<T> && Typed<T> && @\seebelow@;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+\tcode{Function<T>} is \tcode{true} if and only if \tcode{T} reflects a function, excluding constructors and destructors.
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.3.26
+\rSec3[reflect.concepts.memfct]{Concept \tcode{MemberFunction}}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <class T> concept MemberFunction = RecordMember<T> && Function<T> && @\seebelow@;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+\tcode{MemberFunction<T>} is \tcode{true} if and only if \tcode{T} reflects a member function, excluding constructors and destructors.
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.3.27
+\rSec3[reflect.concepts.specialfct]{Concept \tcode{SpecialMemberFunction}}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <class T> concept SpecialMemberFunction = RecordMember<T> && @\seebelow@;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+\tcode{SpecialMemberFunction<T>} is \tcode{true} if and only if \tcode{T} reflects a special member function [special].
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.3.28
+\rSec3[reflect.concepts.ctor]{Concept \tcode{Constructor}}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <class T> concept Constructor = Callable<T> && RecordMember<T> && @\seebelow@;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+\tcode{Constructor<T>} is \tcode{true} if and only if \tcode{T} reflects a constructor. \begin{note} Some types that satisfy \tcode{Constructor} also satisfy \tcode{SpecialMemberFunction}. \end{note}
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.3.29
+\rSec3[reflect.concepts.dtor]{Concept \tcode{Destructor}}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <class T> concept Destructor = Callable<T> && SpecialMemberFunction<T> && @\seebelow@;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+\tcode{Destructor<T>} is \tcode{true} if and only if \tcode{T} reflects a destructor.
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.3.30
+\rSec3[reflect.concepts.oper]{Concept \tcode{Operator}}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <class T> concept Operator = Function<T> && @\seebelow@;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+\tcode{Operator<T>} is \tcode{true} if and only if \tcode{T} reflects an operator function [over.oper] or a conversion function [class.conv.fct]. \begin{note} Some types that satisfy \tcode{Operator} also satisfy \tcode{MemberFunction} or \tcode{SpecialMemberFunction}. \end{note}
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.3.31
+\rSec3[reflect.concepts.convfct]{Concept \tcode{ConversionOperator}}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <class T> concept ConversionOperator = Operator<T> && MemberFunction<T> && @\seebelow@;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+\tcode{ConversionOperator<T>} is \tcode{true} if and only if \tcode{T} reflects a conversion function [class.conv.fct].
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.3.32
+\rSec3[reflect.concepts.lambda]{Concept \tcode{Lambda}}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <class T> concept Lambda = Type<T> && Scope<T> && @\seebelow@;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+\tcode{Lambda<T>} is \tcode{true} if and only if \tcode{T} reflects a closure object (excluding generic lambdas).
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.3.33
+\rSec3[reflect.concepts.lambdacapture]{Concept \tcode{LambdaCapture}}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <class T> concept LambdaCapture = Variable<T> && @\seebelow@;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+\tcode{LambdaCapture<T>} is \tcode{true} if and only if \tcode{T} reflects a lambda capture as introduced by the capture list or by capture defaults. \begin{note} The \tcode{Scope} of a \tcode{LambdaCapture} is its immediately enclosing \tcode{Lambda}. \end{note}
 \end{itemdescr}
 \end{std.txt}
 
@@ -551,42 +886,26 @@ template <class T> concept Base = @\seebelow@;
 \begin{std.txt}\color{addclr}
 \pnum
 A meta-object operation extracts information from meta-object types. It is a class template taking one or more arguments, at least one of which models the \tcode{Object} concept. The result of a meta-object operation can be either a constant expression ([expr.const]) or a type.
+
+\pnum
+Some operations specify result types with a nested type called \tcode{type} that satisfies one of the concepts in \tcode{reflect}.
+These nested types will possibly satisfy other concepts, for instance more specific ones, or independent ones, as applicable for the entity reflected by the nested type.
+\begin{example}\begin{codeblock}struct X {};
+X x;
+using x_t = get_type_t<reflexpr(x)>;\end{codeblock}
+While \tcode{get_type_t} is specified to be a \tcode{Type}, \tcode{x_t} will even satisfy \tcode{Class}. \end{example}
+
+\pnum
+If subsequent specializations of operations on the same reflected entity could give different constant expression results (for instance for \tcode{get_name_v} because the parameter's function is redeclared with a different parameter name between the two points of instantiation), the program is ill-formed, no diagnostic required.
+   \begin{example}\begin{codeblock}void func(int a);
+auto x1 = get_name_v<get_element_t<0, get_parameters_t<reflexpr(func(42))>>>;
+void func(int b);
+auto x2 = get_name_v<get_element_t<0, get_parameters_t<reflexpr(func(42))>>>; // ill-formed, no diagnostic required\end{codeblock}
+\end{example}
+
 \end{std.txt}
 
 % 21.11.4.1
-\rSec3[reflect.ops.over]{Multi-concept operations}
-
-\begin{std.txt}\color{addclr}
-
-\begin{itemdecl}
-template <class T> struct is_public;
-template <class T> struct is_protected;
-template <class T> struct is_private;
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum
-These meta-object operations are applicable to both \tcode{RecordMember} and \tcode{Base}. The generic templates do not have a definition. When multiple concepts implement the same meta-object operation, its template will be partially specialized for the concepts implementing the operation.
-\begin{note}
-For these overloaded operations, any meta-object type will always satisfy at most one of the concepts that the operation is applicable to. 
-\end{note}
-
-\pnum
-\begin{example}
-An operation \tcode{OP} applicable to concepts \tcode{A} and \tcode{B} can be defined as follows:
-\begin{codeblock}
-template <class T> concept A = is_signed_v<T>;
-template <class T> concept B = is_class_v<T>;
-template <class T> struct OP; // undefined
-template <A T> struct OP<T> {...};
-template <B T> struct OP<T> {...};
-\end{codeblock}
-\end{example}
-
-\end{itemdescr}
-\end{std.txt}
-
-% 21.11.4.2
 \rSec3[reflect.ops.object]{Object operations}
 
 \begin{std.txt}\color{addclr}
@@ -651,7 +970,7 @@ All specializations of \tcode{get_source_file_name<T>} shall meet the \tcode{Una
 
 \end{std.txt}
 
-% 21.11.4.3
+% 21.11.4.2
 \rSec3[reflect.ops.objseq]{ObjectSequence operations}
 
 \begin{std.txt}\color{addclr}
@@ -687,7 +1006,7 @@ All specializations of \tcode{unpack_sequence<Tpl, S>} shall meet the \tcode{Tra
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4.4
+% 21.11.4.3
 \rSec3[reflect.ops.named]{Named operations}
 
 \begin{std.txt}\color{addclr}
@@ -719,10 +1038,16 @@ All specializations of \tcode{get_name} and \tcode{get_display_name} shall meet 
   \item for \tcode{T} reflecting all other \grammarterm{simple-type-specifiers}, the name stated in the "Type" column of Table 9 in ([dcl.type.simple]);
   \item for \tcode{T} reflecting a variable, its unqualified name;
   \item for \tcode{T} reflecting an enumerator, its unqualified name;
-  \item for \tcode{T} reflecting a class data member, its unqualified name.
+  \item for \tcode{T} reflecting a class data member, its unqualified name;
+  \item for \tcode{T} reflecting a function, its unqualified name;
+  \item for \tcode{T} reflecting a specialization of a template function, its \grammarterm{template-name};
+  \item for \tcode{T} reflecting a function parameter, its unqualified name;
+  \item for \tcode{T} reflecting a constructor, the \grammarterm{injected-class-name} of its class;
+  \item for \tcode{T} reflecting a destructor, the \grammarterm{injected-class-name} of its class, prefixed by the character '~';
+  \item for \tcode{T} reflecting an operator function, the \grammarterm{operator} element of the relevant \grammarterm{operator-function-id};
+  \item for \tcode{T} reflecting an conversion function, the same characters as \tcode{get_name_ve<R>}, with \tcode{R} reflecting the type represented by the \grammarterm{conversion-type-id}.
 \end{itemize}
-\item In all other cases, the string's value is the empty string for
-\tcode{get_name<T>} and implementation-defined for \tcode{get_display_name<T>}.
+\item In all other cases (for instance for \tcode{T} reflecting a lambda object), the string's value is the empty string for \tcode{get_name<T>} and implementation-defined for \tcode{get_display_name<T>}.
 \end{itemize}
 
 \pnum
@@ -739,10 +1064,17 @@ the value of \tcode{get_name_v<a_m>} is \tcode{"A"} while the value of \tcode{ge
 The base characteristic of \tcode{is_unnamed<T>} is \tcode{true_type} if the value of \tcode{get_name_v<T>} is the empty string, otherwise it is \tcode{false_type}.
 
 \end{itemdescr}
+
+\pnum
+\remarks
+Subsequent specializations of \tcode{get_name<T>} on the same reflected
+function parameter can render the program ill-formed, no diagnostic required
+(\ref{reflect.ops}).
+
 \end{std.txt}
 
 
-% 21.11.4.5
+% 21.11.4.4
 \rSec3[reflect.ops.alias]{Alias operations}
 
 \begin{std.txt}\color{addclr}
@@ -777,7 +1109,7 @@ using i0 = int; using i1 = i0;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4.6
+% 21.11.4.5
 \rSec3[reflect.ops.type]{Type operations}
 
 \begin{std.txt}\color{addclr}
@@ -856,7 +1188,7 @@ All specializations of these templates shall meet the \tcode{UnaryTypeTrait} req
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4.7
+% 21.11.4.6
 \rSec3[reflect.ops.member]{Member operations}
 
 \begin{std.txt}\color{addclr}
@@ -872,7 +1204,7 @@ template <ScopeMember T> struct get_scope;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{get_scope<T>} shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is the \tcode{Scope} reflecting a scope \emph{S}. With \emph{ST} being the scope of the declaration of the entity or typedef reflected by \tcode{T}, \emph{S} is found as the innermost scope enclosing \emph{ST} that is either a namespace scope (including global scope), class scope, or enumeration scope.
+All specializations of \tcode{get_scope<T>} shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is the \tcode{Scope} reflecting a scope \emph{S}. With \emph{ST} being the scope of the declaration of the entity, typedef or value reflected by \tcode{T}, \emph{S} is found as the innermost scope enclosing \emph{ST} that is either a namespace scope (including global scope), class scope, enumeration scope, function scope (for the function's parameters), or immediately enclosing closure type (for lambda captures). For members of an unnamed union, this innermost scope is the unnamed union. For enumerators of unscoped enumeration types, this innermost scope is their enumeration type.
 \end{itemdescr}
 
 \begin{itemdecl}
@@ -888,7 +1220,7 @@ All specializations of these partial template specializations shall meet the \tc
 
 \end{std.txt}
 
-% 21.11.4.8
+% 21.11.4.7
 \rSec3[reflect.ops.record]{Record operations}
 
 \begin{std.txt}\color{addclr}
@@ -901,24 +1233,64 @@ not in the immediate context ([temp.deduct]).
 template <Record T> struct get_public_data_members;
 template <Record T> struct get_accessible_data_members;
 template <Record T> struct get_data_members;
+template <Record T> struct get_public_member_functions;
+template <Record T> struct get_accessible_member_functions;
+template <Record T> struct get_member_functions;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-All specializations of these templates shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{RecordMember} types that reflect the following subset of data members of the class reflected by \tcode{T}:
+All specializations of these templates shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{RecordMember} types that reflect the following subset of non-template members of the class reflected by \tcode{T}:
 \begin{itemize}
-  \item for \tcode{get_data_members}, all data members.
-  \item for \tcode{get_public_data_members}, all public data members;
-  \item for \tcode{get_accessible_data_members}, all data members that are accessible from the scope of the invocation of \tcode{reflexpr} which  (directly or indirectly) generated \tcode{T}.
+  \item for \tcode{get_data_members} (\tcode{get_member_functions}), all data (function, including constructor and destructor) members.
+  \item for \tcode{get_public_data_members} (\tcode{get_public_member_functions}, all public data (function, including constructor and destructor) members;
+  \item for \tcode{get_accessible_data_members} (\tcode{get_accessible_member_functions}, all data (function, including constructor and destructor) members that are accessible from the context of the invocation of \tcode{reflexpr} which (directly or indirectly) generated \tcode{T}.
+  \pnum
+\begin{example}\begin{codeblock}
+class X {
+   int a;
+
+   friend struct Y;
+};
+
+struct Y {
+  using X_t = reflexpr(X);
+};
+
+using X_mem_t = get_accessible_data_members_t<Y::X_t>;
+static_assert(get_size_v<X_mem_t> == 1); // passes.
+\end{codeblock}\end{example}
 \end{itemize}
 
 \pnum
-The order of the elements in the \tcode{ObjectSequence} is the order of the declaration of the data members in the class reflected by \tcode{T}.
+The order of the elements in the \tcode{ObjectSequence} is the order of the declaration of the members in the class reflected by \tcode{T}.
 
 \pnum
 \remarks
 The program is ill-formed if \tcode{T} reflects a closure type.
 
+\end{itemdescr}
+
+\begin{itemdecl}
+template <Record T> struct get_constructors;
+template <Record T> struct get_destructor;
+template <Record T> struct get_operators;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+All specializations of these templates shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{RecordMember} types that reflect the following subset of function members of the class reflected by \tcode{T}:
+\begin{itemize}
+   \item for \tcode{get_constructors}, all constructors.
+   \item for \tcode{get_destructor}, the destructor;
+   \item for \tcode{get_operators}, all conversion functions [class.conv.fct] and operator functions [over.oper].
+\end{itemize}
+
+\pnum
+The order of the elements in the \tcode{ObjectSequence} is the order of the declaration of the members in the class reflected by \tcode{T}.
+
+\pnum
+\remarks
+The program is ill-formed if \tcode{T} reflects a closure type.
 \end{itemdescr}
 
 \begin{itemdecl}
@@ -968,7 +1340,7 @@ The program is ill-formed if \tcode{T} reflects a closure type.
 \end{itemdescr}
 
 \begin{itemdecl}
-template <Class T> struct is_final;
+template <Class T> struct is_final<T>;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -978,7 +1350,7 @@ All specializations of \tcode{is_final<T>} shall meet the \tcode{UnaryTypeTrait}
 
 \end{std.txt}
 
-% 21.11.4.9
+% 21.11.4.8
 \rSec3[reflect.ops.enum]{Enum operations}
 
 \begin{std.txt}\color{addclr}
@@ -1022,7 +1394,7 @@ A specialization of this template with a meta-object type that is reflecting an 
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4.10
+% 21.11.4.9
 \rSec3[reflect.ops.value]{Value operations}
 
 \begin{std.txt}\color{addclr}
@@ -1038,7 +1410,7 @@ All specializations of \tcode{get_constant<T>} shall meet the \tcode{UnaryTypeTr
 \end{itemdescr}
 
 \begin{itemdecl}
-template <Variable T> struct is_constexpr;
+template <Variable T> struct is_constexpr<T>;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -1047,7 +1419,7 @@ All specializations of \tcode{is_constexpr<T>} shall meet the \tcode{UnaryTypeTr
 \end{itemdescr}
 
 \begin{itemdecl}
-template <Variable T> struct is_static;
+template <Variable T> struct is_static<T>;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -1056,7 +1428,7 @@ All specializations of \tcode{is_static<T>} shall meet the \tcode{UnaryTypeTrait
 \end{itemdescr}
 
 \begin{itemdecl}
-template <Variable T> struct get_pointer;
+template <Variable T> struct get_pointer<T>;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -1069,7 +1441,7 @@ All specializations of \tcode{get_pointer<T>} shall meet the \tcode{UnaryTypeTra
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4.11
+% 21.11.4.10
 \rSec3[reflect.ops.derived]{Base operations}
 
 \begin{std.txt}\color{addclr}
@@ -1086,7 +1458,7 @@ All specializations of \tcode{get_class<T>} shall meet the \tcode{Transformation
 \end{itemdescr}
 
 \begin{itemdecl}
-template <Base T> struct is_virtual;
+template <Base T> struct is_virtual<T>;
 template <Base T> struct is_public<T>;
 template <Base T> struct is_protected<T>;
 template <Base T> struct is_private<T>;
@@ -1098,18 +1470,315 @@ All specializations of the template and of these partial template specialization
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4.12
+% 21.11.4.11
 \rSec3[reflect.ops.namespace]{Namespace operations}
 
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <Namespace T> struct is_inline;
+template <Namespace T> struct is_inline<T>;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
 All specializations of \tcode{is_inline<T>} shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If \tcode{T} reflects an inline namespace, the base characteristic of the template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
 
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.4.12
+\rSec3[reflect.ops.fctparam]{FunctionParameter operations }
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <FunctionParameter T> struct has_default_argument;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+All specializations of this template shall meet the \tcode{UnaryTypeTrait}
+requirements ([meta.rqmts]). If \tcode{T} reflects a parameter with a default
+argument, the base characteristic of \tcode{has_default_argument<T>} is
+\tcode{true_type}, otherwise it is \tcode{false_type}.
+
+\pnum
+\remarks
+Subsequent specializations of \tcode{has_default_argument<T>} on the same
+reflected function parameter can render the program ill-formed, no diagnostic
+required (\ref{reflect.ops}).
+\end{itemdescr}
+\end{std.txt}
+
+
+% 21.11.4.13
+\rSec3[reflect.ops.callable]{Callable operations}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <Callable T> struct get_parameters;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+      All specializations of this template shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{FunctionParameter} types that reflect the parameters of the function reflected by \tcode{T}.
+      If that function's \grammarterm{parameter-declaration-clause} [dcl.fct] terminates with an ellipsis, the \tcode{ObjectSequence} does not contain any additional elements reflecting that. The \tcode{is_vararg_v<Callable>} trait can be used to determine if the terminating ellipsis is in its parameter list.
+\end{itemdescr}
+
+\begin{itemdecl}
+template <Callable T> struct is_vararg;
+template <Callable T> struct is_constexpr<T>;
+template <Callable T> struct is_noexcept<T>;
+template <Callable T> struct is_inline<T>;
+template <Callable T> struct is_deleted;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+      All specializations of these templates shall meet the
+      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]).  If their template
+      parameter reflects an entity with an ellipsis terminating the
+      \grammarterm{parameter-declaration-clause} [dcl.fct] (for
+      \tcode{is_vararg}), or an entity that is (where applicable implicitly or
+      explicitly) declared as \tcode{constexpr} (for \tcode{is_constexpr}),
+      \tcode{noexcept} (for \tcode{is_noexcept}), as an inline function
+      [dcl.inline] (for \tcode{is_inline}), or as deleted (for
+      \tcode{is_deleted}), the base characteristic of the respective template
+      specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
+
+\pnum
+\remarks
+Subsequent specializations of \tcode{is_inline<T>} on the same reflected
+function can render the program ill-formed, no diagnostic required
+(\ref{reflect.ops}).
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.4.14
+\rSec3[reflect.ops.expr.paren]{ParenthesizedExpression operations}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <ParenthesizedExpression T> struct get_subexpression;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+      All specializations of \tcode{get_subexpression<T>} shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is the \tcode{Expression} type reflecting the expression \tcode{E} of the parenthesized expression \tcode{(E)} reflected by \tcode{T}. 
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.4.16
+\rSec3[reflect.ops.expr.fctcall]{FunctionCallExpression operations}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <FunctionCallExpression T> struct get_callable;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+      All specializations of \tcode{get_callable<T>} shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is the \tcode{Callable} type reflecting the function invoked by the \grammarterm{function-call-expression} which is reflected by \tcode{T}.
+\end{itemdescr}
+\end{std.txt}
+
+
+% 21.11.4.16
+\rSec3[reflect.ops.expr.fcttypeconv]{FunctionalTypeConversion operations}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <FunctionalTypeConversion T> struct get_constructor;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+			All specializations of \tcode{get_converting_callable<T>} shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). For a type conversion reflected by \tcode{T}, the nested type named \tcode{type} is the \tcode{Constructor} reflecting the constructor of the type specified by the type conversion, as selected by overload resolution.
+      The program is ill-formed if no such constructor exists.
+      \begin{note} For instance fundamental types (6.7) do not have constructors. \end{note}
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.4.17
+\rSec3[reflect.ops.fct]{Function operations}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <Function T> struct get_pointer<T>;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+      All specializations of \tcode{get_pointer<T>} shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]), with a static data member named \tcode{value} of type \tcode{X} and value \tcode{x}, where
+         \begin{itemize}
+           \item for non-static member functions, \tcode{X} is the pointer-to-member-function type of the member function reflected by \tcode{T} and \tcode{x} a pointer to the member function; otherwise,
+           \item \tcode{X} is \tcode{add_pointer<Y>}, where \tcode{Y} is the type of the function reflected by \tcode{T} and \tcode{x} is the address of that function. 
+         \end{itemize}
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.4.18
+\rSec3[reflect.ops.memfct]{MemberFunction operations}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <MemberFunction T> struct is_static<T>;
+template <MemberFunction T> struct is_const;
+template <MemberFunction T> struct is_volatile;
+template <MemberFunction T> struct has_lvalueref_qualifier;
+template <MemberFunction T> struct has_rvalueref_qualifier;
+template <MemberFunction T> struct is_virtual<T>;
+template <MemberFunction T> struct is_pure_virtual<T>;
+template <MemberFunction T> struct is_override;
+template <MemberFunction T> struct is_final<T>;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+      All specializations of these templates shall meet the
+      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If their template
+      parameter reflects a member function that is \tcode{static} (for
+      \tcode{is_static}), \tcode{const} (for \tcode{is_const}),
+      \tcode{volatile} (for \tcode{is_volatile}), declared with a
+      \grammarterm{ref-qualifier} \tcode{\&} (for
+      \tcode{has_lvalueref_qualifier}) or \tcode{\&\&} (for
+      \tcode{has_rvalueref_qualifier}), implicitly or expicitly \tcode{virtual}
+      (for \tcode{is_virtual}), pure virtual (for \tcode{is_pure_virtual}), or
+      marked with \tcode{override} (for \tcode{is_override}) or \tcode{final}
+      (for \tcode{is_final}), the base characteristic of the respective
+      template specialization is \tcode{true_type}, otherwise it is
+      \tcode{false_type}.
+\end{itemdescr}
+\end{std.txt}
+
+
+% 21.11.4.19
+\rSec3[reflect.ops.specialfct]{SpecialMemberFunction operations}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <SpecialMemberFunction T> struct is_implicitly_declared;
+template <SpecialMemberFunction T> struct is_defaulted;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+      All specializations of these templates shall meet the
+      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If their template
+      parameter reflects a special member function that is implicitly declared
+      (for \tcode{is_implicitly_declared}) or that is defaulted in its first
+      declaration (for \tcode{is_defaulted}), the base characteristic of the
+      respective template specialization is \tcode{true_type}, otherwise it is
+      \tcode{false_type}.
+\end{itemdescr}
+\end{std.txt}
+
+% 21.11.4.20
+\rSec3[reflect.ops.ctor]{Constructor operations}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <Constructor T> struct is_explicit<T>;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+      All specializations of this template shall meet the
+      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If the template
+      parameter reflects an explicit constructor, the base characteristic of
+      the respective template specialization is \tcode{true_type}, otherwise it
+      is \tcode{false_type}.
+\end{itemdescr}
+\end{std.txt}
+
+
+% 21.11.4.21
+\rSec3[reflect.ops.dtor]{Destructor operations}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <Destructor T> struct is_virtual<T>;
+template <Destructor T> struct is_pure_virtual<T>;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+      All specializations of these templates shall meet the
+      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If the template
+      parameter reflects a virtual (for \tcode{is_virtual}) or pure virtual
+      (for \tcode{is_pure_virtual}) destructor, the base characteristic of the
+      respective template specialization is \tcode{true_type}, otherwise it is
+      \tcode{false_type}.
+\end{itemdescr}
+\end{std.txt}
+
+
+% 21.11.4.22
+\rSec3[reflect.ops.convfct]{ConversionOperator operations}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <ConversionOperator T> struct is_explicit<T>;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+      All specializations of this template shall meet the
+      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If the template
+      parameter reflects an explicit conversion function, the base
+      characteristic of the respective template specialization is
+      \tcode{true_type}, otherwise it is \tcode{false_type}.
+\end{itemdescr}
+\end{std.txt}
+
+
+% 21.11.4.23
+\rSec3[reflect.ops.lambda]{Lambda operations}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <Lambda T> struct get_captures;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+      All specializations of this template shall meet the
+      \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type
+      named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized
+      with \tcode{LambdaCapture} types that reflect the captures of the closure
+      object reflected by \tcode{T}.  The elements are in order of appearance
+      in the \grammarterm{lambda-capture}; captures captured because of a
+      \grammarterm{capture-default} have no defined order among the default
+      captures.
+\end{itemdescr}
+
+\begin{itemdecl}
+template <Lambda T> struct uses_default_copy_capture;
+template <Lambda T> struct uses_default_reference_capture;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+      All specializations of these templates shall meet the
+      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If the template
+      parameter reflects a closure object with a \grammarterm{capture-default}
+      that is \tcode{=} (for \tcode{uses_default_copy_capture}) or \tcode{\&}
+      (for \tcode{uses_default_reference_capture}), the base characteristic of
+      the respective template specialization is \tcode{true_type}, otherwise it
+      is \tcode{false_type}.
+\end{itemdescr}
+
+\begin{itemdecl}
+template <Lambda T> struct is_call_operator_const;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+      All specializations of this template shall meet the
+      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If the template
+      parameter reflects a closure object with a \tcode{const} function call
+      operator, the base characteristic of the respective template
+      specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
+\end{itemdescr}
+\end{std.txt}
+
+
+% 21.11.4.24
+\rSec3[reflect.ops.lambdacapture]{LambdaCapture operations}
+\begin{std.txt}\color{addclr}
+\begin{itemdecl}
+template <LambdaCapture T> struct is_explicitly_captured;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+      All specializations of this template shall meet the
+      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If the template
+      parameter reflects an explicitly captured entity, the base characteristic
+      of the respective template specialization is \tcode{true_type}, otherwise
+      it is \tcode{false_type}.
+\end{itemdescr}
+
+\begin{itemdecl}
+template <LambdaCapture T> struct is_init_capture;
+\end{itemdecl}
+\begin{itemdescr}
+\pnum
+      All specializations of this template shall meet the
+      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If the template
+      parameter reflects an \grammarterm{init-capture}, the base characteristic
+      of the respective template specialization is \tcode{true_type}, otherwise
+      it is \tcode{false_type}.
 \end{itemdescr}
 \end{std.txt}

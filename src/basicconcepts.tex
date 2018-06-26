@@ -27,14 +27,32 @@ expression in a return statement (9.6.3) for a function with the return type
 \emph{cv} \tcode{void}.
 \end{std.txt}
 
+\rSec1[basic.def.odr]{One-definition rule}
+
+\pnum
+In C++ [basic.def.odr], insert a new paragraph after the existing paragraph 8:
+
+\begin{std.txt}
+\added{
+A function or static variable reflected by \tcode{T} [dcl.type.reflexpr] is
+odr-used by the specialization
+\tcode{std::experimental::reflect::get_pointer<T>} (21.11.4.10, 21.11.4.18), as
+if by taking the address of an \grammarterm{id-expression} nominating the
+function or variable.
+}
+\end{std.txt}
+
+\pnum
+In C++ [basic.def.odr], insert a new bullet (12.2.3) after (12.2.2):
+\begin{std.txt}
+\added{or}
+\begin{itemize}
+\item \added{a type implementing \tcode{std::experimental::reflect::Object}
+(21.11.3.1), as long as all operations (21.11.4) on this type yield the same
+constant expression results.}
+\end{itemize}
+\end{std.txt}
+
 \rSec0[conv]{Standard conversions}
-
-No changes are made to Clause \the\value{chapter} of the \Cpp Standard.
-
-\rSec0[expr]{Expressions}
-
-No changes are made to Clause \the\value{chapter} of the \Cpp Standard.
-
-\rSec0[stmt.stmt]{Statements}
 
 No changes are made to Clause \the\value{chapter} of the \Cpp Standard.

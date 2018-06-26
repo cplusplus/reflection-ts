@@ -19,9 +19,9 @@ The simple type specifiers are
 
 \begin{bnf}
 \nontermdef{simple-type-specifier}\br
-    nested-name-specifier\opt type-name\br
+    \opt{nested-name-specifier} type-name\br
     nested-name-specifier \terminal{template} simple-template-id\br
-    nested-name-specifier\opt template-name\br
+    \opt{nested-name-specifier} template-name\br
     \terminal{char}\br
     \terminal{char16_t}\br
     \terminal{char32_t}\br
@@ -64,8 +64,11 @@ The simple type specifiers are
 \added{\nontermdef{reflexpr-operand}}\br
   \added{\terminal{::}}\br
   \added{type-id}\br
-  \added{nested-name-specifier\opt identifier}\br
-  \added{nested-name-specifier\opt simple-template-id}\br
+  \added{\opt{nested-name-specifier} identifier}\br
+  \added{\opt{nested-name-specifier} simple-template-id}\br
+  \added{\terminal{(} expression \terminal{)}}\br
+  \added{function-call-expression}\br
+  \added{functional-type-conv-expression}\br
 \end{bnf}
 
 ...
@@ -125,7 +128,13 @@ Insert the following section:
       \item \tcode{A} is a class and \tcode{B} is a member or base class of \tcode{A},
       \item \tcode{A} is a non-template alias that designates the entity \tcode{B},
       \item \tcode{A} is a class nested in \tcode{B} (12.2.5 [class.nest]),
-      \item \tcode{A} is not the global namespace and \tcode{B} is an enclosing namespace of \tcode{A}, or
+      \item \tcode{A} is not the global namespace and \tcode{B} is an enclosing namespace of \tcode{A},
+      \item \tcode{B} is the parenthesized expression \tcode{( A )},
+      \item \tcode{A} is a lambda capture of the closure type \tcode{B},
+      \item \tcode{A} is the closure type of the lambda capture \tcode{B},
+      \item \tcode{A} is the type specified by the \grammarterm{functional-type-conv-expression} \tcode{B},
+      \item \tcode{A} is the function selected by overload resolution for a \grammarterm{function-call-expression} \tcode{B},
+      \item \tcode{A} is the return type, parameter type, or function type of the function \tcode{B}, or
       \item \tcode{A} is reflection-related to an entity or alias \tcode{X} and \tcode{X} is reflection-related to \tcode{B}.
     \end{itemize}
 
@@ -190,7 +199,36 @@ std::experimental::reflect::get_reflected_type_t<X1_m> x; // ok, type X is compl
 \end{example}
 
 For the operand \tcode{::}, the type specified by the
-\grammarterm{reflexpr-specifier} satisfies \tcode{reflect::GlobalScope}.  For an
+\grammarterm{reflexpr-specifier} satisfies \tcode{reflect::GlobalScope}.
+
+For an operand that is a parenthesized expression [expr.prim.paren], the type
+satisfies \linebreak\tcode{reflect::ParenthesizedExpression}.  For a parenthesized
+expression \tcode{(E)}, whether or not itself nested inside a parenthesized
+expression, the expression \tcode{E} shall be either a parenthesized expression,
+a \grammarterm{function-call-expression} or a
+\grammarterm{functional-type-conv-expression}; otherwise the program is
+ill-formed.
+
+For an operand of the form \grammarterm{function-call-expression}, the type
+satisfies \linebreak\tcode{reflect::FunctionCallExpression}.  If the
+\grammarterm{postfix-expression} of the \grammarterm{function-call-expression}
+is of class type, the function call shall not resolve to a surrogate call
+function ([over.call.object]). Otherwise, the \grammarterm{postfix-expression}
+shall name a function that is the unique result of overload resolution.
+
+For an operand of the form \grammarterm{functional-type-conv-expression}
+[expr.type.conv], the type satisfies \linebreak\tcode{reflect::FunctionalTypeConversion}.
+\begin{note}
+The usual disambiguation between function-style cast and a
+\grammarterm{type-id} [dcl.ambig.res] applies.
+\begin{example}
+The default constructor of \tcode{class X} can be reflected on as
+\tcode{reflexpr((X()))}, while \tcode{reflexpr(X())} reflects the type of a
+function returning \tcode{X}.
+\end{example}
+\end{note}
+
+For an
 operand of the form \emph{identifier} where \emph{identifier} is a template
 \emph{type-parameter}, the type satisfies both \tcode{reflect::Type} and
 \tcode{reflect::Alias}.
@@ -213,6 +251,7 @@ a \emph{reflexpr-specifier} satisfies, for a given \emph{reflexpr-operand}
 \topline
 \added{\hdstyle{Category}} & \added{\hdstyle{\grammarterm{identifier} or \grammarterm{simple-template-id} kind }} & \added{\hdstyle{\tcode{reflect} Concept}}       \\ \capsep
 \added{type}        & \added{\grammarterm{class-name} designating a union}                           & \added{\tcode{reflect::Record}}         \\ \cline{2-3}
+            & \added{\grammarterm{class-name} designating a closure type}                     & \added{\tcode{reflect::Lambda}}          \\ \cline{2-3}
             & \added{\grammarterm{class-name} designating a non-union class}                  & \added{\tcode{reflect::Class}}           \\ \cline{2-3}
             & \added{\grammarterm{enum-name}}                                                 & \added{\tcode{reflect::Enum}}            \\ \cline{2-3}
             & \added{\grammarterm{type-name} introduced by a \grammarterm{using-declaration}} & \added{both \tcode{reflect::Type}}       \\
@@ -227,7 +266,9 @@ a \emph{reflexpr-specifier} satisfies, for a given \emph{reflexpr-operand}
 \added{value}       & \added{the name of a variable or structured binding}                            & \added{\tcode{reflect::Variable}}        \\
             & \added{that is not a local entity}                                              &                                  \\ \cline{2-3}
             & \added{the name of an enumerator}                                               & \added{both \tcode{reflect::Enumerator}} \\
-            &                                                                         & \added{and \tcode{reflect::Constant}}    \\
+            &                                                                         & \added{and \tcode{reflect::Constant}}    \\ \cline{2-3}
+            & \added{the name of a function parameter} & \added{\tcode{reflect::FunctionParameter}} \\
+            & \added{the name of a captured entity} & \added{\tcode{reflect::LambdaCapture}} \\
 \bottomline
 \end{floattable}
 
@@ -237,13 +278,14 @@ by the \grammarterm{reflexpr-specifier} satisfies \tcode{reflect::Type}.  Any
 other \grammarterm{reflexpr-operand} renders the program ill-formed.
 
 If the \grammarterm{reflexpr-operand} designates an entity or alias at block
-scope (6.3.3) or function prototype scope (6.3.4), the program is ill-formed.
-If the \grammarterm{reflexpr-operand} designates a class member, the type
+scope (6.3.3) or function prototype scope (6.3.4) and the entity is neither
+captured nor a function parameter, the program is ill-formed.  If the
+\grammarterm{reflexpr-operand} designates a class member, the type
 represented by the \grammarterm{reflexpr-specifier} also satisfies
 \tcode{reflect::RecordMember}.  If the \grammarterm{reflexpr-operand}
-designates an variable or a data member, it is an unevaluated operand
-(expr.context).  If the \grammarterm{reflexpr-operand} designates both an alias
-and a class name, the type represented by the \grammarterm{reflexpr-specifier}
-reflects the alias and satisfies \tcode{Alias}.
+designates an expression, it is an unevaluated operand (expr.context).  If the
+\grammarterm{reflexpr-operand} designates both an alias and a class name, the
+type represented by the \grammarterm{reflexpr-specifier} reflects the alias and
+satisfies \tcode{Alias}.
 
 \end{std.txt}
