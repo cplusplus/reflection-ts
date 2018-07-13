@@ -75,7 +75,8 @@ The simple type specifiers are
 
 The other \grammarterm{simple-type-specifiers} specify either a
 previously-declared type, a type determined from an expression, \added{a
-reflection meta-object type (10.1.7.6)}, or one of the fundamental types (6.9.1).
+reflection meta-object type (\ref{dcl.type.reflexpr})}, or one of the
+fundamental types (\ref{basic.fundamental}).
 \end{std.txt}
 
 Add the following row to Table 11
@@ -91,12 +92,12 @@ Add the following row to Table 11
 \end{TableBase}
 \end{center}
 
-At the end of 10.1.7.2, insert the following paragraph:
+At the end of \cxxref{dcl.type.simple}, insert the following paragraph:
 
 \begin{std.txt}
 \added{For a \grammarterm{reflexpr-operand} \tcode{x}, the type denoted
 by \tcode{reflexpr(x)} is an implementation-defined type that satisfies
-constraints as laid out in 10.1.7.6.}
+constraints as laid out in \ref{dcl.type.reflexpr}.}
 \end{std.txt}
 
 
@@ -110,11 +111,11 @@ Insert the following section:
 
     The \emph{reflexpr} operator yields a type \tcode{T} that allows inspection
     of some properties of its operand through type traits or type transformations
-    on \tcode{T} (21.11.4).  The operand to the \tcode{reflexpr} operator shall
-    be a type, namespace, enumerator, variable, structured binding or data
-    member.  Any such \tcode{T} satisfies the requirements of
-    \tcode{reflect::Object} (21.11.3) and other \tcode{reflect} concepts,
-    depending on the operand.  A type satisfying the requirements of
+    on \tcode{T} (\ref{reflect.ops}).  The operand to the \tcode{reflexpr}
+    operator shall be a type, namespace, enumerator, variable, structured
+    binding or data member.  Any such \tcode{T} satisfies the requirements of
+    \tcode{reflect::Object} (\ref{reflect.concepts}) and other \tcode{reflect}
+    concepts, depending on the operand.  A type satisfying the requirements of
     \tcode{reflect::Object} is called a \emph{meta-object type}.  A meta-object
     type is an incomplete namespace-scope class type ([class]).
 
@@ -127,7 +128,7 @@ Insert the following section:
       \item \tcode{A} is an enumeration and \tcode{B} is the underlying type of \tcode{A},
       \item \tcode{A} is a class and \tcode{B} is a member or base class of \tcode{A},
       \item \tcode{A} is a non-template alias that designates the entity \tcode{B},
-      \item \tcode{A} is a class nested in \tcode{B} (12.2.5 [class.nest]),
+      \item \tcode{A} is a class nested in \tcode{B} (\cxxref{class.nest} [class.nest]),
       \item \tcode{A} is not the global namespace and \tcode{B} is an enclosing namespace of \tcode{A},
       \item \tcode{B} is the parenthesized expression \tcode{( A )},
       \item \tcode{A} is a lambda capture of the closure type \tcode{B},
@@ -158,7 +159,7 @@ The alias \tcode{D::Y} is reflection-related to \tcode{::X}, but not to \tcode{B
 \end{example}
 
 Zero or more successive applications of type transformations that yield
-meta-object types (21.11.4) to the type denoted by a \emph{reflexpr-specifier}
+meta-object types (\ref{reflect.ops}) to the type denoted by a \emph{reflexpr-specifier}
 enable inspection of entities and aliases that are reflection-related to the
 operand; such a meta-object type is said to \emph{reflect} the respective
 reflection-related entity or alias.
@@ -183,7 +184,7 @@ It is unspecified whether repeatedly applying \tcode{reflexpr} to the same
 operand yields the same type or a different type.
 \begin{note}
 If a meta-object type reflects an incomplete class type, certain type
-transformations (21.11.4) cannot be applied.
+transformations (\ref{reflect.ops}) cannot be applied.
 \end{note}
 
 \begin{example}
@@ -234,18 +235,19 @@ operand of the form \emph{identifier} where \emph{identifier} is a template
 \tcode{reflect::Alias}.
 
 The \grammarterm{identifier} or \grammarterm{simple-template-id} is looked up
-using the rules for name lookup (6.4): if a \grammarterm{nested-name-specifier}
-is included in the operand, qualified lookup (6.4.3) of
-\grammarterm{nested-name-specifier identifier} or
+using the rules for name lookup (\cxxref{basic.lookup}): if a
+\grammarterm{nested-name-specifier} is included in the operand, qualified lookup
+(\cxxref{basic.lookup.qual}) of \grammarterm{nested-name-specifier identifier} or
 \grammarterm{nested-name-specifier simple-template-id} will be performed,
-otherwise unqualified lookup (6.4.1) of \grammarterm{identifier} or
-\grammarterm{simple-template-id} will be performed.  The type specified by the
-\grammarterm{reflexpr-specifier} satisfies concepts depending on the result of
-the name lookup, as shown in Table~\ref{tab:reflect.concepts}.
+otherwise unqualified lookup (\cxxref{basic.lookup.unqual}) of
+\grammarterm{identifier} or \grammarterm{simple-template-id} will be performed.
+The type specified by the \grammarterm{reflexpr-specifier} satisfies concepts
+depending on the result of the name lookup, as shown in
+Table~\ref{tab:reflect.concepts}.
 
 \setcounter{table}{11}
 
-\begin{floattable}{\added{\tcode{reflect} concept (21.11.3) that the type specified by
+\begin{floattable}{\added{\tcode{reflect} concept (\ref{reflect.concepts}) that the type specified by
 a \emph{reflexpr-specifier} satisfies, for a given \emph{reflexpr-operand}
 \emph{identifier} or \emph{simple-template-id}.}}{tab:reflect.concepts}{l|l|l}
 \topline
@@ -278,14 +280,14 @@ by the \grammarterm{reflexpr-specifier} satisfies \tcode{reflect::Type}.  Any
 other \grammarterm{reflexpr-operand} renders the program ill-formed.
 
 If the \grammarterm{reflexpr-operand} designates an entity or alias at block
-scope (6.3.3) or function prototype scope (6.3.4) and the entity is neither
-captured nor a function parameter, the program is ill-formed.  If the
-\grammarterm{reflexpr-operand} designates a class member, the type
-represented by the \grammarterm{reflexpr-specifier} also satisfies
-\tcode{reflect::RecordMember}.  If the \grammarterm{reflexpr-operand}
-designates an expression, it is an unevaluated operand (expr.context).  If the
-\grammarterm{reflexpr-operand} designates both an alias and a class name, the
-type represented by the \grammarterm{reflexpr-specifier} reflects the alias and
-satisfies \tcode{Alias}.
+scope (\cxxref{basic.scope.block}) or function prototype scope
+(\cxxref{basic.scope.proto}) and the entity is neither captured nor a function
+parameter, the program is ill-formed.  If the \grammarterm{reflexpr-operand}
+designates a class member, the type represented by the
+\grammarterm{reflexpr-specifier} also satisfies \tcode{reflect::RecordMember}.
+If the \grammarterm{reflexpr-operand} designates an expression, it is an
+unevaluated operand (expr.context).  If the \grammarterm{reflexpr-operand}
+designates both an alias and a class name, the type represented by the
+\grammarterm{reflexpr-specifier} reflects the alias and satisfies \tcode{Alias}.
 
 \end{std.txt}

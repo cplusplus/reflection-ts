@@ -19,10 +19,11 @@ In C++ [basic.fundamental], apply the following change:
 
 \begin{std.txt}
 An expression of type \emph{cv} \tcode{void} shall be used only as an expression
-statement (9.2), as an operand of a comma expression (8.19), as a second or
-third operand of \tcode{?:} (8.16), as the operand of \tcode{typeid},
+statement (\cxxref{stmt.expr}), as an operand of a comma expression
+(\cxxref{expr.comma}), as a second or
+third operand of \tcode{?:} (\cxxsec{expr.cond}), as the operand of \tcode{typeid},
 \tcode{noexcept}, \added{\tcode{reflexpr},} or \tcode{decltype}, as the
-expression in a return statement (9.6.3) for a function with the return type
+expression in a return statement (\cxxsec{stmt.return}) for a function with the return type
 \emph{cv} \tcode{void}, or as the operand of an explicit conversion to type
 \emph{cv} \tcode{void}.
 \end{std.txt}
@@ -36,20 +37,23 @@ In C++ [basic.def.odr], insert a new paragraph after the existing paragraph 8:
 \added{
 A function or static variable reflected by \tcode{T} [dcl.type.reflexpr] is
 odr-used by the specialization
-\tcode{std::experimental::reflect::get_pointer<T>} (21.11.4.10, 21.11.4.18), as
+\tcode{std::experimental::reflect::get_pointer<T>} (\ref{reflect.ops.derived},
+\ref{reflect.ops.memfct}), as
 if by taking the address of an \grammarterm{id-expression} nominating the
 function or variable.
 }
 \end{std.txt}
 
 \pnum
-In C++ [basic.def.odr], insert a new bullet (12.2.3) after (12.2.2):
+In C++ [basic.def.odr], insert a new bullet
+(\cxxref{basic.def.odr.odrparagraph2}) after
+(\cxxref{basic.def.odr.odrparagraph1}):
 \begin{std.txt}
 \added{or}
 \begin{itemize}
 \item \added{a type implementing \tcode{std::experimental::reflect::Object}
-(21.11.3.1), as long as all operations (21.11.4) on this type yield the same
-constant expression results.}
+(\ref{reflect.concepts.object}), as long as all operations (\ref{reflect.ops})
+on this type yield the same constant expression results.}
 \end{itemize}
 \end{std.txt}
 

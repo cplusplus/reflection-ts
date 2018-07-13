@@ -2,7 +2,7 @@
 
 \rSec0[language.support]{Language support library}
 
-Add a new subclause 21.11 titled "\textbf{Static reflection}" as follows:
+Add a new subclause \ref{reflect} titled "\textbf{Static reflection}" as follows:
 
 \setcounter{section}{10}
 
@@ -300,7 +300,7 @@ template <FunctionCallExpression T> struct get_callable;
 template <FunctionCallExpression T>
   using get_callable_t = typename get_callable<T>::type;
 
-// \ref{reflect.ops.expr.fcttypeconf} FunctionalTypeConversion operations
+// \ref{reflect.ops.expr.fcttypeconv} FunctionalTypeConversion operations
 template <FunctionalTypeConversion T> struct get_constructor;
 
 template <FunctionalTypeConversion T>
@@ -1385,7 +1385,10 @@ template <Enum T> struct get_underlying_type;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{get_underlying_type<T>} shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is an alias to a meta-object type that reflects the underlying type (10.2) of the enumeration reflected by \tcode{T}.
+All specializations of \tcode{get_underlying_type<T>} shall meet the
+\tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named
+\tcode{type} is an alias to a meta-object type that reflects the underlying type
+(\cxxref{dcl.enum}) of the enumeration reflected by \tcode{T}.
 
 \pnum
 \remarks
@@ -1583,7 +1586,7 @@ template <FunctionalTypeConversion T> struct get_constructor;
 \pnum
 			All specializations of \tcode{get_converting_callable<T>} shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). For a type conversion reflected by \tcode{T}, the nested type named \tcode{type} is the \tcode{Constructor} reflecting the constructor of the type specified by the type conversion, as selected by overload resolution.
       The program is ill-formed if no such constructor exists.
-      \begin{note} For instance fundamental types (6.7) do not have constructors. \end{note}
+      \begin{note} For instance fundamental types (\cxxref{basic.fundamental}) do not have constructors. \end{note}
 \end{itemdescr}
 \end{std.txt}
 
