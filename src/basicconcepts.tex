@@ -12,22 +12,8 @@ An \emph{alias} is a name introduced by a \tcode{typedef} declaration, an
 \end{std.txt}
 
 
-\rSec1[basic.fundamental]{Fundamental types}
 
-\pnum
-In C++ [basic.fundamental], apply the following change:
-
-\begin{std.txt}
-An expression of type \emph{cv} \tcode{void} shall be used only as an expression
-statement (\cxxref{stmt.expr}), as an operand of a comma expression
-(\cxxref{expr.comma}), as a second or
-third operand of \tcode{?:} (\cxxsec{expr.cond}), as the operand of \tcode{typeid},
-\tcode{noexcept}, \added{\tcode{reflexpr},} or \tcode{decltype}, as the
-expression in a return statement (\cxxsec{stmt.return}) for a function with the return type
-\emph{cv} \tcode{void}, or as the operand of an explicit conversion to type
-\emph{cv} \tcode{void}.
-\end{std.txt}
-
+\setcounter{section}{1}
 \rSec1[basic.def.odr]{One-definition rule}
 
 \pnum
@@ -55,6 +41,24 @@ In C++ [basic.def.odr], insert a new bullet
 (\ref{reflect.concepts.object}), as long as all operations (\ref{reflect.ops})
 on this type yield the same constant expression results.}
 \end{itemize}
+\end{std.txt}
+
+\setcounter{section}{6}
+\rSec1[basic.types]{Types}
+\rSec2[basic.fundamental]{Fundamental types}
+
+\pnum
+In C++ [basic.fundamental], apply the following change:
+
+\begin{std.txt}
+An expression of type \emph{cv} \tcode{void} shall be used only as an expression
+statement (\cxxref{stmt.expr}), as an operand of a comma expression
+(\cxxref{expr.comma}), as a second or
+third operand of \tcode{?:} (\cxxsec{expr.cond}), as the operand of \tcode{typeid},
+\tcode{noexcept}, \added{\tcode{reflexpr},} or \tcode{decltype}, as the
+expression in a return statement (\cxxsec{stmt.return}) for a function with the return type
+\emph{cv} \tcode{void}, or as the operand of an explicit conversion to type
+\emph{cv} \tcode{void}.
 \end{std.txt}
 
 \rSec0[conv]{Standard conversions}
