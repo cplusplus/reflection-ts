@@ -37,7 +37,6 @@ The simple type specifiers are
     \terminal{void}\br
     \terminal{auto}\br
     decltype-specifier\br
-    constrained-type-specifier\br
     \added{reflexpr-specifier}
 \end{bnf}
 
@@ -117,7 +116,7 @@ Insert the following section:
     \tcode{reflect::Object} (\ref{reflect.concepts}) and other \tcode{reflect}
     concepts, depending on the operand.  A type satisfying the requirements of
     \tcode{reflect::Object} is called a \emph{meta-object type}.  A meta-object
-    type is an incomplete namespace-scope class type ([class]).
+    type is an incomplete namespace-scope class type (\cxxref{class}).
 
     An entity or alias \tcode{A} is \emph{reflection-related} to an entity or
     alias \tcode{B} if
@@ -128,7 +127,7 @@ Insert the following section:
       \item \tcode{A} is an enumeration and \tcode{B} is the underlying type of \tcode{A},
       \item \tcode{A} is a class and \tcode{B} is a member or base class of \tcode{A},
       \item \tcode{A} is a non-template alias that designates the entity \tcode{B},
-      \item \tcode{A} is a class nested in \tcode{B} (\cxxref{class.nest} [class.nest]),
+      \item \tcode{A} is a class nested in \tcode{B} (\cxxref{class.nest}),
       \item \tcode{A} is not the global namespace and \tcode{B} is an enclosing namespace of \tcode{A},
       \item \tcode{B} is the parenthesized expression \tcode{( A )},
       \item \tcode{A} is a lambda capture of the closure type \tcode{B},
@@ -202,11 +201,11 @@ std::experimental::reflect::get_reflected_type_t<X1_m> x; // ok, type X is compl
 For the operand \tcode{::}, the type specified by the
 \grammarterm{reflexpr-specifier} satisfies \tcode{reflect::GlobalScope}.
 
-For an operand that is a parenthesized expression [expr.prim.paren], the type
-satisfies \linebreak\tcode{reflect::ParenthesizedExpression}.  For a parenthesized
-expression \tcode{(E)}, whether or not itself nested inside a parenthesized
-expression, the expression \tcode{E} shall be either a parenthesized expression,
-a \grammarterm{function-call-expression} or a
+For an operand that is a parenthesized expression (\cxxref{expr.prim.paren}),
+the type satisfies \linebreak\tcode{reflect::ParenthesizedExpression}.  For a
+parenthesized expression \tcode{(E)}, whether or not itself nested inside a
+parenthesized expression, the expression \tcode{E} shall be either a
+parenthesized expression, a \grammarterm{function-call-expression} or a
 \grammarterm{functional-type-conv-expression}; otherwise the program is
 ill-formed.
 
@@ -214,14 +213,15 @@ For an operand of the form \grammarterm{function-call-expression}, the type
 satisfies \linebreak\tcode{reflect::FunctionCallExpression}.  If the
 \grammarterm{postfix-expression} of the \grammarterm{function-call-expression}
 is of class type, the function call shall not resolve to a surrogate call
-function ([over.call.object]). Otherwise, the \grammarterm{postfix-expression}
-shall name a function that is the unique result of overload resolution.
+function (\cxxref{over.call.object}). Otherwise, the
+\grammarterm{postfix-expression} shall name a function that is the unique result
+of overload resolution.
 
 For an operand of the form \grammarterm{functional-type-conv-expression}
-[expr.type.conv], the type satisfies \linebreak\tcode{reflect::FunctionalTypeConversion}.
+(\cxxref{expr.type.conv}), the type satisfies \linebreak\tcode{reflect::FunctionalTypeConversion}.
 \begin{note}
 The usual disambiguation between function-style cast and a
-\grammarterm{type-id} [dcl.ambig.res] applies.
+\grammarterm{type-id} (\cxxref{dcl.ambig.res}) applies.
 \begin{example}
 The default constructor of \tcode{class X} can be reflected on as
 \tcode{reflexpr((X()))}, while \tcode{reflexpr(X())} reflects the type of a
@@ -233,6 +233,8 @@ For an
 operand of the form \emph{identifier} where \emph{identifier} is a template
 \emph{type-parameter}, the type satisfies both \tcode{reflect::Type} and
 \tcode{reflect::Alias}.
+
+% TODO: left off here
 
 The \grammarterm{identifier} or \grammarterm{simple-template-id} is looked up
 using the rules for name lookup (\cxxref{basic.lookup}): if a
@@ -281,13 +283,14 @@ other \grammarterm{reflexpr-operand} renders the program ill-formed.
 
 If the \grammarterm{reflexpr-operand} designates an entity or alias at block
 scope (\cxxref{basic.scope.block}) or function prototype scope
-(\cxxref{basic.scope.proto}) and the entity is neither captured nor a function
+(\cxxref{basic.scope.param}) and the entity is neither captured nor a function
 parameter, the program is ill-formed.  If the \grammarterm{reflexpr-operand}
 designates a class member, the type represented by the
 \grammarterm{reflexpr-specifier} also satisfies \tcode{reflect::RecordMember}.
 If the \grammarterm{reflexpr-operand} designates an expression, it is an
-unevaluated operand (expr.context).  If the \grammarterm{reflexpr-operand}
-designates both an alias and a class name, the type represented by the
-\grammarterm{reflexpr-specifier} reflects the alias and satisfies \tcode{Alias}.
+unevaluated operand (\cxxref{expr.context}).  If the
+\grammarterm{reflexpr-operand} designates both an alias and a class name, the
+type represented by the \grammarterm{reflexpr-specifier} reflects the alias and
+satisfies \tcode{Alias}.
 
 \end{std.txt}

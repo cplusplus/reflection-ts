@@ -3,19 +3,28 @@
 \rSec0[temp]{Templates}
 
 \setcounter{section}{6}
-\setcounter{subsection}{2}
+\rSec1[temp.res]{Name resolution}
 
-%% 17.6.2.1
+\setcounter{subsection}{1}
+\rSec2[temp.dep]{Dependent Names}
+
+%% 17.7.2.1
 \rSec3[temp.dep.type]{Dependent types}
 
+% Paragraph 9
 \begin{std.txt}
+
 A type is dependent if it is \newline
 [...]
 
 \begin{itemize}
-  \item a \grammarterm{simple-template-id} in which either the template name is
-  a template parameter or any of the template arguments is a dependent type or
-  an expression that is type-dependent or value-dependent, \removed{or}
+  \item denoted by a \grammarterm{simple-template-id} in which either the template name is a template parameter or any of
+the template arguments is a dependent type or an expression that is type-dependent or value-dependent
+or is a pack expansion \begin{note} This includes an injected-class-name (Clause
+\cxxref{class}) of a class template used
+without a \grammarterm{template-argument-list}. \end{note}, \removed{or}
+
+
   \item denoted by \tcode{decltype(}\grammarterm{expression}\tcode{)}, where
         \grammarterm{expression} is type-dependent (\cxxref{temp.dep.expr})\removed{.}\added{, or}
   \item \added{denoted by \tcode{reflexpr(}\emph{operand} \tcode{)},

@@ -4,7 +4,7 @@
 
 Add a new subclause \ref{reflect} titled "\textbf{Static reflection}" as follows:
 
-\setcounter{section}{10}
+\setcounter{section}{11}
 
 \rSec1[reflect]{Static reflection}
 \rSec2[reflect.general]{In general}
@@ -385,7 +385,7 @@ template <LambdaCapture T>
 \begin{std.txt}\color{addclr}
 \pnum
 The operations on meta-object types defined here require meta-object types to
-satisfy certain concepts ([dcl.spec.concept]). These concepts are also used to
+satisfy certain concepts (\cxxref{temp.concept}). These concepts are also used to
 specify the result type for \emph{TransformationTrait} type transformations that
 yield meta-object types.
 \end{std.txt}
@@ -677,7 +677,8 @@ template <class T> concept Constant = ScopeMember<T> && Typed<T> && @\seebelow@;
 
 \begin{itemdescr}
 \pnum
-\tcode{Constant<T>} is true if and only if \tcode{T} reflects a constant expression ([expr.const]).
+\tcode{Constant<T>} is true if and only if \tcode{T} reflects a constant
+expression (\cxxref{expr.const}).
 
 \end{itemdescr}
 \end{std.txt}
@@ -732,7 +733,8 @@ template <class T> concept Expression = Object<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-\tcode{Expression<T>} is \tcode{true} if and only if \tcode{T} reflects an expression [expr].
+\tcode{Expression<T>} is \tcode{true} if and only if \tcode{T} reflects an
+expression (Clause \cxxref{expr}).
 \end{itemdescr}
 \end{std.txt}
 
@@ -744,7 +746,8 @@ template <class T> concept ParenthesizedExpression = Expression<T> && @\seebelow
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-\tcode{ParenthesizedExpression<T>} is \tcode{true} if and only if \tcode{T} reflects a parenthesized expression [expr.prim.paren].
+\tcode{ParenthesizedExpression<T>} is \tcode{true} if and only if \tcode{T}
+reflects a parenthesized expression (\cxxref{expr.prim.paren}).
 \end{itemdescr}
 \end{std.txt}
 
@@ -756,7 +759,8 @@ template <class T> concept FunctionCallExpression = Expression<T> && @\seebelow@
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-\tcode{FunctionCallExpression<T>} is \tcode{true} if and only if \tcode{T} reflects a \grammarterm{function-call-expression} [expr.call].
+\tcode{FunctionCallExpression<T>} is \tcode{true} if and only if \tcode{T}
+reflects a \grammarterm{function-call-expression} (\cxxref{expr.call}).
 \end{itemdescr}
 \end{std.txt}
 
@@ -768,7 +772,8 @@ template <class T> concept FunctionalTypeConversion = Expression<T> && @\seebelo
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-\tcode{FunctionalTypeConversion<T>} is \tcode{true} if and only if \tcode{T} reflects a \grammarterm{functional-type-conv-expression} [expr.type.conv].
+\tcode{FunctionalTypeConversion<T>} is \tcode{true} if and only if \tcode{T}
+reflects a \grammarterm{functional-type-conv-expression} (\cxxref{expr.type.conv}).
 \end{itemdescr}
 \end{std.txt}
 
@@ -804,7 +809,8 @@ template <class T> concept SpecialMemberFunction = RecordMember<T> && @\seebelow
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-\tcode{SpecialMemberFunction<T>} is \tcode{true} if and only if \tcode{T} reflects a special member function [special].
+\tcode{SpecialMemberFunction<T>} is \tcode{true} if and only if \tcode{T}
+reflects a special member function (Clause \cxxref{special}).
 \end{itemdescr}
 \end{std.txt}
 
@@ -840,7 +846,7 @@ template <class T> concept Operator = Function<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-\tcode{Operator<T>} is \tcode{true} if and only if \tcode{T} reflects an operator function [over.oper] or a conversion function [class.conv.fct]. \begin{note} Some types that satisfy \tcode{Operator} also satisfy \tcode{MemberFunction} or \tcode{SpecialMemberFunction}. \end{note}
+\tcode{Operator<T>} is \tcode{true} if and only if \tcode{T} reflects an operator function (\cxxref{over.oper}) or a conversion function (cxxref{class.conv.fct}). \begin{note} Some types that satisfy \tcode{Operator} also satisfy \tcode{MemberFunction} or \tcode{SpecialMemberFunction}. \end{note}
 \end{itemdescr}
 \end{std.txt}
 
@@ -852,7 +858,7 @@ template <class T> concept ConversionOperator = Operator<T> && MemberFunction<T>
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-\tcode{ConversionOperator<T>} is \tcode{true} if and only if \tcode{T} reflects a conversion function [class.conv.fct].
+\tcode{ConversionOperator<T>} is \tcode{true} if and only if \tcode{T} reflects a conversion function (\cxxref{class.conv.fct}).
 \end{itemdescr}
 \end{std.txt}
 
@@ -885,7 +891,7 @@ template <class T> concept LambdaCapture = Variable<T> && @\seebelow@;
 
 \begin{std.txt}\color{addclr}
 \pnum
-A meta-object operation extracts information from meta-object types. It is a class template taking one or more arguments, at least one of which models the \tcode{Object} concept. The result of a meta-object operation can be either a constant expression ([expr.const]) or a type.
+A meta-object operation extracts information from meta-object types. It is a class template taking one or more arguments, at least one of which models the \tcode{Object} concept. The result of a meta-object operation can be either a constant expression (\cxxref{expr.const}) or a type.
 
 \pnum
 Some operations specify result types with a nested type called \tcode{type} that satisfies one of the concepts in \tcode{reflect}.
@@ -916,7 +922,7 @@ template <Object T1, Object T2> struct reflects_same;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{reflects_same<T1, T2>} shall meet the \tcode{BinaryTypeTrait} requirements ([meta.rqmts]),
+All specializations of \tcode{reflects_same<T1, T2>} shall meet the \tcode{BinaryTypeTrait} requirements (\cxxref{meta.rqmts}),
     with a base characteristic of \tcode{true_type} if 
 \begin{itemize}
   \item \tcode{T1} and \tcode{T2} reflect the same alias, or
@@ -953,7 +959,7 @@ template <class T> struct get_source_column;
 \end{itemdecl}
 
 \begin{itemdescr}
-All specializations of above templates shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]) with a base characteristic of \tcode{integral_constant<uint_least32_t>} and a value of the presumed line number ([cpp.predefined]) (for \tcode{get_source_line<T>}) and an implementation-defined value representing some offset from the start of the line (for \tcode{get_source_column<T>}) of the most recent declaration of the entity or typedef described by \tcode{T}.
+All specializations of above templates shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}) with a base characteristic of \tcode{integral_constant<uint_least32_t>} and a value of the presumed line number (\cxxref{cpp.predefined}) (for \tcode{get_source_line<T>}) and an implementation-defined value representing some offset from the start of the line (for \tcode{get_source_column<T>}) of the most recent declaration of the entity or typedef described by \tcode{T}.
 \pnum
 
 \end{itemdescr}
@@ -964,7 +970,7 @@ template <class T> struct get_source_file_name;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{get_source_file_name<T>} shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]) with a static data member named \tcode{value} of type \tcode{const char (\&)[N]}, referencing a static, constant expression character array (NTBS) of length \tcode{N}, as if declared as \tcode{static constexpr char STR[N] = ...;}. The value of the NTBS is the presumed name of the source file ([cpp.predefined]) of the most recent declaration of the entity or typedef described by \tcode{T}.
+All specializations of \tcode{get_source_file_name<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}) with a static data member named \tcode{value} of type \tcode{const char (\&)[N]}, referencing a static, constant expression character array (NTBS) of length \tcode{N}, as if declared as \tcode{static constexpr char STR[N] = ...;}. The value of the NTBS is the presumed name of the source file (\cxxref{cpp.predefined}) of the most recent declaration of the entity or typedef described by \tcode{T}.
 
 \end{itemdescr}
 
@@ -981,7 +987,7 @@ template <ObjectSequence S> struct get_size;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{get_size<S>} shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]) with a base characteristic of \tcode{integral_constant<size_t, N>}, where \tcode{N} is the number of elements in the object sequence.
+All specializations of \tcode{get_size<S>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}) with a base characteristic of \tcode{integral_constant<size_t, N>}, where \tcode{N} is the number of elements in the object sequence.
 \end{itemdescr}
 
 \begin{itemdecl}
@@ -991,7 +997,7 @@ template <size_t I, ObjectSequence S> struct get_element;
 \begin{itemdescr}
 \pnum
 \remarks
-All specializations of \tcode{get_element<I, S>} shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} corresponds to the \tcode{I}th element \tcode{Object} in \tcode{S}, where the indexing is zero-based.
+All specializations of \tcode{get_element<I, S>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} corresponds to the \tcode{I}th element \tcode{Object} in \tcode{S}, where the indexing is zero-based.
 \end{itemdescr}
 
 \begin{itemdecl}
@@ -1002,7 +1008,7 @@ template <template <class...> class Tpl, ObjectSequence S>
 \begin{itemdescr}
 \pnum
 \remarks
-All specializations of \tcode{unpack_sequence<Tpl, S>} shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is an alias to the template \tcode{Tpl} specialized with the types in \tcode{S}.
+All specializations of \tcode{unpack_sequence<Tpl, S>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is an alias to the template \tcode{Tpl} specialized with the types in \tcode{S}.
 \end{itemdescr}
 \end{std.txt}
 
@@ -1019,10 +1025,10 @@ template <Named T> struct get_display_name;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{is_unnamed<T>} shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]) with a base characteristic as specified below.
+All specializations of \tcode{is_unnamed<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}) with a base characteristic as specified below.
 
 \pnum
-All specializations of \tcode{get_name} and \tcode{get_display_name} shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]) with a static data member named \tcode{value} of type \tcode{const char (\&)[N]}, referencing a static, constant expression character array (NTBS) of length \tcode{N}, as if declared as \tcode{static constexpr char STR[N] = ...;}.
+All specializations of \tcode{get_name} and \tcode{get_display_name} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}) with a static data member named \tcode{value} of type \tcode{const char (\&)[N]}, referencing a static, constant expression character array (NTBS) of length \tcode{N}, as if declared as \tcode{static constexpr char STR[N] = ...;}.
 
 \begin{itemize}
 \item For \tcode{T} reflecting an unnamed entity, the string's value is the empty string.
@@ -1035,7 +1041,7 @@ All specializations of \tcode{get_name} and \tcode{get_display_name} shall meet 
   \item for \tcode{T} reflecting a class type, its \grammarterm{class-name};
   \item for \tcode{T} reflecting a namespace, its \grammarterm{namespace-name};
   \item for \tcode{T} reflecting an enumeration type, its \grammarterm{enum-name};
-  \item for \tcode{T} reflecting all other \grammarterm{simple-type-specifiers}, the name stated in the "Type" column of Table 9 in ([dcl.type.simple]);
+  \item for \tcode{T} reflecting all other \grammarterm{simple-type-specifiers}, the name stated in the "Type" column of Table 9 in (\cxxref{dcl.type.simple});
   \item for \tcode{T} reflecting a variable, its unqualified name;
   \item for \tcode{T} reflecting an enumerator, its unqualified name;
   \item for \tcode{T} reflecting a class data member, its unqualified name;
@@ -1085,7 +1091,7 @@ template <Alias T> struct get_aliased;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{get_aliased<T>} shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is the \tcode{Named} meta-object type reflecting
+All specializations of \tcode{get_aliased<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is the \tcode{Named} meta-object type reflecting
 \begin{itemize}
 \item the redefined name, if \tcode{T} reflects an alias;
 \item the template specialization's template argument type, if \tcode{T} reflects a template \grammarterm{type-parameter};
@@ -1120,7 +1126,7 @@ template <Typed T> struct get_type;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{get_type<T>} shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is the \tcode{Type} reflecting the type of the entity reflected by \tcode{T}.
+All specializations of \tcode{get_type<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is the \tcode{Type} reflecting the type of the entity reflected by \tcode{T}.
 
 \pnum
 \begin{example}
@@ -1155,7 +1161,7 @@ template <Type T> struct get_reflected_type;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{get_reflected_type<T>} shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is the type reflected by \tcode{T}.
+All specializations of \tcode{get_reflected_type<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is the type reflected by \tcode{T}.
 
 \pnum
 \begin{example}
@@ -1174,7 +1180,7 @@ template <Type T> struct is_union;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{is_enum<T>} and \tcode{is_union<T>} shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If \tcode{T} reflects an enumeration type (a union), the base characteristic of \tcode{is_enum<T>} (\tcode{is_union<T>}) is \tcode{true_type}, otherwise it is \tcode{false_type}.
+All specializations of \tcode{is_enum<T>} and \tcode{is_union<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If \tcode{T} reflects an enumeration type (a union), the base characteristic of \tcode{is_enum<T>} (\tcode{is_union<T>}) is \tcode{true_type}, otherwise it is \tcode{false_type}.
 \end{itemdescr}
 
 \begin{itemdecl}
@@ -1184,7 +1190,7 @@ template <Type T> struct is_struct;
 
 \begin{itemdescr}
 \pnum
-All specializations of these templates shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If \tcode{T} reflects a class with \grammarterm{class-key} \tcode{class} (for \tcode{is_class<T>}) or \tcode{struct} (for \tcode{is_struct<T>}), the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}. If the same class has redeclarations with both \grammarterm{class-key} \tcode{class} and \grammarterm{class-key} \tcode{struct}, the base characteristic of the template specialization of exactly one of \tcode{is_class<T>} and \tcode{is_struct<T>} can be \tcode{true_type}, the other template specialization is \tcode{false_type}; the actual choice of value is unspecified.
+All specializations of these templates shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If \tcode{T} reflects a class with \grammarterm{class-key} \tcode{class} (for \tcode{is_class<T>}) or \tcode{struct} (for \tcode{is_struct<T>}), the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}. If the same class has redeclarations with both \grammarterm{class-key} \tcode{class} and \grammarterm{class-key} \tcode{struct}, the base characteristic of the template specialization of exactly one of \tcode{is_class<T>} and \tcode{is_struct<T>} can be \tcode{true_type}, the other template specialization is \tcode{false_type}; the actual choice of value is unspecified.
 \end{itemdescr}
 \end{std.txt}
 
@@ -1195,7 +1201,7 @@ All specializations of these templates shall meet the \tcode{UnaryTypeTrait} req
 \pnum
 A specialization of any of these templates with a meta-object type that is
 reflecting an incomplete type renders the program ill-formed.  Such errors are
-not in the immediate context ([temp.deduct]).
+not in the immediate context (\cxxref{temp.deduct}).
 
 
 \begin{itemdecl}
@@ -1204,7 +1210,7 @@ template <ScopeMember T> struct get_scope;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{get_scope<T>} shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is the \tcode{Scope} reflecting a scope \emph{S}. With \emph{ST} being the scope of the declaration of the entity, typedef or value reflected by \tcode{T}, \emph{S} is found as the innermost scope enclosing \emph{ST} that is either a namespace scope (including global scope), class scope, enumeration scope, function scope (for the function's parameters), or immediately enclosing closure type (for lambda captures). For members of an unnamed union, this innermost scope is the unnamed union. For enumerators of unscoped enumeration types, this innermost scope is their enumeration type.
+All specializations of \tcode{get_scope<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is the \tcode{Scope} reflecting a scope \emph{S}. With \emph{ST} being the scope of the declaration of the entity, typedef or value reflected by \tcode{T}, \emph{S} is found as the innermost scope enclosing \emph{ST} that is either a namespace scope (including global scope), class scope, enumeration scope, function scope (for the function's parameters), or immediately enclosing closure type (for lambda captures). For members of an unnamed union, this innermost scope is the unnamed union. For enumerators of unscoped enumeration types, this innermost scope is their enumeration type.
 \end{itemdescr}
 
 \begin{itemdecl}
@@ -1215,7 +1221,7 @@ template <RecordMember T> struct is_private<T>;
 
 \begin{itemdescr}
 \pnum
-All specializations of these partial template specializations shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If \tcode{T} reflects a public member (for \tcode{is_public}), protected member (for \tcode{is_protected}), or private member (for \tcode{is_private}), the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
+All specializations of these partial template specializations shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If \tcode{T} reflects a public member (for \tcode{is_public}), protected member (for \tcode{is_protected}), or private member (for \tcode{is_private}), the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
 \end{itemdescr}
 
 \end{std.txt}
@@ -1227,7 +1233,7 @@ All specializations of these partial template specializations shall meet the \tc
 \pnum
 A specialization of any of these templates with a meta-object type that is
 reflecting an incomplete type renders the program ill-formed.  Such errors are
-not in the immediate context ([temp.deduct]).
+not in the immediate context (\cxxref{temp.deduct}).
 
 \begin{itemdecl}
 template <Record T> struct get_public_data_members;
@@ -1240,7 +1246,7 @@ template <Record T> struct get_member_functions;
 
 \begin{itemdescr}
 \pnum
-All specializations of these templates shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{RecordMember} types that reflect the following subset of non-template members of the class reflected by \tcode{T}:
+All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{RecordMember} types that reflect the following subset of non-template members of the class reflected by \tcode{T}:
 \begin{itemize}
   \item for \tcode{get_data_members} (\tcode{get_member_functions}), all data (function, including constructor and destructor) members.
   \item for \tcode{get_public_data_members} (\tcode{get_public_member_functions}, all public data (function, including constructor and destructor) members;
@@ -1278,11 +1284,11 @@ template <Record T> struct get_operators;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-All specializations of these templates shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{RecordMember} types that reflect the following subset of function members of the class reflected by \tcode{T}:
+All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{RecordMember} types that reflect the following subset of function members of the class reflected by \tcode{T}:
 \begin{itemize}
    \item for \tcode{get_constructors}, all constructors.
    \item for \tcode{get_destructor}, the destructor;
-   \item for \tcode{get_operators}, all conversion functions [class.conv.fct] and operator functions [over.oper].
+   \item for \tcode{get_operators}, all conversion functions (\cxxref{class.conv.fct}) and operator functions (\cxxref{over.oper}).
 \end{itemize}
 
 \pnum
@@ -1301,7 +1307,7 @@ template <Record T> struct get_member_types;
 
 \begin{itemdescr}
 \pnum
-All specializations of these templates shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{Type} types that reflect the following subset of types declared in the class reflected by \tcode{T}:
+All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{Type} types that reflect the following subset of types declared in the class reflected by \tcode{T}:
 \begin{itemize}
   \item for \tcode{get_member_types}, all nested class types, enum types, or member typedefs.
   \item for \tcode{get_public_member_types}, all public nested class types, enum types, or member typedefs;
@@ -1324,7 +1330,7 @@ template <Class T> struct get_base_classes;
 
 \begin{itemdescr}
 \pnum
-All specializations of these templates shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{Base} types that reflect the following subset of base classes of the class reflected by \tcode{T}:
+All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{Base} types that reflect the following subset of base classes of the class reflected by \tcode{T}:
 \begin{itemize}
   \item for \tcode{get_base_classes}, all direct base classes;
   \item for \tcode{get_public_base_classes}, all public direct base classes;
@@ -1345,7 +1351,7 @@ template <Class T> struct is_final<T>;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{is_final<T>} shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If \tcode{T} reflects a class that is marked with the \grammarterm{class-virt-specifier} \tcode{final}, the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
+All specializations of \tcode{is_final<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If \tcode{T} reflects a class that is marked with the \grammarterm{class-virt-specifier} \tcode{final}, the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
 \end{itemdescr}
 
 \end{std.txt}
@@ -1361,7 +1367,7 @@ template <Enum T> struct is_scoped_enum;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{is_scoped_enum<T>} shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If \tcode{T} reflects a scoped enumeration, the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
+All specializations of \tcode{is_scoped_enum<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If \tcode{T} reflects a scoped enumeration, the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
 
 \end{itemdescr}
 
@@ -1371,12 +1377,12 @@ template <Enum T> struct get_enumerators;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{get_enumerators<T>} shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{Enumerator} types that reflect the enumerators of the enumeration type reflected by \tcode{T}.
+All specializations of \tcode{get_enumerators<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{Enumerator} types that reflect the enumerators of the enumeration type reflected by \tcode{T}.
 
 \pnum
 \remarks
 A specialization of this template with a meta-object type that is reflecting an incomplete type renders the program ill-formed.
-      Such errors are not in the immediate context ([temp.deduct]).
+      Such errors are not in the immediate context (\cxxref{temp.deduct}).
 \end{itemdescr}
 
 \begin{itemdecl}
@@ -1386,14 +1392,14 @@ template <Enum T> struct get_underlying_type;
 \begin{itemdescr}
 \pnum
 All specializations of \tcode{get_underlying_type<T>} shall meet the
-\tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named
+\tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named
 \tcode{type} is an alias to a meta-object type that reflects the underlying type
 (\cxxref{dcl.enum}) of the enumeration reflected by \tcode{T}.
 
 \pnum
 \remarks
 A specialization of this template with a meta-object type that is reflecting an incomplete type renders the program ill-formed.
-      Such errors are not in the immediate context ([temp.deduct]).
+      Such errors are not in the immediate context (\cxxref{temp.deduct}).
 \end{itemdescr}
 \end{std.txt}
 
@@ -1408,7 +1414,7 @@ template <Constant T> struct get_constant;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{get_constant<T>} shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). It has a static data member named \tcode{value} whose type and value are those of the constant expression of the constant reflected by \tcode{T}.
+All specializations of \tcode{get_constant<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). It has a static data member named \tcode{value} whose type and value are those of the constant expression of the constant reflected by \tcode{T}.
 
 \end{itemdescr}
 
@@ -1418,7 +1424,7 @@ template <Variable T> struct is_constexpr<T>;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{is_constexpr<T>} shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If \tcode{T} reflects a variable declared with the \grammarterm{decl-specifier} \tcode{constexpr}, the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
+All specializations of \tcode{is_constexpr<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If \tcode{T} reflects a variable declared with the \grammarterm{decl-specifier} \tcode{constexpr}, the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
 \end{itemdescr}
 
 \begin{itemdecl}
@@ -1427,7 +1433,7 @@ template <Variable T> struct is_static<T>;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{is_static<T>} shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If \tcode{T} reflects a variable with static storage duration, the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
+All specializations of \tcode{is_static<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If \tcode{T} reflects a variable with static storage duration, the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
 \end{itemdescr}
 
 \begin{itemdecl}
@@ -1436,7 +1442,7 @@ template <Variable T> struct get_pointer<T>;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{get_pointer<T>} shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]), with a static data member named \tcode{value} of type \tcode{X} and value \tcode{x}, where
+All specializations of \tcode{get_pointer<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}), with a static data member named \tcode{value} of type \tcode{X} and value \tcode{x}, where
 \begin{itemize}
   \item for variables with static storage duration: \tcode{X} is \tcode{add_pointer<Y>}, where \tcode{Y} is the type of the variable reflected by \tcode{T} and \tcode{x} is the address of that variable; otherwise,
   \item \tcode{X} is the pointer-to-member type of the member variable reflected by \tcode{T} and \tcode{x} a pointer to the member.
@@ -1449,7 +1455,7 @@ All specializations of \tcode{get_pointer<T>} shall meet the \tcode{UnaryTypeTra
 
 \begin{std.txt}\color{addclr}
 A specialization of any of these templates with a meta-object type that is reflecting an incomplete type renders the program ill-formed.
-      Such errors are not in the immediate context ([temp.deduct]).
+      Such errors are not in the immediate context (\cxxref{temp.deduct}).
 
 \begin{itemdecl}
 template <Base T> struct get_class;
@@ -1457,7 +1463,7 @@ template <Base T> struct get_class;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{get_class<T>} shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is an alias to \tcode{reflexpr(\emph{X})}, where \tcode{\emph{X}} is the base class reflected by \tcode{T}.
+All specializations of \tcode{get_class<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is an alias to \tcode{reflexpr(\emph{X})}, where \tcode{\emph{X}} is the base class reflected by \tcode{T}.
 \end{itemdescr}
 
 \begin{itemdecl}
@@ -1469,7 +1475,7 @@ template <Base T> struct is_private<T>;
 
 \begin{itemdescr}
 \pnum
-All specializations of the template and of these partial template specializations shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If \tcode{T} reflects a direct base class with the \tcode{virtual} specifier (for \tcode{is_virtual}), with the \tcode{public} specifier or with an assumed (see C++ [class.access.base]) \tcode{public} specifier (for \tcode{is_public}), with the \tcode{protected} specifier (for \tcode{is_protected}), or with the \tcode{private} specifier or with an assumed \tcode{private} specifier (for \tcode{is_private}), then the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
+All specializations of the template and of these partial template specializations shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If \tcode{T} reflects a direct base class with the \tcode{virtual} specifier (for \tcode{is_virtual}), with the \tcode{public} specifier or with an assumed (see C++ \cxxref{class.access.base}) \tcode{public} specifier (for \tcode{is_public}), with the \tcode{protected} specifier (for \tcode{is_protected}), or with the \tcode{private} specifier or with an assumed \tcode{private} specifier (for \tcode{is_private}), then the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
 \end{itemdescr}
 \end{std.txt}
 
@@ -1484,7 +1490,7 @@ template <Namespace T> struct is_inline<T>;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{is_inline<T>} shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If \tcode{T} reflects an inline namespace, the base characteristic of the template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
+All specializations of \tcode{is_inline<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If \tcode{T} reflects an inline namespace, the base characteristic of the template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
 
 \end{itemdescr}
 \end{std.txt}
@@ -1498,7 +1504,7 @@ template <FunctionParameter T> struct has_default_argument;
 \begin{itemdescr}
 \pnum
 All specializations of this template shall meet the \tcode{UnaryTypeTrait}
-requirements ([meta.rqmts]). If \tcode{T} reflects a parameter with a default
+requirements (\cxxref{meta.rqmts}). If \tcode{T} reflects a parameter with a default
 argument, the base characteristic of \tcode{has_default_argument<T>} is
 \tcode{true_type}, otherwise it is \tcode{false_type}.
 
@@ -1519,8 +1525,8 @@ template <Callable T> struct get_parameters;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-      All specializations of this template shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{FunctionParameter} types that reflect the parameters of the function reflected by \tcode{T}.
-      If that function's \grammarterm{parameter-declaration-clause} [dcl.fct] terminates with an ellipsis, the \tcode{ObjectSequence} does not contain any additional elements reflecting that. The \tcode{is_vararg_v<Callable>} trait can be used to determine if the terminating ellipsis is in its parameter list.
+      All specializations of this template shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{FunctionParameter} types that reflect the parameters of the function reflected by \tcode{T}.
+      If that function's \grammarterm{parameter-declaration-clause} (\cxxref{dcl.fct}) terminates with an ellipsis, the \tcode{ObjectSequence} does not contain any additional elements reflecting that. The \tcode{is_vararg_v<Callable>} trait can be used to determine if the terminating ellipsis is in its parameter list.
 \end{itemdescr}
 
 \begin{itemdecl}
@@ -1533,13 +1539,13 @@ template <Callable T> struct is_deleted;
 \begin{itemdescr}
 \pnum
       All specializations of these templates shall meet the
-      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]).  If their template
+      \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}).  If their template
       parameter reflects an entity with an ellipsis terminating the
-      \grammarterm{parameter-declaration-clause} [dcl.fct] (for
+      \grammarterm{parameter-declaration-clause} (\cxxref{dcl.fct}) (for
       \tcode{is_vararg}), or an entity that is (where applicable implicitly or
       explicitly) declared as \tcode{constexpr} (for \tcode{is_constexpr}),
       \tcode{noexcept} (for \tcode{is_noexcept}), as an inline function
-      [dcl.inline] (for \tcode{is_inline}), or as deleted (for
+      (\cxxref{dcl.inline}) (for \tcode{is_inline}), or as deleted (for
       \tcode{is_deleted}), the base characteristic of the respective template
       specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
 
@@ -1559,7 +1565,7 @@ template <ParenthesizedExpression T> struct get_subexpression;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-      All specializations of \tcode{get_subexpression<T>} shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is the \tcode{Expression} type reflecting the expression \tcode{E} of the parenthesized expression \tcode{(E)} reflected by \tcode{T}. 
+      All specializations of \tcode{get_subexpression<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is the \tcode{Expression} type reflecting the expression \tcode{E} of the parenthesized expression \tcode{(E)} reflected by \tcode{T}. 
 \end{itemdescr}
 \end{std.txt}
 
@@ -1571,7 +1577,7 @@ template <FunctionCallExpression T> struct get_callable;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-      All specializations of \tcode{get_callable<T>} shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type named \tcode{type} is the \tcode{Callable} type reflecting the function invoked by the \grammarterm{function-call-expression} which is reflected by \tcode{T}.
+      All specializations of \tcode{get_callable<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is the \tcode{Callable} type reflecting the function invoked by the \grammarterm{function-call-expression} which is reflected by \tcode{T}.
 \end{itemdescr}
 \end{std.txt}
 
@@ -1584,7 +1590,7 @@ template <FunctionalTypeConversion T> struct get_constructor;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-			All specializations of \tcode{get_converting_callable<T>} shall meet the \tcode{TransformationTrait} requirements ([meta.rqmts]). For a type conversion reflected by \tcode{T}, the nested type named \tcode{type} is the \tcode{Constructor} reflecting the constructor of the type specified by the type conversion, as selected by overload resolution.
+			All specializations of \tcode{get_converting_callable<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). For a type conversion reflected by \tcode{T}, the nested type named \tcode{type} is the \tcode{Constructor} reflecting the constructor of the type specified by the type conversion, as selected by overload resolution.
       The program is ill-formed if no such constructor exists.
       \begin{note} For instance fundamental types (\cxxref{basic.fundamental}) do not have constructors. \end{note}
 \end{itemdescr}
@@ -1598,7 +1604,7 @@ template <Function T> struct get_pointer<T>;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-      All specializations of \tcode{get_pointer<T>} shall meet the \tcode{UnaryTypeTrait} requirements ([meta.rqmts]), with a static data member named \tcode{value} of type \tcode{X} and value \tcode{x}, where
+      All specializations of \tcode{get_pointer<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}), with a static data member named \tcode{value} of type \tcode{X} and value \tcode{x}, where
          \begin{itemize}
            \item for non-static member functions, \tcode{X} is the pointer-to-member-function type of the member function reflected by \tcode{T} and \tcode{x} a pointer to the member function; otherwise,
            \item \tcode{X} is \tcode{add_pointer<Y>}, where \tcode{Y} is the type of the function reflected by \tcode{T} and \tcode{x} is the address of that function. 
@@ -1623,7 +1629,7 @@ template <MemberFunction T> struct is_final<T>;
 \begin{itemdescr}
 \pnum
       All specializations of these templates shall meet the
-      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If their template
+      \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If their template
       parameter reflects a member function that is \tcode{static} (for
       \tcode{is_static}), \tcode{const} (for \tcode{is_const}),
       \tcode{volatile} (for \tcode{is_volatile}), declared with a
@@ -1649,7 +1655,7 @@ template <SpecialMemberFunction T> struct is_defaulted;
 \begin{itemdescr}
 \pnum
       All specializations of these templates shall meet the
-      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If their template
+      \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If their template
       parameter reflects a special member function that is implicitly declared
       (for \tcode{is_implicitly_declared}) or that is defaulted in its first
       declaration (for \tcode{is_defaulted}), the base characteristic of the
@@ -1667,7 +1673,7 @@ template <Constructor T> struct is_explicit<T>;
 \begin{itemdescr}
 \pnum
       All specializations of this template shall meet the
-      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If the template
+      \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If the template
       parameter reflects an explicit constructor, the base characteristic of
       the respective template specialization is \tcode{true_type}, otherwise it
       is \tcode{false_type}.
@@ -1685,7 +1691,7 @@ template <Destructor T> struct is_pure_virtual<T>;
 \begin{itemdescr}
 \pnum
       All specializations of these templates shall meet the
-      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If the template
+      \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If the template
       parameter reflects a virtual (for \tcode{is_virtual}) or pure virtual
       (for \tcode{is_pure_virtual}) destructor, the base characteristic of the
       respective template specialization is \tcode{true_type}, otherwise it is
@@ -1703,7 +1709,7 @@ template <ConversionOperator T> struct is_explicit<T>;
 \begin{itemdescr}
 \pnum
       All specializations of this template shall meet the
-      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If the template
+      \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If the template
       parameter reflects an explicit conversion function, the base
       characteristic of the respective template specialization is
       \tcode{true_type}, otherwise it is \tcode{false_type}.
@@ -1720,7 +1726,7 @@ template <Lambda T> struct get_captures;
 \begin{itemdescr}
 \pnum
       All specializations of this template shall meet the
-      \tcode{TransformationTrait} requirements ([meta.rqmts]). The nested type
+      \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type
       named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized
       with \tcode{LambdaCapture} types that reflect the captures of the closure
       object reflected by \tcode{T}.  The elements are in order of appearance
@@ -1736,7 +1742,7 @@ template <Lambda T> struct uses_default_reference_capture;
 \begin{itemdescr}
 \pnum
       All specializations of these templates shall meet the
-      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If the template
+      \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If the template
       parameter reflects a closure object with a \grammarterm{capture-default}
       that is \tcode{=} (for \tcode{uses_default_copy_capture}) or \tcode{\&}
       (for \tcode{uses_default_reference_capture}), the base characteristic of
@@ -1750,7 +1756,7 @@ template <Lambda T> struct is_call_operator_const;
 \begin{itemdescr}
 \pnum
       All specializations of this template shall meet the
-      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If the template
+      \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If the template
       parameter reflects a closure object with a \tcode{const} function call
       operator, the base characteristic of the respective template
       specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
@@ -1767,7 +1773,7 @@ template <LambdaCapture T> struct is_explicitly_captured;
 \begin{itemdescr}
 \pnum
       All specializations of this template shall meet the
-      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If the template
+      \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If the template
       parameter reflects an explicitly captured entity, the base characteristic
       of the respective template specialization is \tcode{true_type}, otherwise
       it is \tcode{false_type}.
@@ -1779,7 +1785,7 @@ template <LambdaCapture T> struct is_init_capture;
 \begin{itemdescr}
 \pnum
       All specializations of this template shall meet the
-      \tcode{UnaryTypeTrait} requirements ([meta.rqmts]). If the template
+      \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If the template
       parameter reflects an \grammarterm{init-capture}, the base characteristic
       of the respective template specialization is \tcode{true_type}, otherwise
       it is \tcode{false_type}.
