@@ -847,7 +847,7 @@ template <class T> concept Operator = Function<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-\tcode{Operator<T>} is \tcode{true} if and only if \tcode{T} reflects an operator function (\cxxref{over.oper}) or a conversion function (cxxref{class.conv.fct}). \begin{note} Some types that satisfy \tcode{Operator} also satisfy \tcode{MemberFunction} or \tcode{SpecialMemberFunction}. \end{note}
+\tcode{Operator<T>} is \tcode{true} if and only if \tcode{T} reflects an operator function (\cxxref{over.oper}) or a conversion function (\cxxref{class.conv.fct}). \begin{note} Some types that satisfy \tcode{Operator} also satisfy \tcode{MemberFunction} or \tcode{SpecialMemberFunction}. \end{note}
 \end{itemdescr}
 \end{std.txt}
 
@@ -904,7 +904,8 @@ While \tcode{get_type_t} is specified to be a \tcode{Type}, \tcode{x_t} will eve
 
 \pnum
 If subsequent specializations of operations on the same reflected entity could give different constant expression results (for instance for \tcode{get_name_v} because the parameter's function is redeclared with a different parameter name between the two points of instantiation), the program is ill-formed, no diagnostic required.
-   \begin{example}\begin{codeblock}void func(int a);
+   \begin{example}\begin{codeblock}
+void func(int a);
 auto x1 = get_name_v<get_element_t<0, get_parameters_t<reflexpr(func(42))>>>;
 void func(int b);
 auto x2 = get_name_v<get_element_t<0, get_parameters_t<reflexpr(func(42))>>>; // ill-formed, no diagnostic required\end{codeblock}
@@ -1050,7 +1051,7 @@ All specializations of \tcode{get_name} and \tcode{get_display_name} shall meet 
   \item for \tcode{T} reflecting a specialization of a template function, its \grammarterm{template-name};
   \item for \tcode{T} reflecting a function parameter, its unqualified name;
   \item for \tcode{T} reflecting a constructor, the \grammarterm{injected-class-name} of its class;
-  \item for \tcode{T} reflecting a destructor, the \grammarterm{injected-class-name} of its class, prefixed by the character '~';
+  \item for \tcode{T} reflecting a destructor, the \grammarterm{injected-class-name} of its class, prefixed by the character '\tilde';
   \item for \tcode{T} reflecting an operator function, the \grammarterm{operator} element of the relevant \grammarterm{operator-function-id};
   \item for \tcode{T} reflecting an conversion function, the same characters as \tcode{get_name_ve<R>}, with \tcode{R} reflecting the type represented by the \grammarterm{conversion-type-id}.
 \end{itemize}
@@ -1156,8 +1157,8 @@ using C2 = get_type_t<reflexpr(C::arr)>;
 \end{note}
 
 \end{itemdescr}
-template <Type T> struct get_reflected_type;
 \begin{itemdecl}
+template <Type T> struct get_reflected_type;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -1250,9 +1251,8 @@ template <Record T> struct get_member_functions;
 All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{RecordMember} types that reflect the following subset of non-template members of the class reflected by \tcode{T}:
 \begin{itemize}
   \item for \tcode{get_data_members} (\tcode{get_member_functions}), all data (function, including constructor and destructor) members.
-  \item for \tcode{get_public_data_members} (\tcode{get_public_member_functions}, all public data (function, including constructor and destructor) members;
-  \item for \tcode{get_accessible_data_members} (\tcode{get_accessible_member_functions}, all data (function, including constructor and destructor) members that are accessible from the context of the invocation of \tcode{reflexpr} which (directly or indirectly) generated \tcode{T}.
-  \pnum
+  \item for \tcode{get_public_data_members} (\tcode{get_public_member_functions}), all public data (function, including constructor and destructor) members;
+  \item for \tcode{get_accessible_data_members} (\tcode{get_accessible_member_functions}), all data (function, including constructor and destructor) members that are accessible from the context of the invocation of \tcode{reflexpr} which (directly or indirectly) generated \tcode{T}.
 \begin{example}\begin{codeblock}
 class X {
    int a;
@@ -1545,7 +1545,7 @@ template <Callable T> struct is_deleted;
       \grammarterm{parameter-declaration-clause} (\cxxref{dcl.fct}) (for
       \tcode{is_vararg}), or an entity that is (where applicable implicitly or
       explicitly) declared as \tcode{constexpr} (for \tcode{is_constexpr}),
-      \tcode{noexcept} (for \tcode{is_noexcept}), as an inline function
+      as \tcode{noexcept} (for \tcode{is_noexcept}), as an inline function
       (\cxxref{dcl.inline}) (for \tcode{is_inline}), or as deleted (for
       \tcode{is_deleted}), the base characteristic of the respective template
       specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
@@ -1636,7 +1636,7 @@ template <MemberFunction T> struct is_final<T>;
       \tcode{volatile} (for \tcode{is_volatile}), declared with a
       \grammarterm{ref-qualifier} \tcode{\&} (for
       \tcode{has_lvalueref_qualifier}) or \tcode{\&\&} (for
-      \tcode{has_rvalueref_qualifier}), implicitly or expicitly \tcode{virtual}
+      \tcode{has_rvalueref_qualifier}), implicitly or explicitly \tcode{virtual}
       (for \tcode{is_virtual}), pure virtual (for \tcode{is_pure_virtual}), or
       marked with \tcode{override} (for \tcode{is_override}) or \tcode{final}
       (for \tcode{is_final}), the base characteristic of the respective
