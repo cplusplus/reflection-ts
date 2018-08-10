@@ -112,11 +112,13 @@ Insert the following section:
 
 \begin{std.txt}\color{addclr}
 
-    The \emph{reflexpr} operator yields a type \tcode{T} that allows inspection
-    of some properties of its operand through type traits or type transformations
-    on \tcode{T} (\ref{reflect.ops}).  The operand to the \tcode{reflexpr}
-    operator shall be a type, namespace, enumerator, variable, structured
-    binding or data member.  Any such \tcode{T} satisfies the requirements of
+    The \grammarterm{reflexpr-specifier} yields a type \tcode{T} that allows
+    inspection of some properties of its operand through type traits or type
+    transformations on \tcode{T} (\ref{reflect.ops}).  The operand to the
+    \grammarterm{reflexpr-specifier} shall be a type, namespace, enumerator,
+    variable, structured binding, data member, function parameter, captured
+    entity, parenthisized expression, function call expresion or functional type
+    conversion expression.  Any such \tcode{T} satisfies the requirements of
     \tcode{reflect::Object} (\ref{reflect.concepts}) and other \tcode{reflect}
     concepts, depending on the operand.  A type satisfying the requirements of
     \tcode{reflect::Object} is called a \emph{meta-object type}.  A meta-object
@@ -178,7 +180,7 @@ template <typename T> std::string get_type_name() {
    return reflect::get_name_v<aliased_T_t>;
 }
 
-std::cout << get_type_name<std::string>(); // prints "basic_string"
+std::cout << get_type_name<std::string>(); // outputs \tcode{basic_string}
 \end{codeblock}
 \end{example}
 
@@ -196,9 +198,9 @@ class X;
 using X1_m = reflexpr(X);
 class X {};
 using X2_m = reflexpr(X);
-using X_bases_1 = std::experimental::reflect::get_base_classes_t<X1_m>; // ok, X1_m reflects complete class X
-using X_bases_2 = std::experimental::reflect::get_base_classes_t<X2_m>; // ok
-std::experimental::reflect::get_reflected_type_t<X1_m> x; // ok, type X is complete
+using X_bases_1 = std::experimental::reflect::get_base_classes_t<X1_m>; // OK: X1_m reflects complete class X
+using X_bases_2 = std::experimental::reflect::get_base_classes_t<X2_m>; // OK
+std::experimental::reflect::get_reflected_type_t<X1_m> x; // OK: type X is complete
 \end{codeblock}
 \end{example}
 
@@ -273,8 +275,7 @@ a \emph{reflexpr-specifier} satisfies, for a given \emph{reflexpr-operand}
 \added{data member} & \added{the name of a data member}                                               & \added{\tcode{reflect::Variable}}        \\ \cline{1-3}
 \added{value}       & \added{the name of a variable or structured binding}                            & \added{\tcode{reflect::Variable}}        \\
             & \added{that is not a local entity}                                              &                                  \\ \cline{2-3}
-            & \added{the name of an enumerator}                                               & \added{both \tcode{reflect::Enumerator}} \\
-            &                                                                         & \added{and \tcode{reflect::Constant}}    \\ \cline{2-3}
+            & \added{the name of an enumerator} & \added{\tcode{reflect::Enumerator}} \\ \cline{2-3}
             & \added{the name of a function parameter} & \added{\tcode{reflect::FunctionParameter}} \\ \cline{2-3}
             & \added{the name of a captured entity} & \added{\tcode{reflect::LambdaCapture}} \\
 \bottomline
