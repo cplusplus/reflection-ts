@@ -23,8 +23,8 @@ In C++ [basic.def.odr], insert a new paragraph after the existing paragraph 8:
 \added{
 A function or static variable reflected by \tcode{T} [dcl.type.reflexpr] is
 odr-used by the specialization
-\tcode{std::experimental::reflect::get\char`_pointer<T>} (\ref{reflect.ops.derived},
-\ref{reflect.ops.memfct}), as
+\tcode{std::experimental::reflect::get\char`_pointer<T>} (\ref{reflect.ops.value},
+\ref{reflect.ops.fct}), as
 if by taking the address of an \grammarterm{id-expression} nominating the
 function or variable.
 }
@@ -48,7 +48,7 @@ on this type yield the same constant expression results.}
 \rSec2[basic.fundamental]{Fundamental types}
 
 \pnum
-In C++ [basic.fundamental], apply the following change:
+In C++ [basic.fundamental], apply the following change to paragraph 9:
 
 \begin{std.txt}
 An expression of type \emph{cv} \tcode{void} shall be used only as an expression
@@ -56,7 +56,7 @@ statement (\cxxref{stmt.expr}), as an operand of a comma expression
 (\cxxref{expr.comma}), as a second or
 third operand of \tcode{?:} (\cxxref{expr.cond}), as the operand of \tcode{typeid},
 \tcode{noexcept}, \added{\tcode{reflexpr},} or \tcode{decltype}, as the
-expression in a return statement (\cxxref{stmt.return}) for a function with the return type
+expression in a \tcode{return} statement (\cxxref{stmt.return}) for a function with the return type
 \emph{cv} \tcode{void}, or as the operand of an explicit conversion to type
 \emph{cv} \tcode{void}.
 \end{std.txt}
