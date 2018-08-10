@@ -122,7 +122,7 @@ Insert the following section:
     \tcode{reflect::Object} (\ref{reflect.concepts}) and other \tcode{reflect}
     concepts, depending on the operand.  A type satisfying the requirements of
     \tcode{reflect::Object} is called a \emph{meta-object type}.  A meta-object
-    type is an incomplete namespace-scope class type (\cxxref{class}).
+    type is an incomplete namespace-scope class type (Clause \cxxref{class}).
 
     An entity or alias \tcode{A} is \emph{reflection-related} to an entity or
     alias \tcode{B} if
@@ -278,7 +278,7 @@ a \emph{reflexpr-specifier} satisfies, for a given \emph{reflexpr-operand}
             & \added{that is not a local entity}                                              &                                  \\ \cline{2-3}
             & \added{the name of an enumerator} & \added{\tcode{reflect::Enumerator}} \\ \cline{2-3}
             & \added{the name of a function parameter} & \added{\tcode{reflect::FunctionParameter}} \\ \cline{2-3}
-            & \added{the name of a captured entity} & \added{\tcode{reflect::LambdaCapture}} \\
+            & \added{the name of a captured entity (\ref{expr.prim.lambda.capture})} & \added{\tcode{reflect::LambdaCapture}} \\
 \bottomline
 \end{floattable}
 

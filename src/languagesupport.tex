@@ -899,7 +899,8 @@ A meta-object operation extracts information from meta-object types. It is a cla
 \pnum
 Some operations specify result types with a nested type called \tcode{type} that satisfies one of the concepts in \tcode{reflect}.
 These nested types will possibly satisfy other concepts, for instance more specific ones, or independent ones, as applicable for the entity reflected by the nested type.
-\begin{example}\begin{codeblock}struct X {};
+\begin{example}\begin{codeblock}
+struct X {};
 X x;
 using x_t = get_type_t<reflexpr(x)>;\end{codeblock}
 While \tcode{get_type_t} is specified to be a \tcode{Type}, \tcode{x_t} also satisfies \tcode{Class}. \end{example}
