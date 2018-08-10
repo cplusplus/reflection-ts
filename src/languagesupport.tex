@@ -125,17 +125,17 @@ template <class T>
   constexpr auto get_source_file_name_v = get_source_file_name<T>::value;
 
 // \ref{reflect.ops.objseq} ObjectSequence operations
-template <ObjectSequence S> struct get_size;
-template <size_t I, ObjectSequence S> struct get_element;
-template <template <class...> class Tpl, ObjectSequence S>
+template <ObjectSequence T> struct get_size;
+template <size_t I, ObjectSequence T> struct get_element;
+template <template <class...> class Tpl, ObjectSequence T>
   struct unpack_sequence;
 
 template <ObjectSequence T>
   constexpr auto get_size_v = get_size<T>::value;
-template <size_t I, ObjectSequence S>
-  using get_element_t = typename get_element<I, S>::type;
-template <template <class...> class Tpl, ObjectSequence S>
-  constexpr auto unpack_sequence_t = unpack_sequence<Tpl, S>::type;
+template <size_t I, ObjectSequence T>
+  using get_element_t = typename get_element<I, T>::type;
+template <template <class...> class Tpl, ObjectSequence T>
+  constexpr auto unpack_sequence_t = unpack_sequence<Tpl, T>::type;
 
 // \ref{reflect.ops.named} Named operations
 template <Named T> struct is_unnamed;
@@ -900,7 +900,7 @@ These nested types will possibly satisfy other concepts, for instance more speci
 \begin{example}\begin{codeblock}struct X {};
 X x;
 using x_t = get_type_t<reflexpr(x)>;\end{codeblock}
-While \tcode{get_type_t} is specified to be a \tcode{Type}, \tcode{x_t} will even satisfy \tcode{Class}. \end{example}
+While \tcode{get_type_t} is specified to be a \tcode{Type}, \tcode{x_t} also satisfies \tcode{Class}. \end{example}
 
 \pnum
 If subsequent specializations of operations on the same reflected entity could give different constant expression results (for instance for \tcode{get_name_v} because the parameter's function is redeclared with a different parameter name between the two points of instantiation), the program is ill-formed, no diagnostic required.
@@ -984,33 +984,33 @@ All specializations of \tcode{get_source_file_name<T>} shall meet the \tcode{Una
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <ObjectSequence S> struct get_size;
+template <ObjectSequence T> struct get_size;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{get_size<S>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}) with a base characteristic of \tcode{integral_constant<size_t, N>}, where \tcode{N} is the number of elements in the object sequence.
+All specializations of \tcode{get_size<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}) with a base characteristic of \tcode{integral_constant<size_t, N>}, where \tcode{N} is the number of elements in the object sequence.
 \end{itemdescr}
 
 \begin{itemdecl}
-template <size_t I, ObjectSequence S> struct get_element;
+template <size_t I, ObjectSequence T> struct get_element;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
 \remarks
-All specializations of \tcode{get_element<I, S>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} corresponds to the \tcode{I}th element \tcode{Object} in \tcode{S}, where the indexing is zero-based.
+All specializations of \tcode{get_element<I, T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} corresponds to the \tcode{I}th element \tcode{Object} in \tcode{T}, where the indexing is zero-based.
 \end{itemdescr}
 
 \begin{itemdecl}
-template <template <class...> class Tpl, ObjectSequence S>
+template <template <class...> class Tpl, ObjectSequence T>
   struct unpack_sequence;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
 \remarks
-All specializations of \tcode{unpack_sequence<Tpl, S>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is an alias to the template \tcode{Tpl} specialized with the types in \tcode{S}.
+All specializations of \tcode{unpack_sequence<Tpl, T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is an alias to the template \tcode{Tpl} specialized with the types in \tcode{T}.
 \end{itemdescr}
 \end{std.txt}
 
@@ -1310,9 +1310,9 @@ template <Record T> struct get_member_types;
 \pnum
 All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{Type} types that reflect the following subset of types declared in the class reflected by \tcode{T}:
 \begin{itemize}
-  \item for \tcode{get_member_types}, all nested class types, enum types, or member typedefs.
   \item for \tcode{get_public_member_types}, all public nested class types, enum types, or member typedefs;
-  \item for \tcode{get_accessible_member_types}, all nested class types, enum types, or member typedefs that are accessible from the scope of the invocation of \tcode{reflexpr} which (directly or indirectly) generated \tcode{T}.
+  \item for \tcode{get_accessible_member_types}, all nested class types, enum types, or member typedefs that are accessible from the scope of the invocation of \tcode{reflexpr} which (directly or indirectly) generated \tcode{T};
+  \item for \tcode{get_member_types}, all nested class types, enum types, or member typedefs.
 \end{itemize}
 
 \pnum
@@ -1333,9 +1333,9 @@ template <Class T> struct get_base_classes;
 \pnum
 All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is an alias to an \tcode{ObjectSequence} specialized with \tcode{Base} types that reflect the following subset of base classes of the class reflected by \tcode{T}:
 \begin{itemize}
-  \item for \tcode{get_base_classes}, all direct base classes;
   \item for \tcode{get_public_base_classes}, all public direct base classes;
-  \item for \tcode{get_accessible_base_classes}, all direct base classes whose public members are accessible from the scope of the invocation of \tcode{reflexpr} which (directly or indirectly) generated \tcode{T}.
+  \item for \tcode{get_accessible_base_classes}, all direct base classes whose public members are accessible from the scope of the invocation of \tcode{reflexpr} which (directly or indirectly) generated \tcode{T};
+  \item for \tcode{get_base_classes}, all direct base classes.
 \end{itemize}
 
 \pnum
@@ -1591,7 +1591,7 @@ template <FunctionalTypeConversion T> struct get_constructor;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-			All specializations of \tcode{get_converting_callable<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). For a type conversion reflected by \tcode{T}, the nested type named \tcode{type} is the \tcode{Constructor} reflecting the constructor of the type specified by the type conversion, as selected by overload resolution.
+			All specializations of \tcode{get_constructor<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). For a type conversion reflected by \tcode{T}, the nested type named \tcode{type} is the \tcode{Constructor} reflecting the constructor of the type specified by the type conversion, as selected by overload resolution.
       The program is ill-formed if no such constructor exists.
       \begin{note} For instance fundamental types (\cxxref{basic.fundamental}) do not have constructors. \end{note}
 \end{itemdescr}
