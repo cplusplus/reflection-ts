@@ -198,7 +198,8 @@ class X;
 using X1_m = reflexpr(X);
 class X {};
 using X2_m = reflexpr(X);
-using X_bases_1 = std::experimental::reflect::get_base_classes_t<X1_m>; // OK: X1_m reflects complete class X
+using X_bases_1 = std::experimental::reflect::get_base_classes_t<X1_m>; // OK:
+                                             // X1_m reflects complete class X
 using X_bases_2 = std::experimental::reflect::get_base_classes_t<X2_m>; // OK
 std::experimental::reflect::get_reflected_type_t<X1_m> x; // OK: type X is complete
 \end{codeblock}
