@@ -113,9 +113,9 @@ template <class T>
 
 // \ref{reflect.ops.object} Object operations
 template <Object T1, Object T2> struct reflects_same;
-template <class T> struct get_source_line;
-template <class T> struct get_source_column;
-template <class T> struct get_source_file_name;
+template <Object T> struct get_source_line;
+template <Object T> struct get_source_column;
+template <Object T> struct get_source_file_name;
 
 template <Object T1, Object T2>
   constexpr auto reflects_same_v = reflects_same<T1, T2>::value;
