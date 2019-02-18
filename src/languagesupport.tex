@@ -1012,7 +1012,7 @@ template <template <class...> class Tpl, ObjectSequence T> struct unpack_sequenc
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{unpack_sequence<Tpl, T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is an alias to the template \tcode{Tpl} specialized with the types in \tcode{T}.
+All specializations of \tcode{unpack_sequence<Tpl, T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is an alias to the template \tcode{Tpl} specialized with the element \tcode{Object}s in \tcode{T}.
 \end{itemdescr}
 \end{std.txt}
 
