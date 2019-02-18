@@ -1073,12 +1073,12 @@ the value of \tcode{get_name_v<a_m>} is \tcode{"A"} while the value of \tcode{ge
 \pnum
 The base characteristic of \tcode{is_unnamed<T>} is \tcode{true_type} if the value of \tcode{get_name_v<T>} is the empty string, otherwise it is \tcode{false_type}.
 
-\end{itemdescr}
-
 \pnum
 Subsequent specializations of \tcode{get_name<T>} on the same reflected
 function parameter can render the program ill-formed, no diagnostic required
 (\ref{reflect.ops}).
+
+\end{itemdescr}
 
 \end{std.txt}
 
