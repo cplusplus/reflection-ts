@@ -913,7 +913,8 @@ If subsequent specializations of operations on the same reflected entity could g
 void func(int a);
 auto x1 = get_name_v<get_element_t<0, get_parameters_t<reflexpr(func(42))>>>;
 void func(int b);
-auto x2 = get_name_v<get_element_t<0, get_parameters_t<reflexpr(func(42))>>>; // ill-formed, no diagnostic required\end{codeblock}
+auto x2 = get_name_v<get_element_t<0, get_parameters_t<reflexpr(func(42))>>>; // ill-formed,
+                                                                    // no diagnostic required\end{codeblock}
 \end{example}
 
 \end{std.txt}
