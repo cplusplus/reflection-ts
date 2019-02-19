@@ -1605,6 +1605,9 @@ template <FunctionalTypeConversion T> struct get_constructor;
 \begin{itemdescr}
 \pnum
 			All specializations of \tcode{get_constructor<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). For a type conversion reflected by \tcode{T}, the nested type named \tcode{type} is the \tcode{Constructor} reflecting the constructor of the type specified by the type conversion, as selected by overload resolution.
+
+\pnum
+\remarks
       The program is ill-formed if no such constructor exists.
       \begin{note} For instance fundamental types (\cxxref{basic.fundamental}) do not have constructors. \end{note}
 \end{itemdescr}
