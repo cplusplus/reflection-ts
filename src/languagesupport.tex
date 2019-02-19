@@ -39,41 +39,43 @@ namespace std::experimental::reflect {
 inline namespace v1 {
 
 // \ref{reflect.concepts} Concepts for meta-object types
-template <class T> concept Object;
-template <class T> concept ObjectSequence;            // refines Object
-template <class T> concept Named;                     // refines Object
-template <class T> concept Alias;                     // refines Named and ScopeMember
-template <class T> concept RecordMember;              // refines ScopeMember
-template <class T> concept Enumerator;                // refines Constant
-template <class T> concept Variable;                  // refines Typed and ScopeMember
-template <class T> concept ScopeMember;               // refines Named
-template <class T> concept Typed;                     // refines Object
-template <class T> concept Namespace;                 // refines Named and Scope
-template <class T> concept GlobalScope;               // refines Namespace
-template <class T> concept Class;                     // refines Record
-template <class T> concept Enum;                      // refines Type and Scope
-template <class T> concept Record;                    // refines Type and Scope
-template <class T> concept Scope;                     // refines Object
-template <class T> concept Type;                      // refines Named and ScopeMember
-template <class T> concept Constant;                  // refines Typed and ScopeMember
-template <class T> concept Base;                      // refines Object
-template <class T> concept FunctionParameter;         // refines Typed and ScopeMember
-template <class T> concept Callable;                  // refines Scope and ScopeMember
-template <class T> concept Expression;                // refines Object
-template <class T> concept ParenthesizedExpression;   // refines Expression
-template <class T> concept FunctionCallExpression;    // refines Expression
-template <class T> concept FunctionalTypeConversion;  // refines Expression
-template <class T> concept Function;                  // refines Typed and Callable
-template <class T> concept MemberFunction;            // refines RecordMember and Function
-template <class T> concept SpecialMemberFunction;     // refines RecordMember
-template <class T> concept Constructor;               // refines Callable and RecordMember
-template <class T> concept Destructor;                // refines Callable and
-                                                      // SpecialMemberFunction
-template <class T> concept Operator;                  // refines Function
-template <class T> concept ConversionOperator;        // refines MemberFunction and
-                                                      // Operator
-template <class T> concept Lambda;                    // refines Type and Scope
-template <class T> concept LambdaCapture;             // refines Variable
+template <class T> concept Object = @\seebelow@;
+template <class T> concept ObjectSequence = @\seebelow@; // refines Object
+template <class T> concept Named = @\seebelow@;          // refines Object
+template <class T> concept Alias = @\seebelow@;          // refines Named and ScopeMember
+template <class T> concept RecordMember = @\seebelow@;   // refines ScopeMember
+template <class T> concept Enumerator = @\seebelow@;     // refines Constant
+template <class T> concept Variable = @\seebelow@;       // refines Typed and ScopeMember
+template <class T> concept ScopeMember = @\seebelow@;    // refines Named
+template <class T> concept Typed = @\seebelow@;          // refines Object
+template <class T> concept Namespace = @\seebelow@;      // refines Named and Scope
+template <class T> concept GlobalScope = @\seebelow@;    // refines Namespace
+template <class T> concept Class = @\seebelow@;          // refines Record
+template <class T> concept Enum = @\seebelow@;           // refines Type and Scope
+template <class T> concept Record = @\seebelow@;         // refines Type and Scope
+template <class T> concept Scope = @\seebelow@;          // refines Object
+template <class T> concept Type = @\seebelow@;           // refines Named and ScopeMember
+template <class T> concept Constant = @\seebelow@;       // refines Typed and ScopeMember
+template <class T> concept Base = @\seebelow@;           // refines Object
+template <class T> concept FunctionParameter = @\seebelow@; // refines Typed and
+                                                          // ScopeMember
+template <class T> concept Callable = @\seebelow@;       // refines Scope and ScopeMember
+template <class T> concept Expression = @\seebelow@;     // refines Object
+template <class T> concept ParenthesizedExpression = @\seebelow@;  // refines Expression
+template <class T> concept FunctionCallExpression = @\seebelow@;   // refines Expression
+template <class T> concept FunctionalTypeConversion = @\seebelow@; // refines Expression
+template <class T> concept Function = @\seebelow@;       // refines Typed and Callable
+template <class T> concept MemberFunction = @\seebelow@; // refines RecordMember and
+                                                       //Function
+template <class T> concept SpecialMemberFunction = @\seebelow@; // refines RecordMember
+template <class T> concept Constructor = @\seebelow@;    // refines Callable and RecordMember
+template <class T> concept Destructor = @\seebelow@;     // refines Callable and
+                                                       // SpecialMemberFunction
+template <class T> concept Operator = @\seebelow@;       // refines Function
+template <class T> concept ConversionOperator = @\seebelow@; // refines MemberFunction and
+                                                           // Operator
+template <class T> concept Lambda = @\seebelow@;         // refines Type and Scope
+template <class T> concept LambdaCapture = @\seebelow@;  // refines Variable
 
 
 // \ref{reflect.ops} Meta-object operations
