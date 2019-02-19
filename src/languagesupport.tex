@@ -1042,7 +1042,7 @@ All specializations of \tcode{get_name<T>} and \tcode{get_display_name<T>} shall
 \item For \tcode{T} reflecting an array, pointer, reference of function type, or a \emph{cv}-qualified type, the string's value is the empty string for \tcode{get_name<T>} and implementation-defined for \tcode{get_display_name<T>}.
 \item In the following cases, the string's value is implementation-defined for \tcode{get_display_name<T>} and has the following value for \tcode{get_name<T>}:
 \begin{itemize}
-  \item for \tcode{T} reflecting an \tcode{Alias}, the unqualified name of the aliasing declaration: the identifier introduced by a \grammarterm{type-parameter} or a type name introduced by a \grammarterm{using-declaration}, alias;
+  \item for \tcode{T} reflecting an alias (\cxxref{basic}), the unqualified name of the aliasing declaration: the identifier introduced by a \grammarterm{type-parameter} or a type name introduced by a \grammarterm{using-declaration}, alias;
   \item for \tcode{T} reflecting a specialization of a class template, its \grammarterm{template-name};
   \item for \tcode{T} reflecting a class type, its \grammarterm{class-name};
   \item for \tcode{T} reflecting a namespace, its \grammarterm{namespace-name};
