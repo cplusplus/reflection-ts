@@ -1458,7 +1458,7 @@ template <Variable T> struct get_pointer<T>;
 \pnum
 All specializations of \tcode{get_pointer<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}), with a static data member named \tcode{value} of type \tcode{X} and value \tcode{x}, where
 \begin{itemize}
-  \item for variables with static storage duration: \tcode{X} is \tcode{add_pointer<Y>}, where \tcode{Y} is the type of the variable reflected by \tcode{T} and \tcode{x} is the address of that variable; otherwise,
+  \item for variables with static storage duration: \tcode{X} is \tcode{add_pointer<Y>}, where \tcode{Y} is the type of the variable reflected by \tcode{T}, and \tcode{x} is the address of that variable; otherwise,
   \item \tcode{X} is the pointer-to-member type of the non-static data member reflected by \tcode{T} and \tcode{x} a pointer to that member.
 \end{itemize}
 \end{itemdescr}
