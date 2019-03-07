@@ -567,7 +567,7 @@ template <class T> concept Typed = Named<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Namespace = Scope<T> && @\seebelow@;
+template <class T> concept Namespace = Named<T> && Scope<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
