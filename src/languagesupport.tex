@@ -462,10 +462,18 @@ namespace N {
 namespace M {
    using X = N::A;
 }
+struct B {
+   int i;
+};
+struct C {
+   using B::i;
+};
 using M_X_t = reflexpr(M::X);
 using M_X_scope_t = get_scope_t<M_X_t>;
+using C_i_t = reflexpr(C::i);
+using C_i_scope_t = get_scope_t<C_i_t>;
 \end{codeblock}
-The scope reflected by \tcode{M_X_scope_t} is \tcode{M}, not \tcode{N}.
+The scope reflected by \tcode{M_X_scope_t} is \tcode{M}, not \tcode{N}; the scope reflected by \tcode{C_i_scope_t} is \tcode{C}, not \tcode{B}.
 \end{example}
 
 \pnum
