@@ -30,7 +30,6 @@ static reflection data associated with these concepts are described in
   
 \end{std.txt}
 
-% 21.11.2
 \rSec2[reflect.synopsis]{Header \tcode{<experimental/reflect>} synopsis}
 
 \begin{std.txt}\color{addclr}
@@ -386,7 +385,6 @@ template <LambdaCapture T>
 \end{codeblock}
 \end{std.txt}
 
-% 21.11.3
 \rSec2[reflect.concepts]{Concepts for meta-object types}
 
 \begin{std.txt}\color{addclr}
@@ -397,7 +395,6 @@ specify the result type for \emph{TransformationTrait} type transformations that
 yield meta-object types.
 \end{std.txt}
 
-% 21.11.3.1
 \rSec3[reflect.concepts.object]{Concept \tcode{Object}}
 
 \begin{std.txt}\color{addclr}
@@ -413,7 +410,6 @@ template <class T> concept Object = @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.2
 \rSec3[reflect.concepts.objseq]{Concept \tcode{ObjectSequence}}
 \begin{std.txt}\color{addclr}
 
@@ -428,7 +424,6 @@ template <class T> concept ObjectSequence = Object<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.3
 \rSec3[reflect.concepts.named]{Concept \tcode{Named}}
 
 \begin{std.txt}\color{addclr}
@@ -444,7 +439,6 @@ template <class T> concept Named = Object<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.4
 \rSec3[reflect.concepts.alias]{Concept \tcode{Alias}}
 
 
@@ -481,7 +475,6 @@ properties resulting from type transformations (\ref{reflect.ops}) are not retai
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.5
 \rSec3[reflect.concepts.recordmember]{Concept \tcode{RecordMember}}
 
 \begin{std.txt}\color{addclr}
@@ -497,7 +490,6 @@ template <class T> concept RecordMember = ScopeMember<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.6
 \rSec3[reflect.concepts.enumerator]{Concept \tcode{Enumerator}}
 
 \begin{std.txt}\color{addclr}
@@ -513,7 +505,6 @@ template <class T> concept Enumerator = Typed<T> && ScopeMember<T> && @\seebelow
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.7
 \rSec3[reflect.concepts.variable]{Concept \tcode{Variable}}
 
 \begin{std.txt}\color{addclr}
@@ -529,7 +520,6 @@ template <class T> concept Variable = Typed<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.8
 \rSec3[reflect.concepts.scopemember]{Concept \tcode{ScopeMember}}
 
 \begin{std.txt}\color{addclr}
@@ -545,7 +535,6 @@ template <class T> concept ScopeMember = Named<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.9
 \rSec3[reflect.concepts.typed]{Concept \tcode{Typed}}
 
 \begin{std.txt}\color{addclr}
@@ -561,7 +550,6 @@ template <class T> concept Typed = Named<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.10
 \rSec3[reflect.concepts.namespace]{Concept \tcode{Namespace}}
 
 \begin{std.txt}\color{addclr}
@@ -577,7 +565,6 @@ template <class T> concept Namespace = Named<T> && Scope<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.11
 \rSec3[reflect.concepts.globalscope]{Concept \tcode{GlobalScope}}
 
 \begin{std.txt}\color{addclr}
@@ -593,7 +580,6 @@ template <class T> concept GlobalScope = Namespace<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.12
 \rSec3[reflect.concepts.class]{Concept \tcode{Class}}
 
 \begin{std.txt}\color{addclr}
@@ -609,7 +595,6 @@ template <class T> concept Class = Record<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.13
 \rSec3[reflect.concepts.enum]{Concept \tcode{Enum}}
 
 \begin{std.txt}\color{addclr}
@@ -625,7 +610,6 @@ template <class T> concept Enum = Type<T> && Scope<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.14
 \rSec3[reflect.concepts.record]{Concept \tcode{Record}}
 
 \begin{std.txt}\color{addclr}
@@ -641,7 +625,6 @@ template <class T> concept Record = Type<T> && Scope<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.15
 \rSec3[reflect.concepts.scope]{Concept \tcode{Scope}}
 
 \begin{std.txt}\color{addclr}
@@ -657,7 +640,6 @@ template <class T> concept Scope = Object<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.16
 \rSec3[reflect.concepts.type]{Concept \tcode{Type}}
 
 \begin{std.txt}\color{addclr}
@@ -673,7 +655,6 @@ template <class T> concept Type = Named<T> && ScopeMember<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.17
 \rSec3[reflect.concepts.const]{Concept \tcode{Constant}}
 
 \begin{std.txt}\color{addclr}
@@ -690,7 +671,6 @@ expression (\cxxref{expr.const}).
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.18
 \rSec3[reflect.concepts.base]{Concept \tcode{Base}}
 
 \begin{std.txt}\color{addclr}
@@ -706,7 +686,6 @@ template <class T> concept Base = Object<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.19
 \rSec3[reflect.concepts.fctparam]{Concept \tcode{FunctionParameter}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -720,7 +699,6 @@ template <class T> concept FunctionParameter = Typed<T> && ScopeMember<T> && @\s
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.20
 \rSec3[reflect.concepts.callable]{Concept \tcode{Callable}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -732,7 +710,6 @@ template <class T> concept Callable = ScopeMember<T> && Scope<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.21
 \rSec3[reflect.concepts.expr]{Concept \tcode{Expression}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -745,7 +722,6 @@ expression (Clause \cxxref{expr}).
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.22
 \rSec3[reflect.concepts.expr.paren]{Concept \tcode{ParenthesizedExpression}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -758,7 +734,6 @@ reflects a parenthesized expression (\cxxref{expr.prim.paren}).
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.23
 \rSec3[reflect.concepts.expr.fctcall]{Concept \tcode{FunctionCallExpression}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -771,7 +746,6 @@ reflects a \grammarterm{function-call-expression} (\cxxref{expr.call}).
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.24
 \rSec3[reflect.concepts.expr.type.fctconv]{Concept \tcode{FunctionalTypeConversion}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -784,7 +758,6 @@ reflects a \grammarterm{functional-type-conv-expression} (\cxxref{expr.type.conv
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.25
 \rSec3[reflect.concepts.fct]{Concept \tcode{Function}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -796,7 +769,6 @@ template <class T> concept Function = Callable<T> && Typed<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.26
 \rSec3[reflect.concepts.memfct]{Concept \tcode{MemberFunction}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -808,7 +780,6 @@ template <class T> concept MemberFunction = RecordMember<T> && Function<T> && @\
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.27
 \rSec3[reflect.concepts.specialfct]{Concept \tcode{SpecialMemberFunction}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -821,7 +792,6 @@ reflects a special member function (Clause \cxxref{special}).
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.28
 \rSec3[reflect.concepts.ctor]{Concept \tcode{Constructor}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -833,7 +803,6 @@ template <class T> concept Constructor = Callable<T> && RecordMember<T> && @\see
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.29
 \rSec3[reflect.concepts.dtor]{Concept \tcode{Destructor}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -845,7 +814,6 @@ template <class T> concept Destructor = Callable<T> && SpecialMemberFunction<T> 
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.30
 \rSec3[reflect.concepts.oper]{Concept \tcode{Operator}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -857,7 +825,6 @@ template <class T> concept Operator = Function<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.31
 \rSec3[reflect.concepts.convfct]{Concept \tcode{ConversionOperator}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -869,7 +836,6 @@ template <class T> concept ConversionOperator = Operator<T> && MemberFunction<T>
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.32
 \rSec3[reflect.concepts.lambda]{Concept \tcode{Lambda}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -881,7 +847,6 @@ template <class T> concept Lambda = Type<T> && Scope<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.3.33
 \rSec3[reflect.concepts.lambdacapture]{Concept \tcode{LambdaCapture}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -893,7 +858,6 @@ template <class T> concept LambdaCapture = Variable<T> && @\seebelow@;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4
 \rSec2[reflect.ops]{Meta-object operations}
 
 \begin{std.txt}\color{addclr}
@@ -921,7 +885,6 @@ auto x2 = get_name_v<get_element_t<0, get_parameters_t<reflexpr(func(42))>>>; //
 
 \end{std.txt}
 
-% 21.11.4.1
 \rSec3[reflect.ops.object]{Object operations}
 
 \begin{std.txt}\color{addclr}
@@ -985,7 +948,6 @@ All specializations of \tcode{get_source_file_name<T>} shall meet the \tcode{Una
 
 \end{std.txt}
 
-% 21.11.4.2
 \rSec3[reflect.ops.objseq]{ObjectSequence operations}
 
 \begin{std.txt}\color{addclr}
@@ -1018,7 +980,6 @@ All specializations of \tcode{unpack_sequence<Tpl, T>} shall meet the \tcode{Tra
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4.3
 \rSec3[reflect.ops.named]{Named operations}
 
 \begin{std.txt}\color{addclr}
@@ -1085,7 +1046,6 @@ function parameter can render the program ill-formed, no diagnostic required
 \end{std.txt}
 
 
-% 21.11.4.4
 \rSec3[reflect.ops.alias]{Alias operations}
 
 \begin{std.txt}\color{addclr}
@@ -1120,7 +1080,6 @@ using i0 = int; using i1 = i0;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4.5
 \rSec3[reflect.ops.type]{Type operations}
 
 \begin{std.txt}\color{addclr}
@@ -1199,7 +1158,6 @@ All specializations of \tcode{is_class<T>} and \tcode{is_struct<T>} shall meet t
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4.6
 \rSec3[reflect.ops.member]{Member operations}
 
 \begin{std.txt}\color{addclr}
@@ -1231,7 +1189,6 @@ All specializations of these partial template specializations shall meet the \tc
 
 \end{std.txt}
 
-% 21.11.4.7
 \rSec3[reflect.ops.record]{Record operations}
 
 \begin{std.txt}\color{addclr}
@@ -1370,7 +1327,6 @@ All specializations of \tcode{is_final<T>} shall meet the \tcode{UnaryTypeTrait}
 
 \end{std.txt}
 
-% 21.11.4.8
 \rSec3[reflect.ops.enum]{Enum operations}
 
 \begin{std.txt}\color{addclr}
@@ -1417,7 +1373,6 @@ A specialization of this template with a meta-object type that is reflecting an 
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4.9
 \rSec3[reflect.ops.value]{Value operations}
 
 \begin{std.txt}\color{addclr}
@@ -1464,7 +1419,6 @@ All specializations of \tcode{get_pointer<T>} shall meet the \tcode{UnaryTypeTra
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4.10
 \rSec3[reflect.ops.derived]{Base operations}
 
 \begin{std.txt}\color{addclr}
@@ -1493,7 +1447,6 @@ All specializations of the template and of these partial template specialization
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4.11
 \rSec3[reflect.ops.namespace]{Namespace operations}
 
 \begin{std.txt}\color{addclr}
@@ -1509,7 +1462,6 @@ All specializations of \tcode{is_inline<T>} shall meet the \tcode{UnaryTypeTrait
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4.12
 \rSec3[reflect.ops.fctparam]{FunctionParameter operations }
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -1531,7 +1483,6 @@ required (\ref{reflect.ops}).
 \end{std.txt}
 
 
-% 21.11.4.13
 \rSec3[reflect.ops.callable]{Callable operations}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -1571,7 +1522,6 @@ function can render the program ill-formed, no diagnostic required
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4.14
 \rSec3[reflect.ops.expr.paren]{ParenthesizedExpression operations}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -1583,7 +1533,6 @@ template <ParenthesizedExpression T> struct get_subexpression;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4.16
 \rSec3[reflect.ops.expr.fctcall]{FunctionCallExpression operations}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -1596,7 +1545,6 @@ template <FunctionCallExpression T> struct get_callable;
 \end{std.txt}
 
 
-% 21.11.4.16
 \rSec3[reflect.ops.expr.fcttypeconv]{FunctionalTypeConversion operations}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -1613,7 +1561,6 @@ template <FunctionalTypeConversion T> struct get_constructor;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4.17
 \rSec3[reflect.ops.fct]{Function operations}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -1629,7 +1576,6 @@ template <Function T> struct get_pointer<T>;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4.18
 \rSec3[reflect.ops.memfct]{MemberFunction operations}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -1662,7 +1608,6 @@ template <MemberFunction T> struct is_final<T>;
 \end{std.txt}
 
 
-% 21.11.4.19
 \rSec3[reflect.ops.specialfct]{SpecialMemberFunction operations}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -1681,7 +1626,6 @@ template <SpecialMemberFunction T> struct is_defaulted;
 \end{itemdescr}
 \end{std.txt}
 
-% 21.11.4.20
 \rSec3[reflect.ops.ctor]{Constructor operations}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -1698,7 +1642,6 @@ template <Constructor T> struct is_explicit<T>;
 \end{std.txt}
 
 
-% 21.11.4.21
 \rSec3[reflect.ops.dtor]{Destructor operations}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -1717,7 +1660,6 @@ template <Destructor T> struct is_pure_virtual<T>;
 \end{std.txt}
 
 
-% 21.11.4.22
 \rSec3[reflect.ops.convfct]{ConversionOperator operations}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -1734,7 +1676,6 @@ template <ConversionOperator T> struct is_explicit<T>;
 \end{std.txt}
 
 
-% 21.11.4.23
 \rSec3[reflect.ops.lambda]{Lambda operations}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
@@ -1781,7 +1722,6 @@ template <Lambda T> struct is_call_operator_const;
 \end{std.txt}
 
 
-% 21.11.4.24
 \rSec3[reflect.ops.lambdacapture]{LambdaCapture operations}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
