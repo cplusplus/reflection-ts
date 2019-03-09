@@ -96,7 +96,7 @@ At the end of \cxxref{dcl.type.simple}, insert the following paragraph:
 
 \begin{std.txt}
 \added{For a \grammarterm{reflexpr-operand} \tcode{x}, the type denoted
-by \tcode{reflexpr(x)} is an implementation-defined type that satisfies
+by \tcode{reflexpr(x)} is a type that satisfies
 the constraints laid out in \ref{dcl.type.reflexpr}.}
 \end{std.txt}
 
@@ -119,7 +119,7 @@ Insert the following subclause:
     \tcode{reflect::Object} (\ref{reflect.concepts}) and other \tcode{reflect}
     concepts, depending on the operand.  A type satisfying the requirements of
     \tcode{reflect::Object} is called a \emph{meta-object type}.  A meta-object
-    type is an incomplete namespace-scope class type (Clause \cxxref{class}).
+    type is an unnamed, incomplete namespace-scope class type (Clause \cxxref{class}).
 
     \pnum
     An entity or alias \tcode{A} is \emph{reflection-related} to an entity or
@@ -188,7 +188,6 @@ std::cout << get_type_name<std::string>(); // outputs \tcode{basic_string}
 \end{example}
 
 \pnum
-The type specified by the \emph{reflexpr-specifier} is implementation-defined.
 It is unspecified whether repeatedly applying \tcode{reflexpr} to the same
 operand yields the same type or a different type.
 \begin{note}
