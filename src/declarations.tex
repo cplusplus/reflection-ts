@@ -62,8 +62,8 @@ The simple type specifiers are
 \added{\nontermdef{reflexpr-operand}}\br
   \added{\terminal{::}}\br
   \added{type-id}\br
-  \added{\opt{nested-name-specifier} identifier}\br
-  \added{\opt{nested-name-specifier} simple-template-id}\br
+  \added{\opt{nested-name-specifier} namespace-name}\br
+  \added{id-expression}\br
   \added{\terminal{(} expression \terminal{)}}\br
   \added{function-call-expression}\br
   \added{functional-type-conv-expression}\br
@@ -214,43 +214,6 @@ For the operand \tcode{::}, the type specified by the
 \grammarterm{reflexpr-specifier} satisfies \tcode{reflect::GlobalScope}.
 
 \pnum
-For an operand that is a parenthesized expression (\cxxref{expr.prim.paren}),
-the type satisfies \linebreak\tcode{reflect::ParenthesizedExpression}.  For a
-parenthesized expression \tcode{(E)}, whether or not itself nested inside a
-parenthesized expression, the expression \tcode{E} shall be either a
-parenthesized expression, a \grammarterm{function-call-expression} or a
-\grammarterm{functional-type-conv-expression}; otherwise the program is
-ill-formed.
-
-\pnum
-For an operand of the form \grammarterm{function-call-expression}, the type
-satisfies \linebreak\tcode{reflect::FunctionCallExpression}.  If the
-\grammarterm{postfix-expression} of the \grammarterm{function-call-expression}
-is of class type, the function call shall not resolve to a surrogate call
-function (\cxxref{over.call.object}). Otherwise, the
-\grammarterm{postfix-expression} shall name a function that is the unique result
-of overload resolution.
-
-\pnum
-For an operand of the form \grammarterm{functional-type-conv-expression}
-(\cxxref{expr.type.conv}), the type satisfies \linebreak\tcode{reflect::FunctionalTypeConversion}.
-\begin{note}
-The usual disambiguation between function-style cast and a
-\grammarterm{type-id} (\cxxref{dcl.ambig.res}) applies.
-\begin{example}
-The default constructor of \tcode{class X} can be reflected on as
-\tcode{reflexpr((X()))}, while \tcode{reflexpr(X())} reflects the type of a
-function returning \tcode{X}.
-\end{example}
-\end{note}
-
-\pnum
-For an
-operand of the form \emph{identifier} where \emph{identifier} is a template
-\emph{type-parameter}, the type satisfies both \tcode{reflect::Type} and
-\tcode{reflect::Alias}.
-
-\pnum
 The \grammarterm{identifier} or \grammarterm{simple-template-id} is looked up
 using the rules for name lookup (\cxxref{basic.lookup}): if a
 \grammarterm{nested-name-specifier} is included in the operand, qualified lookup
@@ -259,42 +222,54 @@ using the rules for name lookup (\cxxref{basic.lookup}): if a
 otherwise unqualified lookup (\cxxref{basic.lookup.unqual}) of
 \grammarterm{identifier} or \grammarterm{simple-template-id} will be performed.
 The type specified by the \grammarterm{reflexpr-specifier} satisfies concepts
-depending on the result of the name lookup, as shown in
+depending on the result of name lookup, as shown in
 Table~\ref{tab:reflect.concepts}.
 
 \setcounter{table}{11}
 
 \begin{floattable}{\added{\tcode{reflect} concept (\ref{reflect.concepts}) that the type specified by
-a \emph{reflexpr-specifier} satisfies, for a given \emph{reflexpr-operand}
-\emph{identifier} or \emph{simple-template-id}.}}{tab:reflect.concepts}{l|l|l}
+a \emph{reflexpr-specifier} satisfies, for a given \emph{reflexpr-operand}.}}{tab:reflect.concepts}{l|l|l}
 \topline
 \added{\hdstyle{Category}} & \added{\hdstyle{\grammarterm{identifier} or \grammarterm{simple-template-id} kind }} & \added{\hdstyle{\tcode{reflect} Concept}}       \\ \capsep
-\added{type}        & \added{\grammarterm{class-name} designating a union}                           & \added{\tcode{reflect::Record}}         \\ \cline{2-3}
+\added{Type}        & \added{\grammarterm{class-name} designating a union}                           & \added{\tcode{reflect::Record}}         \\ \cline{2-3}
             & \added{\grammarterm{class-name} designating a closure type}                     & \added{\tcode{reflect::Lambda}}          \\ \cline{2-3}
             & \added{\grammarterm{class-name} designating a non-union class}                  & \added{\tcode{reflect::Class}}           \\ \cline{2-3}
             & \added{\grammarterm{enum-name}}                                                 & \added{\tcode{reflect::Enum}}            \\ \cline{2-3}
+            & \added{template \grammarterm{type-parameter}}                           & \added{both \tcode{reflect::Type}}       \\
+            &                                                                         & \added{and \tcode{reflect::Alias}}       \\ \cline{2-3}
             & \added{\grammarterm{type-name} introduced by a \grammarterm{using-declaration}} & \added{both \tcode{reflect::Type}}       \\
             &                                                                         & \added{and \tcode{reflect::Alias}}       \\ \cline{2-3}
             & \added{any other \grammarterm{typedef-name}}                                    & \added{both \tcode{reflect::Type}}       \\
-            &                                                                         & \added{and \tcode{reflect::Alias}}       \\ \cline{1-3}
-\added{namespace}   & \added{\grammarterm{namespace-alias}}                                           & \added{both \tcode{reflect::Namespace}}  \\
             &                                                                         & \added{and \tcode{reflect::Alias}}       \\ \cline{2-3}
-            & \added{any other \grammarterm{namespace-name}}                                  & \added{both \tcode{reflect::Namespace}}  \\
-            &                                                                         & \added{and \tcode{reflect::ScopeMember}} \\ \cline{1-3}
-\added{data member} & \added{the name of a data member}                                               & \added{\tcode{reflect::Variable}}        \\ \cline{1-3}
-\added{value}       & \added{the name of a variable or structured binding}                            & \added{\tcode{reflect::Variable}}        \\
-            & \added{that is not a local entity}                                              &                                  \\ \cline{2-3}
-            & \added{the name of an enumerator} & \added{\tcode{reflect::Enumerator}} \\ \cline{2-3}
-            & \added{the name of a function parameter} & \added{\tcode{reflect::FunctionParameter}} \\ \cline{2-3}
-            & \added{the name of a captured entity (\ref{expr.prim.lambda.capture})} & \added{\tcode{reflect::LambdaCapture}} \\
+            & \added{any other \grammarterm{type-id}}                                 & \added{\tcode{reflect::Type}}            \\ \cline{1-3}
+
+\added{Namespace}   & \added{\grammarterm{namespace-alias}}                                           & \added{both \tcode{reflect::Namespace}}  \\
+            &                                                                         & \added{and \tcode{reflect::Alias}}       \\ \cline{2-3}
+            & \added{any other \grammarterm{namespace-name}}                          & \added{\tcode{reflect::Namespace}}       \\ \cline{1-3}
+\added{Expression} & \added{the name of a data member}                                               & \added{\tcode{reflect::Variable}} \\ \cline{2-3}
+            & \added{the name of a variable or structured binding}                            & \added{\tcode{reflect::Variable}}        \\ \cline{2-3}
+            & \added{the name of an enumerator}                                               & \added{\tcode{reflect::Enumerator}}      \\ \cline{2-3}
+            & \added{the name of a function parameter}                                        & \added{\tcode{reflect::FunctionParameter}} \\ \cline{2-3}
+            & \added{the name of a captured entity}                                           & \added{\tcode{reflect::LambdaCapture}} \\ \cline{2-3}
+            & \added{parenthesized expression; see Note A, below}                             & \added{\tcode{reflect::ParenthesizedExpression}} \\ \cline{2-3}
+            & \added{\grammarterm{function-call-expression}; see Note B, below}               & \added{\tcode{reflect::FunctionCallExpression}} \\ \cline{2-3}
+            & \added{\grammarterm{functional-type-conv-expression}; see Note C, below}        & \added{\tcode{reflect::FunctionalTypeConversion}} \\
 \bottomline
 \end{floattable}
 
 \pnum
-If the \grammarterm{reflexpr-operand} designates a \grammarterm{type-id} not
-explicitly mentioned in Table~\ref{tab:reflect.concepts}, the type represented
-by the \grammarterm{reflexpr-specifier} satisfies \tcode{reflect::Type}.  Any
-other \grammarterm{reflexpr-operand} renders the program ill-formed.
+Note A: For a parenthesized expression \tcode{(E)}, whether or not itself nested inside a parenthesized expression, the expression \tcode{E} shall be either a parenthesized expression, a \grammarterm{function-call-expression}, or a \grammarterm{functional-type-conv-expression}; otherwise the program is ill-formed.
+
+\pnum
+Note B: If the \grammarterm{postfix-expression} of the \grammarterm{function-call-expression} is of class type, the function call shall not resolve to a surrogate call function (\cxxref{over.call.object}). Otherwise, the \grammarterm{postfix-expression} shall name a function that is the unique result of overload resolution.
+
+\pnum
+Note C: \begin{note}
+The usual disambiguation between function-style cast and a \grammarterm{type-id} (\cxxref{dcl.ambig.res}) applies. \begin{example}The default constructor of class \tcode{X} can be reflected on as \tcode{reflexpr((X()))}, while \tcode{reflexpr(X())} reflects the type of a function returning \tcode{X}. \end{example}
+\end{note}
+
+\pnum
+Any other \grammarterm{reflexpr-operand} renders the program ill-formed.
 
 \pnum 
 If the \grammarterm{reflexpr-operand} of the form \grammarterm{id-expression} is a constant expression, the type specified by the \grammarterm{reflexpr-specifier} also satisfies \tcode{reflect::Constant}.
@@ -311,5 +286,6 @@ unevaluated operand (\cxxref{expr.context}).  If the
 \grammarterm{reflexpr-operand} designates both an alias and a class name, the
 type represented by the \grammarterm{reflexpr-specifier} reflects the alias and
 satisfies \tcode{reflect::Alias}.
+
 
 \end{std.txt}
