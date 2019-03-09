@@ -78,6 +78,23 @@ In C++ [expr.post], apply the following change:
 \end{bnf}
 \end{std.txt}
 
+\rSec1[expr.const]{Constant expressions}
+
+In C++ [expr.const], insert a new bullet 8.5, adjusting the subsequent bullet numbers:
+
+\setcounter{Paras}{7}
+\setcounter{Bullets1}{4}
+
+\begin{std.txt}
+\pnum
+An expression is potentially constant evaluated if it is: \newline
+[...]
+\begin{itemize}
+\setcounter{Bullets1}{4}
+  \item \added{a \grammarterm{reflexpr-operand},}
+\end{itemize}
+\end{std.txt}
+
 \rSec0[stmt.stmt]{Statements}
 
 No changes are made to Clause \the\value{chapter} of the \Cpp Standard.
