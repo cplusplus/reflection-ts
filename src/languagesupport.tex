@@ -673,8 +673,8 @@ template <class T> concept Constant = ScopeMember<T> && Typed<T> && @\seebelow@;
 
 \begin{itemdescr}
 \pnum
-\tcode{Constant<T>} is true if and only if \tcode{T} reflects a constant
-expression (\cxxref{expr.const}).
+\tcode{Constant<T>} is true if and only if \tcode{T} reflects an enumerator or a
+\tcode{constexpr} variable.
 
 \end{itemdescr}
 \end{std.txt}
