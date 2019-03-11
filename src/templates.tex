@@ -28,9 +28,11 @@ or is a pack expansion \begin{note} This includes an injected-class-name (Clause
 \cxxref{class}) of a class template used
 without a \grammarterm{template-argument-list}. \end{note}, \removed{or}
 
-
   \item denoted by \tcode{decltype(}\grammarterm{expression}{}\tcode{)}, where
         \grammarterm{expression} is type-dependent (\cxxref{temp.dep.expr})\removed{.}\added{, or}
+
+  \item \added{denoted by \tcode{reflexpr(}\emph{operand}{}\tcode{)}, where \grammarterm{operand} is a type-dependent expression or a (possibly parenthesized) \grammarterm{functional-type-conv-expression} with at least one type-dependent immediate subexpression, or}
+
   \item \added{denoted by \tcode{reflexpr(}\emph{operand}{}\tcode{)},
   where \grammarterm{operand} designates a dependent type or a member of an unknown
   specialization or a value-dependent constant expression.}
