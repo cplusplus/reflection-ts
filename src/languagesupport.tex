@@ -505,7 +505,7 @@ template <class T> concept RecordMember = ScopeMember<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Enumerator = Typed<T> && ScopeMember<T> && @\seebelow@;
+template <class T> concept Enumerator = Constant<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -520,7 +520,7 @@ template <class T> concept Enumerator = Typed<T> && ScopeMember<T> && @\seebelow
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Variable = Typed<T> && @\seebelow@;
+template <class T> concept Variable = Typed<T> && ScopeMember<T> @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -550,7 +550,7 @@ template <class T> concept ScopeMember = Named<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Typed = Named<T> && @\seebelow@;
+template <class T> concept Typed = Object<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -673,7 +673,7 @@ Some types \tcode{T} also satisfy \tcode{ScopeMember}; others, for instance thos
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Constant = ScopeMember<T> && Typed<T> && @\seebelow@;
+template <class T> concept Constant = Typed<T> && ScopeMember<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -715,7 +715,7 @@ template <class T> concept FunctionParameter = Typed<T> && ScopeMember<T> && @\s
 \rSec3[reflect.concepts.callable]{Concept \tcode{Callable}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
-template <class T> concept Callable = ScopeMember<T> && Scope<T> && @\seebelow@;
+template <class T> concept Callable = Scope<T> && ScopeMember<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
@@ -774,7 +774,7 @@ reflects a \grammarterm{functional-type-conv-expression} (\cxxref{expr.type.conv
 \rSec3[reflect.concepts.fct]{Concept \tcode{Function}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
-template <class T> concept Function = Callable<T> && Typed<T> && @\seebelow@;
+template <class T> concept Function = Typed<T> && Callable<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
@@ -841,7 +841,7 @@ template <class T> concept Operator = Function<T> && @\seebelow@;
 \rSec3[reflect.concepts.convfct]{Concept \tcode{ConversionOperator}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
-template <class T> concept ConversionOperator = Operator<T> && MemberFunction<T> && @\seebelow@;
+template <class T> concept ConversionOperator = MemberFunction<T> && Operator<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
