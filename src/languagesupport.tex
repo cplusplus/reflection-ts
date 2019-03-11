@@ -1022,7 +1022,7 @@ template <Named T> struct get_display_name;
 All specializations of \tcode{is_unnamed<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}) with a base characteristic as specified below.
 
 \pnum
-All specializations of \tcode{get_name<T>} and \tcode{get_display_name<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}) with a static data member named \tcode{value} of type \tcode{const char (\&)[N]}, referencing a static, constant expression character array (NTBS) of length \tcode{N}, as if declared as \tcode{static constexpr char STR[N] = ...;}.
+All specializations of \tcode{get_name<T>} and \tcode{get_display_name<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}) with a static data member named \tcode{value} of type \tcode{const char (\&)[N]}, referencing a static, constant expression character array (NMTBS) of length \tcode{N}, as if declared as \tcode{static constexpr char STR[N] = ...;}.
 
 \begin{itemize}
 \item For \tcode{T} reflecting an unnamed entity, the string's value is the empty string.
