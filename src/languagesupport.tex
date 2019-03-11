@@ -177,8 +177,8 @@ template <Alias T>
 template <Typed T> struct get_type;
 template <Type T> struct get_reflected_type;
 template <Type T> struct is_enum;
-template <Type T> struct is_class;
-template <Type T> struct is_struct;
+template <Class T> struct uses_class_key;
+template <Class T> struct uses_struct_key;
 template <Type T> struct is_union;
 
 template <Typed T>
@@ -187,10 +187,10 @@ template <Type T>
   using get_reflected_type_t = typename get_reflected_type<T>::type;
 template <Type T>
   constexpr auto is_enum_v = is_enum<T>::value;
-template <Type T>
-  constexpr auto is_class_v = is_class<T>::value;
-template <Type T>
-  constexpr auto is_struct_v = is_struct<T>::value;
+template <Class T>
+  constexpr auto uses_class_key_v = uses_class_key<T>::value;
+template <Class T>
+  constexpr auto uses_struct_key_v = uses_struct_key<T>::value;
 template <Type T>
   constexpr auto is_union_v = is_union<T>::value;
 
@@ -1175,13 +1175,14 @@ All specializations of \tcode{is_enum<T>} and \tcode{is_union<T>} shall meet the
 \end{itemdescr}
 
 \begin{itemdecl}
-template <Type T> struct is_class;
-template <Type T> struct is_struct;
+template <Class T> struct uses_class_key;
+template <Class T> struct uses_struct_key;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{is_class<T>} and \tcode{is_struct<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If \tcode{T} reflects a class with \grammarterm{class-key} \tcode{class} (for \tcode{is_class<T>}) or \tcode{struct} (for \tcode{is_struct<T>}), the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}. If the same class has redeclarations with both \grammarterm{class-key} \tcode{class} and \grammarterm{class-key} \tcode{struct}, the base characteristic of the template specialization of exactly one of \tcode{is_class<T>} and \tcode{is_struct<T>} can be \tcode{true_type}, the other template specialization is \tcode{false_type}; the actual choice of value is unspecified.
+All specializations of \tcode{uses_class_key<T>} and \tcode{uses_struct_key<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If \tcode{T} reflects a class for which all declarations use \grammarterm{class-key} \tcode{class} (for \tcode{uses_class_key<T>}) or \tcode{struct} (for \tcode{uses_struct_key<T>}), the base characteristic of the respective template specialization is \tcode{true_type}.
+If \tcode{T} reflects a class for which no declaration uses \grammarterm{class-key} \tcode{class} (for \tcode{uses_class_key<T>}) or \tcode{struct} (for \tcode{uses_struct_key<T>}), the base characteristic of the respective template specialization is \tcode{false_type}. Otherwise, it is unspecified whether the base characteristic is \tcode{true_type} or \tcode{false_type}.
 \end{itemdescr}
 \end{std.txt}
 
