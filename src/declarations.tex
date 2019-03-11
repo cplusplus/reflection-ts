@@ -122,8 +122,8 @@ Insert the following subclause:
     type is an unnamed, incomplete namespace-scope class type (Clause \cxxref{class}).
 
     \pnum
-    An entity or alias \tcode{A} is \emph{reflection-related} to an entity or
-    alias \tcode{B} if
+    An entity or alias \tcode{B} is \emph{reflection-related} to an entity or
+    alias \tcode{A} if
 
     \begin{itemize}
       \item \tcode{A} and \tcode{B} are the same entity or alias,
@@ -131,15 +131,14 @@ Insert the following subclause:
       \item \tcode{A} is an enumeration and \tcode{B} is the underlying type of \tcode{A},
       \item \tcode{A} is a class and \tcode{B} is a member or base class of \tcode{A},
       \item \tcode{A} is a non-template alias that designates the entity \tcode{B},
-      \item \tcode{A} is a class nested in \tcode{B} (\cxxref{class.nest}),
-      \item \tcode{A} is not the global namespace and \tcode{B} is an enclosing namespace of \tcode{A},
-      \item \tcode{B} is the parenthesized expression \tcode{( A )},
+      \item \tcode{A} is not the global namespace and \tcode{B} is an enclosing class or namespace of \tcode{A},
+      \item \tcode{A} is the parenthesized expression \tcode{( B )},
       \item \tcode{A} is a lambda capture of the closure type \tcode{B},
       \item \tcode{A} is the closure type of the lambda capture \tcode{B},
-      \item \tcode{A} is the type specified by the \grammarterm{functional-type-conv-expression} \tcode{B},
-      \item \tcode{A} is the function selected by overload resolution for a \grammarterm{function-call-expression} \tcode{B},
-      \item \tcode{A} is the return type, a parameter type, or function type of the function \tcode{B}, or
-      \item \tcode{A} is reflection-related to an entity or alias \tcode{X} and \tcode{X} is reflection-related to \tcode{B}.
+      \item \tcode{B} is the type specified by the \grammarterm{functional-type-conv-expression} \tcode{A},
+      \item \tcode{B} is the function selected by overload resolution for a \grammarterm{function-call-expression} \tcode{A},
+      \item \tcode{B} is the return type, a parameter type, or function type of the function \tcode{A}, or
+      \item \tcode{B} is reflection-related to an entity or alias \tcode{X} and \tcode{X} is reflection-related to \tcode{A}.
     \end{itemize}
 
 \pnum
