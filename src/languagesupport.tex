@@ -1459,7 +1459,7 @@ template <Base T> struct get_class;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{get_class<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates \tcode{reflexpr(\emph{X})}, where \tcode{\emph{X}} is the base class reflected by \tcode{T}.
+All specializations of \tcode{get_class<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates \tcode{reflexpr(\emph{X})}, where \tcode{\emph{X}} is the base class (without retaining possible \tcode{Alias} properties, see \ref{reflect.concepts.alias}) reflected by \tcode{T}.
 \end{itemdescr}
 
 \begin{itemdecl}
