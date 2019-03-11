@@ -50,10 +50,12 @@ template <class T> concept Typed = @\seebelow@;          // refines Object
 template <class T> concept Namespace = @\seebelow@;      // refines Named and Scope
 template <class T> concept GlobalScope = @\seebelow@;    // refines Namespace
 template <class T> concept Class = @\seebelow@;          // refines Record
-template <class T> concept Enum = @\seebelow@;           // refines Type and Scope
-template <class T> concept Record = @\seebelow@;         // refines Type and Scope
+template <class T> concept Enum = @\seebelow@;           // refines Type, Scope, and
+                                                       // ScopeMember
+template <class T> concept Record = @\seebelow@;         // refines Type, Scope, and
+                                                       // ScopeMember
 template <class T> concept Scope = @\seebelow@;          // refines Object
-template <class T> concept Type = @\seebelow@;           // refines Named and ScopeMember
+template <class T> concept Type = @\seebelow@;           // refines Named
 template <class T> concept Constant = @\seebelow@;       // refines Typed and ScopeMember
 template <class T> concept Base = @\seebelow@;           // refines Object
 template <class T> concept FunctionParameter = @\seebelow@; // refines Typed and
@@ -653,12 +655,15 @@ template <class T> concept Scope = Object<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Type = Named<T> && ScopeMember<T> && @\seebelow@;
+template <class T> concept Type = Named<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
 \tcode{Type<T>} is true if and only if \tcode{T} reflects a type.
+\begin{note}
+Some types \tcode{T} also satisfy \tcode{ScopeMember}; others, for instance those reflecting \cv-qualified types or fundamental types, do not.
+\end{note}
 
 \end{itemdescr}
 \end{std.txt}

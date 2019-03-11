@@ -237,8 +237,11 @@ a \emph{reflexpr-specifier} satisfies, for a given \emph{reflexpr-operand}.}}{ta
             & \added{\grammarterm{enum-name}}                                                 & \added{\tcode{reflect::Enum}}            \\ \cline{2-3}
             & \added{template \grammarterm{type-parameter}}                           & \added{both \tcode{reflect::Type}}       \\
             &                                                                         & \added{and \tcode{reflect::Alias}}       \\ \cline{2-3}
-            & \added{\grammarterm{type-name} introduced by a \grammarterm{using-declaration}} & \added{both \tcode{reflect::Type}}       \\
+            & \added{\grammarterm{decltype-specifier}}                                & \added{both \tcode{reflect::Type}}       \\
             &                                                                         & \added{and \tcode{reflect::Alias}}       \\ \cline{2-3}
+            & \added{\grammarterm{type-name} introduced by a \grammarterm{using-declaration}} & \added{\tcode{reflect::Type},}       \\
+            &                                                                                 & \added{\tcode{reflect::Alias}, and}  \\
+            &                                                                                 & \added{\tcode{reflect::ScopeMember}} \\ \cline{2-3}
             & \added{any other \grammarterm{typedef-name}}                                    & \added{both \tcode{reflect::Type}}       \\
             &                                                                         & \added{and \tcode{reflect::Alias}}       \\ \cline{2-3}
             & \added{any other \grammarterm{type-id}}                                 & \added{\tcode{reflect::Type}}            \\ \cline{1-3}
