@@ -1580,11 +1580,7 @@ template <FunctionalTypeConversion T> struct get_constructor;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-			All specializations of \tcode{get_constructor<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). For a type conversion reflected by \tcode{T}, the nested type named \tcode{type} is the \tcode{Constructor} reflecting the constructor of the type specified by the type conversion, as selected by overload resolution.
-
-\pnum
-\remarks
-      The program is ill-formed if no such constructor exists.
+			All specializations of \tcode{get_constructor<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). For a \grammarterm{functional-type-conv-expression} reflected by \tcode{T}, let \tcode{S} be the type specified by the type conversion (\cxxref{expr.type.conv}). If a constructor is used for the initialization of \tcode{S}, the type \tcode{get_constructor<T>::type} is the \tcode{Constructor} reflecting that constructor; otherwise, \tcode{get_constructor<T>} has no member named \tcode{type}.
       \begin{note} For instance fundamental types (\cxxref{basic.fundamental}) do not have constructors. \end{note}
       \begin{note} 
       \tcode{get_constructor_t<get_subexpression_t<reflexpr((T(T())))>>}
