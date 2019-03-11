@@ -94,26 +94,37 @@ template <Object T> struct is_pure_virtual;
 template <Object T> struct get_pointer;
 
 template <class T>
+requires RecordMember<T> || Base<T>
   constexpr auto is_public_v = is_public<T>::value;
 template <class T>
+requires RecordMember<T> || Base<T>
   constexpr auto is_protected_v = is_protected<T>::value;
 template <class T>
+requires RecordMember<T> || Base<T>
   constexpr auto is_private_v = is_private<T>::value;
 template <class T>
+requires Variable<T> || Callable<T>
    constexpr auto is_constexpr_v = is_constexpr<T>::value;
 template <class T>
+requires Variable<T> || MemberFunction<T>
    constexpr auto is_static_v = is_static<T>::value;
 template <class T>
+requires Class<T> || MemberFunction<T>
    constexpr auto is_final_v = is_final<T>::value;
 template <class T>
+requires Constructor<T> || ConversionOperator<T>
    constexpr auto is_explicit_v = is_explicit<T>::value;
 template <class T>
+requires Namespace<T> || Callable<T>
    constexpr auto is_inline_v = is_inline<T>::value;
 template <class T>
+requires Base<T> || MemberFunction<T> || Destructor<T>
    constexpr auto is_virtual_v = is_virtual<T>::value;
 template <class T>
+requires MemberFunction<T> || Destructor<T>
    constexpr auto is_pure_virtual_v = is_pure_virtual<T>::value;
 template <class T>
+requires Variable<T> || Function<T>
    constexpr auto get_pointer_v = get_pointer<T>::value;
 
 // \ref{reflect.ops.object} Object operations
