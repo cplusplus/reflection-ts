@@ -479,8 +479,8 @@ The scope reflected by \tcode{M_X_scope_t} is \tcode{M}, not \tcode{N}; the scop
 \end{example}
 
 \pnum
-Except for the type represented by the \tcode{reflexpr} operator, \tcode{Alias}
-properties resulting from type transformations (\ref{reflect.ops}) are not retained.
+Type transformations (\ref{reflect.ops}) never yield an \tcode{Alias}; instead, they yield the aliased entity.
+
 
 \end{itemdescr}
 \end{std.txt}
@@ -885,6 +885,7 @@ struct X {};
 X x;
 using x_t = get_type_t<reflexpr(x)>;\end{codeblock}
 While \tcode{get_type_t} is specified to be a \tcode{Type}, \tcode{x_t} also satisfies \tcode{Class}. \end{example}
+Alias entities are not returned by meta-object operations (\ref{reflect.concepts.alias}).
 
 \pnum
 If subsequent specializations of operations on the same reflected entity could give different constant expression results (for instance for \tcode{get_name_v} because the parameter's function is redeclared with a different parameter name between the two points of instantiation), the program is ill-formed, no diagnostic required.
@@ -1209,6 +1210,7 @@ All specializations of these partial template specializations shall meet the \tc
 A specialization of any of these templates with a meta-object type that is
 reflecting an incomplete type renders the program ill-formed.  Such errors are
 not in the immediate context (\cxxref{temp.deduct}).
+Members introduced by \grammarterm{using-declaration}{s} (\cxxref{namespace.udecl}) are included in the sequences below where applicable; the \tcode{Scope} of these members remains that of the declaration of the referenced entity. \begin{note} These members are not \tcode{Aliase}s, see \ref{reflect.ops}. A member injected into a derived class may have different access. \end{note}
 
 \begin{itemdecl}
 template <Record T> struct get_public_data_members;
@@ -1221,7 +1223,7 @@ template <Record T> struct get_member_functions;
 
 \begin{itemdescr}
 \pnum
-All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates an \tcode{ObjectSequence} specialized with \tcode{RecordMember} types that reflect the following subset of non-template members of the class reflected by \tcode{T}:
+All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates an \tcode{ObjectSequence} specialized with \tcode{RecordMember} types that reflect the following subset of direct non-template members of the class reflected by \tcode{T}:
 \begin{itemize}
   \item for \tcode{get_data_members} (\tcode{get_member_functions}), all data (function, including constructor and destructor) members.
   \item for \tcode{get_public_data_members} (\tcode{get_public_member_functions}), all public data (function, including constructor and destructor) members;
