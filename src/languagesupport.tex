@@ -960,7 +960,7 @@ template <Object T> struct get_source_column;
 
 \begin{itemdescr}
 \pnum
-All specializations of above templates shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}) with a base characteristic of \tcode{integral_constant<uint_least32_t>} and a value of the presumed line number (\cxxref{cpp.predefined}) (for \tcode{get_source_line<T>}) and an implementation-defined value representing some offset from the start of the line (for \tcode{get_source_column<T>}) of the most recent declaration of the entity or typedef described by \tcode{T}.
+All specializations of above templates shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}) with a base characteristic of \tcode{integral_constant<uint_least32_t>} and a value of the presumed line number (\cxxref{cpp.predefined}) (for \tcode{get_source_line<T>}) and an implementation-defined value representing some offset from the start of the line (for \tcode{get_source_column<T>}) of a declaration of the entity or typedef described by \tcode{T}.
 \end{itemdescr}
 
 \begin{itemdecl}
@@ -969,7 +969,7 @@ template <Object T> struct get_source_file_name;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{get_source_file_name<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}) with a static data member named \tcode{value} of type \tcode{const char (\&)[N]}, referencing a static, constant expression character array (NTBS) of length \tcode{N}, as if declared as \tcode{static constexpr char STR[N] = ...;}. The value of the NTBS is the presumed name of the source file (\cxxref{cpp.predefined}) of the most recent declaration of the entity or typedef described by \tcode{T}.
+All specializations of \tcode{get_source_file_name<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}) with a static data member named \tcode{value} of type \tcode{const char (\&)[N]}, referencing a static, constant expression character array (NTBS) of length \tcode{N}, as if declared as \tcode{static constexpr char STR[N] = ...;}. The value of the NTBS is the presumed name of the source file (\cxxref{cpp.predefined}) of a declaration of the entity or typedef described by \tcode{T}.
 
 \end{itemdescr}
 
