@@ -1586,6 +1586,11 @@ template <FunctionalTypeConversion T> struct get_constructor;
 \remarks
       The program is ill-formed if no such constructor exists.
       \begin{note} For instance fundamental types (\cxxref{basic.fundamental}) do not have constructors. \end{note}
+      \begin{note} 
+      \tcode{get_constructor_t<get_subexpression_t<reflexpr((T(T())))>>}
+      is ill-formed because the \grammarterm{functional-type-conv} expression does not perform overload resolution for a constructor (\cxxref{class.copy.elision}).
+      \end{note}
+       % TODO: remove the above note when rebasing onto C++14.
 \end{itemdescr}
 \end{std.txt}
 
