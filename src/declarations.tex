@@ -261,7 +261,7 @@ a \emph{reflexpr-specifier} satisfies, for a given \emph{reflexpr-operand}.}}{ta
 \end{floattable}
 
 \pnum
-Note A: For a parenthesized expression \tcode{(E)}, whether or not itself nested inside a parenthesized expression, the expression \tcode{E} shall be either a parenthesized expression, a \grammarterm{function-call-expression}, or a \grammarterm{functional-type-conv-expression}; otherwise the program is ill-formed.
+Note A: For a \grammarterm{reflexpr-operand} that is a parenthesized expression \tcode{(E)}, \tcode{E} shall be a \grammarterm{function-call-expression}, \grammarterm{functional-type-conv-expression}, or an expression \tcode{(E')} that satisfies the requirements for being a \grammarterm{reflexpr-operand}.
 
 \pnum
 Note B: If the \grammarterm{postfix-expression} of the \grammarterm{function-call-expression} is of class type, the function call shall not resolve to a surrogate call function (\cxxref{over.call.object}). Otherwise, the \grammarterm{postfix-expression} shall name a function that is the unique result of overload resolution.
