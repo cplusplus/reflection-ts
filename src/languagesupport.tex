@@ -1255,7 +1255,7 @@ template <Record T> struct get_member_functions;
 
 \begin{itemdescr}
 \pnum
-All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates an \tcode{ObjectSequence} specialized with \tcode{RecordMember} types that reflect the following subset of direct non-template members of the class reflected by \tcode{T}:
+All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates a meta-object type satisfying \tcode{ObjectSequence}, containing elements which satisfy \tcode{RecordMember} and reflect the following subset of direct non-template members of the class reflected by \tcode{T}:
 \begin{itemize}
   \item for \tcode{get_data_members} (\tcode{get_member_functions}), all data (function, including constructor and destructor) members.
   \item for \tcode{get_public_data_members} (\tcode{get_public_member_functions}), all public data (function, including constructor and destructor) members;
@@ -1291,7 +1291,7 @@ template <Record T> struct get_operators;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates an \tcode{ObjectSequence} specialized with \tcode{RecordMember} types that reflect the following subset of function members of the class reflected by \tcode{T}:
+All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates a meta-object type satisfying \tcode{ObjectSequence}, containing elements which satisfy \tcode{RecordMember} and reflect the following subset of function members of the class reflected by \tcode{T}:
 \begin{itemize}
    \item for \tcode{get_constructors}, all constructors.
    \item for \tcode{get_operators}, all conversion functions (\cxxref{class.conv.fct}) and operator functions (\cxxref{over.oper}).
@@ -1325,7 +1325,7 @@ template <Record T> struct get_member_types;
 
 \begin{itemdescr}
 \pnum
-All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates an \tcode{ObjectSequence} specialized with \tcode{Type} types that reflect the following subset of types declared in the class reflected by \tcode{T}:
+All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates a meta-object type satisfying \tcode{ObjectSequence}, containing elements which satisfy \tcode{Type} and reflect the following subset of types declared in the class reflected by \tcode{T}:
 \begin{itemize}
   \item for \tcode{get_public_member_types}, all public nested class types, enum types, or member typedefs;
   \item for \tcode{get_accessible_member_types}, all nested class types, enum types, or member typedefs that are accessible from the scope of the invocation of \tcode{reflexpr} which (directly or indirectly) generated \tcode{T};
@@ -1348,7 +1348,7 @@ template <Class T> struct get_base_classes;
 
 \begin{itemdescr}
 \pnum
-All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates an \tcode{ObjectSequence} specialized with \tcode{Base} types that reflect the following subset of base classes of the class reflected by \tcode{T}:
+All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates a meta-object type satisfying \tcode{ObjectSequence}, containing elements which satisfy \tcode{Base} and reflect the following subset of base classes of the class reflected by \tcode{T}:
 \begin{itemize}
   \item for \tcode{get_public_base_classes}, all public direct base classes;
   \item for \tcode{get_accessible_base_classes}, all direct base classes whose public members are accessible from the scope of the invocation of \tcode{reflexpr} which (directly or indirectly) generated \tcode{T};
@@ -1394,7 +1394,7 @@ template <Enum T> struct get_enumerators;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{get_enumerators<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates an \tcode{ObjectSequence} specialized with \tcode{Enumerator} types that reflect the enumerators of the enumeration type reflected by \tcode{T}.
+All specializations of \tcode{get_enumerators<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates a meta-object type satisfying \tcode{ObjectSequence}, containing elements which satisfy \tcode{Enumerator} and reflect the enumerators of the enumeration type reflected by \tcode{T}.
 
 \pnum
 \remarks
@@ -1537,7 +1537,7 @@ template <Callable T> struct get_parameters;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-      All specializations of this template shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates an \tcode{ObjectSequence} specialized with \tcode{FunctionParameter} types that reflect the parameters of the function reflected by \tcode{T}.
+      All specializations of this template shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates a meta-object type satisfying \tcode{ObjectSequence}, containing elements which satisfy \tcode{FunctionParameter} and reflect the parameters of the function reflected by \tcode{T}.
       If that function's \grammarterm{parameter-declaration-clause} (\cxxref{dcl.fct}) terminates with an ellipsis, the \tcode{ObjectSequence} does not contain any additional elements reflecting that. The \tcode{is_vararg_v<Callable>} trait can be used to determine if the terminating ellipsis is in its parameter list.
 \end{itemdescr}
 
@@ -1733,8 +1733,8 @@ template <Lambda T> struct get_captures;
 \pnum
       All specializations of \tcode{get_captures<T>} shall meet the
       \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type
-      named \tcode{type} designates an \tcode{ObjectSequence} specialized
-      with \tcode{LambdaCapture} types that reflect the captures of the closure
+      named \tcode{type} designates a meta-object type satisfying \tcode{ObjectSequence}, containing elements which satisfy
+      \tcode{LambdaCapture} and reflect the captures of the closure
       object reflected by \tcode{T}.  The elements are in order of appearance
       in the \grammarterm{lambda-capture}; captures captured because of a
       \grammarterm{capture-default} have no defined order among the default
