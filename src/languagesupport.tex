@@ -269,10 +269,13 @@ template <Enum T>
 template <Constant T> struct get_constant;
 template <Variable T> struct is_constexpr<T>;
 template <Variable T> struct is_static<T>;
+template <Variable T> struct is_thread_local;
 template <Variable T> struct get_pointer<T>;
 
 template <Constant T>
   constexpr auto get_constant_v = get_constant<T>::value;
+template <Variable T>
+  constexpr auto is_thread_local_v = is_thread_local<T>::value;
 
 // \ref{reflect.ops.derived} Base operations
 template <Base T> struct get_class;
@@ -1445,11 +1448,12 @@ All specializations of \tcode{is_constexpr<T>} shall meet the \tcode{UnaryTypeTr
 
 \begin{itemdecl}
 template <Variable T> struct is_static<T>;
+template <Variable T> struct is_thread_local;
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{is_static<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If \tcode{T} reflects a variable with static storage duration, the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
+All specializations of \tcode{is_static<T>} and \tcode{is_thread_local<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If \tcode{T} reflects a variable with static (for \tcode{is_static}) or thread (for \tcode{is_thread_local}) storage duration, the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
 \end{itemdescr}
 
 \begin{itemdecl}
