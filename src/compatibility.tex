@@ -1,0 +1,24 @@
+%!TEX root = ts.tex
+\setcounter{chapter}{2}
+\infannex{diff}{Compatibility}
+
+
+\setcounter{section}{4}
+\rSec1[diff.cpp17]{\Cpp{} and ISO \CppXVII{}}
+\rSec2[diff.cpp17.lex]{Clause \ref{lex}: lexical conventions}
+
+In C++ [diff.cpp17.lex], modify the first paragraph:
+
+\begin{std.txt}
+\diffref{lex.key}
+\change New keywords.
+\rationale Required for new features.
+The \tcode{requires} keyword is added
+to introduce constraints through a \grammarterm{requires-clause} or
+a \grammarterm{requires-expression}. The \tcode{concept} keyword is
+added to enable the definition of concepts (\cxxref{temp.concept}).
+\added{The \tcode{reflexpr} keyword is added to introduce meta-data through a \grammarterm{reflexpr-specifier}.}
+\effect
+Valid ISO \CppXVII{} code using \tcode{concept}\removed{ or}\added{,} \tcode{requires}\added{, or \tcode{reflexpr}}
+as an identifier is not valid in this International Standard.
+\end{std.txt}
