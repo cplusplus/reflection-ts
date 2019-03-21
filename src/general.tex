@@ -39,6 +39,21 @@ mentioned, the name \tcode{x} is assumed to be fully qualified as
 \tcode{<experimental/reflect>} \\
 \end{floattable}
 
+\rSec1[intro.features]{Feature-testing recommendations}
+
+\pnum
+An implementation that provides support for this Technical Specification shall define the feature test
+macros in \tref{intro.features}.
+
+\begin{floattable}{Feature-test macros}{tab:intro.features}
+{lll}
+\topline
+\lhdr{Macro name} & \chdr{Value} & \rhdr{Header} \\
+\capsep
+\tcode{__cpp_reflection}  & \tcode{\tsver}   &  none \\
+\tcode{__cpp_lib_reflection}  & \tcode{\tsver}  & \tcode{<reflect>} \\
+\end{floattable}
+
 \rSec1[intro.ack]{Acknowledgements}
 
 \pnum

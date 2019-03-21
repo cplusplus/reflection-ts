@@ -225,6 +225,9 @@
 \newcommand{\xref}{\textsc{See also:}\xspace}
 \newcommand{\xsee}{\textsc{See:}\xspace}
 
+%% Inline non-parenthesized table reference (override memoir's \tref)
+\renewcommand{\tref}[1]{\tablerefname \nolinebreak[3] \ref{tab:#1}}
+
 %% NTBS, etc.
 \newcommand{\NTS}[1]{\textsc{#1}\xspace}
 \newcommand{\ntbs}{\NTS{ntbs}}
