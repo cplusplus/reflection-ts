@@ -1044,30 +1044,35 @@ All specializations of \tcode{is_unnamed<T>} shall meet the \tcode{UnaryTypeTrai
 \pnum
 All specializations of \tcode{get_name<T>} and \tcode{get_display_name<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}) with a static data member named \tcode{value} of type \tcode{const char (\&)[N]}, referencing a static, constant expression character array (NMTBS) of length \tcode{N}, as if declared as \tcode{static constexpr char STR[N] = ...;}.
 
+\pnum
+The value of \tcode{get_display_name_v<T>} is the empty string if \tcode{T} reflects an unnamed entity; otherwise the value is implementation defined.
+
+\pnum
+The value of \tcode{get_name_v<T>} refers to a string literal whose \grammarterm{s-char-sequence} is obtained by the first matching case in the following list:
+
 \begin{itemize}
-\item For \tcode{T} reflecting an unnamed entity, the string's value is the empty string.
-\item For \tcode{T} reflecting a \grammarterm{decltype-specifier}, the string's value is the empty string for \tcode{get_name<T>} and implementation-defined for \tcode{get_display_name<T>}.
-\item For \tcode{T} reflecting an array, pointer, reference or function type, or a \emph{cv}-qualified type, the string's value is the empty string for \tcode{get_name<T>} and implementation-defined for \tcode{get_display_name<T>}.
-\item In the following cases, the string's value is implementation-defined for \tcode{get_display_name<T>} and has the following value for \tcode{get_name<T>}:
-\begin{itemize}
-  \item for \tcode{T} reflecting an alias (\cxxref{basic}), the unqualified name of the aliasing declaration: the identifier introduced by a \grammarterm{type-parameter} or a type name introduced by a \grammarterm{using-declaration}, alias;
-  \item for \tcode{T} reflecting a specialization of a class template, its \grammarterm{template-name};
-  \item for \tcode{T} reflecting a class type, its \grammarterm{class-name};
-  \item for \tcode{T} reflecting a namespace, its \grammarterm{namespace-name};
-  \item for \tcode{T} reflecting an enumeration type, its \grammarterm{enum-name};
-  \item for \tcode{T} reflecting a \cv-unqualified fundamental type other than \tcode{std::nullptr_t}, the name stated in the "Type" column of Table \cxxref{tref:simple.type.specifiers} in (\cxxref{dcl.type.simple});
-  \item for \tcode{T} reflecting a variable, its unqualified name;
-  \item for \tcode{T} reflecting an enumerator, its unqualified name;
-  \item for \tcode{T} reflecting a class data member, its unqualified name;
-  \item for \tcode{T} reflecting a function, its unqualified name;
-  \item for \tcode{T} reflecting a specialization of a template function, its \grammarterm{template-name};
-  \item for \tcode{T} reflecting a function parameter, its name;
-  \item for \tcode{T} reflecting a constructor, the \grammarterm{injected-class-name} of its class;
-  \item for \tcode{T} reflecting a destructor, the \grammarterm{injected-class-name} of its class, prefixed by the character '\tilde';
-  \item for \tcode{T} reflecting an operator function, the \grammarterm{operator} element of the relevant \grammarterm{operator-function-id};
-  \item for \tcode{T} reflecting a conversion function, the same characters as \tcode{get_name_v<R>}, with \tcode{R} reflecting the type represented by the \grammarterm{conversion-type-id}.
-\end{itemize}
-\item In all other cases (for instance for \tcode{T} reflecting a lambda object), the string's value is the empty string for \tcode{get_name<T>} and implementation-defined for \tcode{get_display_name<T>}.
+\item for \tcode{T} reflecting an alias, the unqualified name of the aliasing declaration;
+\item for \tcode{T} reflecting an unnamed entity, the empty string.
+\item for \tcode{T} reflecting a specialization of a class, function (except for conversion functions, constructors, operator functions, or literal operators), or variable template, its \grammarterm{template-name};
+\item for \tcode{T} reflecting a \cv-unqualified type that is
+    \begin{itemize}
+    \item a \grammarterm{type-parameter}, the identifier introduced by the \grammarterm{type-parameter};
+    \item a class type, its \grammarterm{class-name};
+    \item an enumeration type, its \grammarterm{enum-name};
+    \item a fundamental type other than \tcode{std::nullptr_t}, the name stated in the "Type" column of \cxxref{tref:simple.type.specifiers} in (\cxxref{dcl.type.simple});
+    \end{itemize}
+\item for \tcode{T} reflecting
+    \begin{itemize}
+    \item a namespace, its \grammarterm{namespace-name};
+    \item a variable, enumerator, data member, or function, its unqualified name;
+    \item a function parameter, its name;
+    \item a constructor, the \grammarterm{injected-class-name} of its class;
+    \item a destructor, the \grammarterm{injected-class-name} of its class, prefixed by the character ’\tilde’;
+    \item an operator function, the operator element of the relevant \grammarterm{operator-function-id};
+    \item a literal operator, the \grammarterm{s-char-sequence} \tcode{\textbackslash"\textbackslash"} followed by the literal suffix identifier of the operator's \grammarterm{literal-operator-id};
+    \item a conversion function, the same characters as \tcode{get_name_v<R>}, with \tcode{R} reflecting the type represented by the \grammarterm{conversion-type-id}.
+    \end{itemize}
+\item In all other cases, the string’s value is the empty string.
 \end{itemize}
 
 \pnum
