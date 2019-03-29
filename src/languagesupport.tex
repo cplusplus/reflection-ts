@@ -38,46 +38,74 @@ namespace std::experimental::reflect {
 inline namespace v1 {
 
 // \ref{reflect.concepts} Concepts for meta-object types
-template <class T> concept Object = @\seebelow@;
-template <class T> concept ObjectSequence = @\seebelow@; // refines Object
-template <class T> concept TemplateParameterScope = @\seebelow@; // refines Scope
-template <class T> concept Named = @\seebelow@;          // refines Object
-template <class T> concept Alias = @\seebelow@;          // refines Named and ScopeMember
-template <class T> concept RecordMember = @\seebelow@;   // refines ScopeMember
-template <class T> concept Enumerator = @\seebelow@;     // refines Constant
-template <class T> concept Variable = @\seebelow@;       // refines Typed and ScopeMember
-template <class T> concept ScopeMember = @\seebelow@;    // refines Named
-template <class T> concept Typed = @\seebelow@;          // refines Object
-template <class T> concept Namespace = @\seebelow@;      // refines Named and Scope
-template <class T> concept GlobalScope = @\seebelow@;    // refines Namespace
-template <class T> concept Class = @\seebelow@;          // refines Record
-template <class T> concept Enum = @\seebelow@;           // refines Type, Scope, and
-                                                       // ScopeMember
-template <class T> concept Record = @\seebelow@;         // refines Type, Scope, and
-                                                       // ScopeMember
-template <class T> concept Scope = @\seebelow@;          // refines Object
-template <class T> concept Type = @\seebelow@;           // refines Named
-template <class T> concept Constant = @\seebelow@;       // refines Typed and ScopeMember
-template <class T> concept Base = @\seebelow@;           // refines Object
-template <class T> concept FunctionParameter = @\seebelow@; // refines Typed and
-                                                          // ScopeMember
-template <class T> concept Callable = @\seebelow@;       // refines Scope and ScopeMember
-template <class T> concept Expression = @\seebelow@;     // refines Object
-template <class T> concept ParenthesizedExpression = @\seebelow@;  // refines Expression
-template <class T> concept FunctionCallExpression = @\seebelow@;   // refines Expression
-template <class T> concept FunctionalTypeConversion = @\seebelow@; // refines Expression
-template <class T> concept Function = @\seebelow@;       // refines Typed and Callable
-template <class T> concept MemberFunction = @\seebelow@; // refines RecordMember and
-                                                       //Function
-template <class T> concept SpecialMemberFunction = @\seebelow@; // refines RecordMember
-template <class T> concept Constructor = @\seebelow@;    // refines Callable and RecordMember
-template <class T> concept Destructor = @\seebelow@;     // refines Callable and
-                                                       // SpecialMemberFunction
-template <class T> concept Operator = @\seebelow@;       // refines Function
-template <class T> concept ConversionOperator = @\seebelow@; // refines MemberFunction and
-                                                           // Operator
-template <class T> concept Lambda = @\seebelow@;         // refines Type and Scope
-template <class T> concept LambdaCapture = @\seebelow@;  // refines Variable
+template <class T>
+concept bool Object = @\seebelow@;
+template <class T>
+concept bool ObjectSequence = @\seebelow@; // refines Object
+template <class T>
+concept bool TemplateParameterScope = @\seebelow@; // refines Scope
+template <class T>
+concept bool Named = @\seebelow@;          // refines Object
+template <class T>
+concept bool Alias = @\seebelow@;          // refines Named and ScopeMember
+template <class T>
+concept bool RecordMember = @\seebelow@;   // refines ScopeMember
+template <class T>
+concept bool Enumerator = @\seebelow@;     // refines Constant
+template <class T>
+concept bool Variable = @\seebelow@;       // refines Typed and ScopeMember
+template <class T>
+concept bool ScopeMember = @\seebelow@;    // refines Named
+template <class T>
+concept bool Typed = @\seebelow@;          // refines Object
+template <class T>
+concept bool Namespace = @\seebelow@;      // refines Named and Scope
+template <class T>
+concept bool GlobalScope = @\seebelow@;    // refines Namespace
+template <class T>
+concept bool Class = @\seebelow@;          // refines Record
+template <class T>
+concept bool Enum = @\seebelow@;           // refines Type, Scope, and ScopeMember
+template <class T>
+concept bool Record = @\seebelow@;         // refines Type, Scope, and ScopeMember
+template <class T>
+concept bool Scope = @\seebelow@;          // refines Object
+template <class T>
+concept bool Type = @\seebelow@;           // refines Named
+template <class T>
+concept bool Constant = @\seebelow@;       // refines Typed and ScopeMember
+template <class T>
+concept bool Base = @\seebelow@;           // refines Object
+template <class T>
+concept bool FunctionParameter = @\seebelow@; // refines Typed and ScopeMember
+template <class T>
+concept bool Callable = @\seebelow@;       // refines Scope and ScopeMember
+template <class T>
+concept bool Expression = @\seebelow@;     // refines Object
+template <class T>
+concept bool ParenthesizedExpression = @\seebelow@;  // refines Expression
+template <class T>
+concept bool FunctionCallExpression = @\seebelow@;   // refines Expression
+template <class T>
+concept bool FunctionalTypeConversion = @\seebelow@; // refines Expression
+template <class T>
+concept bool Function = @\seebelow@;       // refines Typed and Callable
+template <class T>
+concept bool MemberFunction = @\seebelow@; // refines RecordMember and Function
+template <class T>
+concept bool SpecialMemberFunction = @\seebelow@; // refines RecordMember
+template <class T>
+concept bool Constructor = @\seebelow@;    // refines Callable and RecordMember
+template <class T>
+concept bool Destructor = @\seebelow@;     // refines Callable and SpecialMemberFunction
+template <class T>
+concept bool Operator = @\seebelow@;       // refines Function
+template <class T>
+concept bool ConversionOperator = @\seebelow@; // refines MemberFunction and Operator
+template <class T>
+concept bool Lambda = @\seebelow@;         // refines Type and Scope
+template <class T>
+concept bool LambdaCapture = @\seebelow@;  // refines Variable
 
 
 // \ref{reflect.ops} Meta-object operations
@@ -419,7 +447,7 @@ yield meta-object types.
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Object = @\seebelow@;
+template <class T> concept bool Object = @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -433,7 +461,7 @@ template <class T> concept Object = @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept ObjectSequence = Object<T> && @\seebelow@;
+template <class T> concept bool ObjectSequence = Object<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -448,7 +476,7 @@ template <class T> concept ObjectSequence = Object<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept TemplateParameterScope = Scope<T> && @\seebelow@;
+template <class T> concept bool TemplateParameterScope = Scope<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -463,7 +491,7 @@ template <class T> concept TemplateParameterScope = Scope<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Named = Object<T> && @\seebelow@;
+template <class T> concept bool Named = Object<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -479,7 +507,7 @@ template <class T> concept Named = Object<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Alias = Named<T> && ScopeMember<T> && @\seebelow@;
+template <class T> concept bool Alias = Named<T> && ScopeMember<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -523,7 +551,7 @@ Type transformations (\ref{reflect.ops}) never yield an \tcode{Alias}; instead, 
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept RecordMember = ScopeMember<T> && @\seebelow@;
+template <class T> concept bool RecordMember = ScopeMember<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -538,7 +566,7 @@ template <class T> concept RecordMember = ScopeMember<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Enumerator = Constant<T> && @\seebelow@;
+template <class T> concept bool Enumerator = Constant<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -553,7 +581,7 @@ template <class T> concept Enumerator = Constant<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Variable = Typed<T> && ScopeMember<T> @\seebelow@;
+template <class T> concept bool Variable = Typed<T> && ScopeMember<T> @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -568,7 +596,7 @@ template <class T> concept Variable = Typed<T> && ScopeMember<T> @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept ScopeMember = Named<T> && @\seebelow@;
+template <class T> concept bool ScopeMember = Named<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -583,7 +611,7 @@ template <class T> concept ScopeMember = Named<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Typed = Object<T> && @\seebelow@;
+template <class T> concept bool Typed = Object<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -598,7 +626,7 @@ template <class T> concept Typed = Object<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Namespace = Named<T> && Scope<T> && @\seebelow@;
+template <class T> concept bool Namespace = Named<T> && Scope<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -613,7 +641,7 @@ template <class T> concept Namespace = Named<T> && Scope<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept GlobalScope = Namespace<T> && @\seebelow@;
+template <class T> concept bool GlobalScope = Namespace<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -628,7 +656,7 @@ template <class T> concept GlobalScope = Namespace<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Class = Record<T> && @\seebelow@;
+template <class T> concept bool Class = Record<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -643,7 +671,7 @@ template <class T> concept Class = Record<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Enum = Type<T> && Scope<T> && @\seebelow@;
+template <class T> concept bool Enum = Type<T> && Scope<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -658,7 +686,7 @@ template <class T> concept Enum = Type<T> && Scope<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Record = Type<T> && Scope<T> && @\seebelow@;
+template <class T> concept bool Record = Type<T> && Scope<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -673,7 +701,7 @@ template <class T> concept Record = Type<T> && Scope<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Scope = Object<T> && @\seebelow@;
+template <class T> concept bool Scope = Object<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -688,7 +716,7 @@ template <class T> concept Scope = Object<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Type = Named<T> && @\seebelow@;
+template <class T> concept bool Type = Named<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -706,7 +734,7 @@ Some types \tcode{T} also satisfy \tcode{ScopeMember}; others, for instance thos
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Constant = Typed<T> && ScopeMember<T> && @\seebelow@;
+template <class T> concept bool Constant = Typed<T> && ScopeMember<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -722,7 +750,7 @@ template <class T> concept Constant = Typed<T> && ScopeMember<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept Base = Object<T> && @\seebelow@;
+template <class T> concept bool Base = Object<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -735,7 +763,7 @@ template <class T> concept Base = Object<T> && @\seebelow@;
 \rSec3[reflect.concepts.fctparam]{Concept \tcode{FunctionParameter}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
-template <class T> concept FunctionParameter = Typed<T> && ScopeMember<T> && @\seebelow@;
+template <class T> concept bool FunctionParameter = Typed<T> && ScopeMember<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
@@ -748,7 +776,7 @@ template <class T> concept FunctionParameter = Typed<T> && ScopeMember<T> && @\s
 \rSec3[reflect.concepts.callable]{Concept \tcode{Callable}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
-template <class T> concept Callable = Scope<T> && ScopeMember<T> && @\seebelow@;
+template <class T> concept bool Callable = Scope<T> && ScopeMember<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
@@ -759,7 +787,7 @@ template <class T> concept Callable = Scope<T> && ScopeMember<T> && @\seebelow@;
 \rSec3[reflect.concepts.expr]{Concept \tcode{Expression}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
-template <class T> concept Expression = Object<T> && @\seebelow@;
+template <class T> concept bool Expression = Object<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
@@ -771,7 +799,7 @@ expression (Clause \cxxref{expr}).
 \rSec3[reflect.concepts.expr.paren]{Concept \tcode{ParenthesizedExpression}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
-template <class T> concept ParenthesizedExpression = Expression<T> && @\seebelow@;
+template <class T> concept bool ParenthesizedExpression = Expression<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
@@ -783,7 +811,7 @@ reflects a parenthesized expression (\cxxref{expr.prim.paren}).
 \rSec3[reflect.concepts.expr.fctcall]{Concept \tcode{FunctionCallExpression}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
-template <class T> concept FunctionCallExpression = Expression<T> && @\seebelow@;
+template <class T> concept bool FunctionCallExpression = Expression<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
@@ -795,7 +823,7 @@ reflects a \grammarterm{function-call-expression} (\cxxref{expr.call}).
 \rSec3[reflect.concepts.expr.type.fctconv]{Concept \tcode{FunctionalTypeConversion}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
-template <class T> concept FunctionalTypeConversion = Expression<T> && @\seebelow@;
+template <class T> concept bool FunctionalTypeConversion = Expression<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
@@ -807,7 +835,7 @@ reflects a \grammarterm{functional-type-conv-expression} (\cxxref{expr.type.conv
 \rSec3[reflect.concepts.fct]{Concept \tcode{Function}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
-template <class T> concept Function = Typed<T> && Callable<T> && @\seebelow@;
+template <class T> concept bool Function = Typed<T> && Callable<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
@@ -818,7 +846,7 @@ template <class T> concept Function = Typed<T> && Callable<T> && @\seebelow@;
 \rSec3[reflect.concepts.memfct]{Concept \tcode{MemberFunction}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
-template <class T> concept MemberFunction = RecordMember<T> && Function<T> && @\seebelow@;
+template <class T> concept bool MemberFunction = RecordMember<T> && Function<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
@@ -829,7 +857,7 @@ template <class T> concept MemberFunction = RecordMember<T> && Function<T> && @\
 \rSec3[reflect.concepts.specialfct]{Concept \tcode{SpecialMemberFunction}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
-template <class T> concept SpecialMemberFunction = RecordMember<T> && @\seebelow@;
+template <class T> concept bool SpecialMemberFunction = RecordMember<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
@@ -841,7 +869,7 @@ reflects a special member function (Clause \cxxref{special}).
 \rSec3[reflect.concepts.ctor]{Concept \tcode{Constructor}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
-template <class T> concept Constructor = Callable<T> && RecordMember<T> && @\seebelow@;
+template <class T> concept bool Constructor = Callable<T> && RecordMember<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
@@ -852,7 +880,8 @@ template <class T> concept Constructor = Callable<T> && RecordMember<T> && @\see
 \rSec3[reflect.concepts.dtor]{Concept \tcode{Destructor}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
-template <class T> concept Destructor = Callable<T> && SpecialMemberFunction<T> && @\seebelow@;
+template <class T>
+concept bool Destructor = Callable<T> && SpecialMemberFunction<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
@@ -863,7 +892,7 @@ template <class T> concept Destructor = Callable<T> && SpecialMemberFunction<T> 
 \rSec3[reflect.concepts.oper]{Concept \tcode{Operator}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
-template <class T> concept Operator = Function<T> && @\seebelow@;
+template <class T> concept bool Operator = Function<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
@@ -874,7 +903,8 @@ template <class T> concept Operator = Function<T> && @\seebelow@;
 \rSec3[reflect.concepts.convfct]{Concept \tcode{ConversionOperator}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
-template <class T> concept ConversionOperator = MemberFunction<T> && Operator<T> && @\seebelow@;
+template <class T>
+concept bool ConversionOperator = MemberFunction<T> && Operator<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
@@ -885,7 +915,7 @@ template <class T> concept ConversionOperator = MemberFunction<T> && Operator<T>
 \rSec3[reflect.concepts.lambda]{Concept \tcode{Lambda}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
-template <class T> concept Lambda = Type<T> && Scope<T> && @\seebelow@;
+template <class T> concept bool Lambda = Type<T> && Scope<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
@@ -896,7 +926,7 @@ template <class T> concept Lambda = Type<T> && Scope<T> && @\seebelow@;
 \rSec3[reflect.concepts.lambdacapture]{Concept \tcode{LambdaCapture}}
 \begin{std.txt}\color{addclr}
 \begin{itemdecl}
-template <class T> concept LambdaCapture = Variable<T> && @\seebelow@;
+template <class T> concept bool LambdaCapture = Variable<T> && @\seebelow@;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
