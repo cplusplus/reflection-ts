@@ -17,7 +17,7 @@ An \emph{alias} is a name introduced by a \tcode{typedef} declaration, an
 \rSec1[basic.def.odr]{One-definition rule}
 
 \pnum
-In C++ [basic.def.odr], insert a new paragraph after the existing paragraph \cxxref{basic.def.odr.odrparagraph3}:
+In C++ [basic.def.odr], insert a new paragraph after the existing paragraph \cxxref{basic.def.odr.odrparagraph1}:
 
 \begin{std.txt}
 \added{
@@ -31,16 +31,11 @@ function or variable.
 \end{std.txt}
 
 \pnum
-In C++ [basic.def.odr], insert a new bullet
-(\cxxref{basic.def.odr.odrparagraph2}) after
-(\cxxref{basic.def.odr.odrparagraph1}):
+In C++ [basic.def.odr], apply the following changes to the second bullet within paragraph \cxxref{basic.def.odr.odrparagraph2}:
+
 \begin{std.txt}
-\added{or}
-\begin{itemize}
-\item \added{a type implementing \tcode{std::experimental::reflect::Object}
-(\ref{reflect.concepts.object}), as long as all operations (\ref{reflect.ops})
-on this type yield the same constant expression results.}
-\end{itemize}
+and the object has the same value in all definitions of D\added{, or a type
+implementing\\ \tcode{std::experimental::reflect::Object} (\ref{reflect.concepts.object}), as long as all operations (\ref{reflect.ops}) on this type yield the same constant expression results}; and
 \end{std.txt}
 
 \setcounter{section}{6}
