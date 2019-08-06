@@ -4,30 +4,12 @@
 \rSec1[expr.prim]{Primary expressions}
 \setcounter{subsection}{4}
 \rSec2[expr.prim.lambda]{Lambda expressions}
-\setcounter{subsubsection}{1}
-\rSec3[expr.prim.lambda.capture]{Captures}
 
 \pnum
-In C++ [expr.prim.lambda.capture], apply the following change to paragraph \cxxref{expr.prim.lambda.capture.paragraph1}:
-\begin{std.txt}
-If an expression potentially references a local entity within a declarative
-region in which it is odr-usable, and the expression would be potentially
-evaluated if the effect of any enclosing \tcode{typeid} expressions
-(\cxxref{expr.typeid}) \added{or use of a \grammarterm{reflexpr-specifier}
-(\ref{dcl.type.reflexpr})} were ignored, the entity is said to be
-\emph{implicitly captured} by each intervening \grammarterm{lambda-expression}
-with an associated \grammarterm{capture-default} that does not explicitly
-capture it.
-\end{std.txt}
+In C++ [expr.prim.lambda], apply the following change to paragraph \cxxref{expr.prim.lambda.paragraph1}:
 
-\pnum
-In C++ [expr.prim.lambda.capture], apply the following change to paragraph \cxxref{expr.prim.lambda.capture.paragraph2}:
 \begin{std.txt}
-Every \grammarterm{id-expression} within the \grammarterm{compound-statement} of
-a \grammarterm{lambda-expression} that is an odr-use (\cxxref{basic.def.odr}) of
-an entity captured by copy\added{, as well as every use of an entity captured by
-copy in a \grammarterm{reflexpr-operand}, }is transformed into an access to the
-corresponding unnamed data member of the closure type.
+Every \grammarterm{id-expression} within the \grammarterm{compound-statement} of a \grammarterm{lambda-expression} that is an odr-use~(\ref{basic.def.odr}) of an entity captured by copy\added{, as well as every use of an entity captured by copy in a \grammarterm{reflexpr-operand},} is transformed into an access to the corresponding unnamed data member of the closure type.
 \end{std.txt}
 
 \rSec1[expr.compound]{Compound expressions}
