@@ -17,4 +17,24 @@ Add \tcode{<experimental/reflect>} to Table \cxxref{tab:cpp.library.headers} -- 
 
 \rSec3[compliance]{Freestanding implementations}
 
-Add \tcode{<experimental/reflect>} to Table \cxxref{tab:cpp.headers.freestanding} -- C++ headers for freestanding implementations.
+Modify Table \cxxref{tab:cpp.headers.freestanding} as follows.
+
+
+\begin{std.txt}
+\setcounter{table}{\numexpr\cxxref{tab:cpp.headers.freestanding}-1}
+\begin{libsumtab}{\Cpp headers for freestanding implementations}{tab:cpp.headers.freestanding}
+                    &                            &   \tcode{<ciso646>}       \\ \rowsep
+\cxxref{support.types} & Types                       &   \tcode{<cstddef>}       \\ \rowsep
+\cxxref{support.limits}& Implementation properties  &  \tcode{<cfloat>} \tcode{<limits>} \tcode{<climits>}        \\ \rowsep
+\cxxref{cstdint}       & Integer types               &  \tcode{<cstdint>}        \\ \rowsep
+\cxxref{support.start.term}& Start and termination  &   \tcode{<cstdlib>}       \\ \rowsep
+\cxxref{support.dynamic} & Dynamic memory management &   \tcode{<new>}           \\ \rowsep
+\cxxref{support.rtti}  & Type identification          &   \tcode{<typeinfo>}      \\ \rowsep
+\cxxref{support.exception} & Exception handling      &   \tcode{<exception>}     \\ \rowsep
+\cxxref{support.initlist}  & Initializer lists & \tcode{<initializer_list>} \\ \rowsep
+\cxxref{support.runtime} & Other runtime support     &   \tcode{<cstdalign>} \tcode{<cstdarg>} \tcode{<cstdbool>}       \\ \rowsep
+\ref{reflect} & \added{Static reflection}         & \added{\tcode{<exprimental/reflection>}}     \\ \rowsep
+\cxxref{meta} & Type traits     &   \tcode{<type_traits>}  \\ \rowsep
+\cxxref{atomics} & Atomics       &   \tcode{<atomic>}     \\
+\end{libsumtab}
+\end{std.txt}

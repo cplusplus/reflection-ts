@@ -11,9 +11,9 @@
 \rSec3[temp.dep.type]{Dependent types}
 
 \pnum
-In C++ [temp.dep.type], apply the following changes to paragraph 9:
+In C++ [temp.dep.type], apply the following changes to paragraph \cxxref{temp.dep.type.paragraph1}:
 
-\setcounter{Paras}{9}
+\setcounter{Paras}{\cxxref{temp.dep.type.paragraph1}}
 \setcounter{Bullets1}{7}
 
 \begin{std.txt}
@@ -22,12 +22,6 @@ A type is dependent if it is \newline
 [...]
 
 \begin{itemize}
-  \item denoted by a \grammarterm{simple-template-id} in which either the template name is a template parameter or any of
-the template arguments is a dependent type or an expression that is type-dependent or value-dependent
-or is a pack expansion \begin{note} This includes an injected-class-name (Clause
-\cxxref{class}) of a class template used
-without a \grammarterm{template-argument-list}. \end{note}, \removed{or}
-
   \item denoted by \tcode{decltype(}\grammarterm{expression}{}\tcode{)}, where
         \grammarterm{expression} is type-dependent (\cxxref{temp.dep.expr})\removed{.}\added{, or}
 
