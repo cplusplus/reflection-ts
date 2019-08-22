@@ -671,7 +671,7 @@ template <class T> concept bool Class = Record<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept bool Enum = Type<T> && Scope<T> && @\seebelow@;
+template <class T> concept bool Enum = Type<T> && Scope<T> && ScopeMember<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -686,7 +686,7 @@ template <class T> concept bool Enum = Type<T> && Scope<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept bool Record = Type<T> && Scope<T> && @\seebelow@;
+template <class T> concept bool Record = Type<T> && Scope<T> && ScopeMember<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
