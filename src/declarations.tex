@@ -252,22 +252,35 @@ a \emph{reflexpr-specifier} satisfies, for a given \emph{reflexpr-operand}.}}{ta
             & \added{the name of an enumerator}                                               & \added{\tcode{reflect::Enumerator}}      \\ \cline{2-3}
             & \added{the name of a function parameter}                                        & \added{\tcode{reflect::FunctionParameter}} \\ \cline{2-3}
             & \added{the name of a captured entity}                                           & \added{\tcode{reflect::LambdaCapture}} \\ \cline{2-3}
-            & \added{parenthesized expression; see Note A, below}                             & \added{\tcode{reflect::ParenthesizedExpression}} \\ \cline{2-3}
-            & \added{\grammarterm{function-call-expression}; see Note B, below}               & \added{\tcode{reflect::FunctionCallExpression}} \\ \cline{2-3}
-            & \added{\grammarterm{functional-type-conv-expression}; see Note C, below}        & \added{\tcode{reflect::FunctionalTypeConversion}} \\
-\bottomline
+            & \added{parenthesized expression\textsuperscript{a}}                             & \added{\tcode{reflect::ParenthesizedExpression}} \\ \cline{2-3}
+            & \added{\grammarterm{function-call-expression\normalfont\textsuperscript{b}}}               & \added{\tcode{reflect::FunctionCallExpression}} \\ \cline{2-3}
+            & \added{\grammarterm{functional-type-conv-expression\normalfont\textsubscript{1}}}        & \added{\tcode{reflect::FunctionalTypeConversion}} \\ \capsep
+
+\multicolumn{3}{|l|}{\added{\hspace{.1in}NOTE 1\hspace{.1in}
+The usual disambiguation between function-style cast and a \grammarterm{type-id} (\cxxref{dcl.ambig.res}) applies. \noteintro{Example} The default 
+}} \\
+\multicolumn{3}{|l|}{\added{constructor of class \tcode{X} can be reflected on as \tcode{reflexpr((X()))}, while \tcode{reflexpr(X())} reflects the type of a function}} \\
+\multicolumn{3}{|l|}{\added{returning \tcode{X}. \noteoutro{example}\xspace}} \\
+
+\multicolumn{3}{|l|}{\added{\hspace{.1in}\textsuperscript{a}
+For a \grammarterm{reflexpr-operand} that is a parenthesized expression \tcode{(E)}, \tcode{E} shall be a \grammarterm{function-call-expression},} } \\
+\multicolumn{3}{|l|}{\added{\grammarterm{functional-type-conv-expression}, or an expression \tcode{(E$'$)} that satisfies the requirements for being a \grammarterm{reflexpr-operand}. }} \\
+
+\multicolumn{3}{|l|}{\added{\hspace{.1in}\textsuperscript{b}
+If the \grammarterm{postfix-expression} of the \grammarterm{function-call-expression} is of class type, the function call shall not resolve to a}} \\
+\multicolumn{3}{|l|}{\added{surrogate call function (\cxxref{over.call.object}). Otherwise, the \grammarterm{postfix-expression} shall name a function that is the unique result of}} \\
+\multicolumn{3}{|l|}{\added{overload resolution.}} \\
+
 \end{floattable}
 
 \pnum
-Note A: For a \grammarterm{reflexpr-operand} that is a parenthesized expression \tcode{(E)}, \tcode{E} shall be a \grammarterm{function-call-expression}, \grammarterm{functional-type-conv-expression}, or an expression \tcode{(E$'$)} that satisfies the requirements for being a \grammarterm{reflexpr-operand}.
+TODO. Remove paragraph. Kept only for number keeping.
 
 \pnum
-Note B: If the \grammarterm{postfix-expression} of the \grammarterm{function-call-expression} is of class type, the function call shall not resolve to a surrogate call function (\cxxref{over.call.object}). Otherwise, the \grammarterm{postfix-expression} shall name a function that is the unique result of overload resolution.
+TODO. Remove paragraph. Kept only for number keeping.
 
 \pnum
-Note C: \begin{note}
-The usual disambiguation between function-style cast and a \grammarterm{type-id} (\cxxref{dcl.ambig.res}) applies. \begin{example}The default constructor of class \tcode{X} can be reflected on as \tcode{reflexpr((X()))}, while \tcode{reflexpr(X())} reflects the type of a function returning \tcode{X}. \end{example}
-\end{note}
+TODO. Remove paragraph. Kept only for number keeping.
 
 \pnum
 Any other \grammarterm{reflexpr-operand} renders the program ill-formed.
