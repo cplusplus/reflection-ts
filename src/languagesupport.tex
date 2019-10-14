@@ -182,7 +182,7 @@ template <ObjectSequence T>
 template <size_t I, ObjectSequence T>
   using get_element_t = typename get_element<I, T>::type;
 template <template <class...> class Tpl, ObjectSequence T>
-  using unpack_sequence_t = unpack_sequence<Tpl, T>::type;
+  using unpack_sequence_t = typename unpack_sequence<Tpl, T>::type;
 
 // \ref{reflect.ops.named} Named operations
 template <Named T> struct is_unnamed;
