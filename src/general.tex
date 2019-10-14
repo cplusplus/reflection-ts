@@ -40,8 +40,7 @@ mentioned, the name \tcode{x} is assumed to be fully qualified as
 \rSec1[intro.features]{Feature-testing recommendations}
 
 \pnum
-An implementation that provides support for this Technical Specification shall define the feature test
-macros in \tref{intro.features}.
+An implementation that provides support for this Technical Specification shall define each feature test macro defined in \tref{intro.features} if no associated headers are indicated for that macro, and if associated headers are indicated for a macro, that macro is defined after inclusion of one of the corresponding headers specified in the table.
 
 \begin{floattable}{Feature-test macros}{tab:intro.features}
 {lll}
@@ -49,7 +48,7 @@ macros in \tref{intro.features}.
 \lhdr{Macro name} & \chdr{Value} & \rhdr{Header} \\
 \capsep
 \tcode{__cpp_reflection}  & \tcode{\tsver}   &  none \\
-\tcode{__cpp_lib_reflection}  & \tcode{\tsver}  & \tcode{<reflect>} \\
+\tcode{__cpp_lib_reflection}  & \tcode{\tsver}  & \tcode{<experimental/reflect>} \\
 \end{floattable}
 
 \rSec1[intro.ack]{Acknowledgements}
