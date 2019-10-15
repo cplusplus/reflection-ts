@@ -328,7 +328,7 @@ template <FunctionParameter T>
 template <Callable T> struct get_parameters;
 template <Callable T> struct is_vararg;
 template <Callable T> struct is_constexpr<T>;
-template <Callable T> struct is_noexcept<T>;
+template <Callable T> struct is_noexcept;
 template <Callable T> struct is_inline<T>;
 template <Callable T> struct is_deleted;
 
@@ -1584,7 +1584,7 @@ template <Callable T> struct get_parameters;
 \begin{itemdecl}
 template <Callable T> struct is_vararg;
 template <Callable T> struct is_constexpr<T>;
-template <Callable T> struct is_noexcept<T>;
+template <Callable T> struct is_noexcept;
 template <Callable T> struct is_inline<T>;
 template <Callable T> struct is_deleted;
 \end{itemdecl}
