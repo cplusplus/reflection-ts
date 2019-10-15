@@ -34,7 +34,9 @@ static reflection data associated with these concepts are described in
 
 \begin{std.txt}\color{addclr}
 \begin{codeblock}
-namespace std::experimental::reflect {
+namespace std {
+namespace experimental {
+namespace reflect {
 inline namespace v1 {
 
 // \ref{reflect.concepts} Concepts for meta-object types
@@ -426,7 +428,9 @@ template <LambdaCapture T>
   constexpr auto is_init_capture_v = is_init_capture<T>::value;
 
 } // inline namespace v1
-} // namespace std::experimental::reflect
+} // namespace reflect
+} // namespace experimental
+} // namespace std
 \end{codeblock}
 \end{std.txt}
 
