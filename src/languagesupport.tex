@@ -581,7 +581,7 @@ template <class T> concept bool Enumerator = Constant<T> && @\seebelow@;
 \begin{std.txt}\color{addclr}
 
 \begin{itemdecl}
-template <class T> concept bool Variable = Typed<T> && ScopeMember<T> @\seebelow@;
+template <class T> concept bool Variable = Typed<T> && ScopeMember<T> && @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
