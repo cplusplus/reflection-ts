@@ -112,7 +112,7 @@ Insert the following subclause:
     inspection of some properties of its operand through type traits or type
     transformations on \tcode{T} (\ref{reflect.ops}).  The operand to the
     \grammarterm{reflexpr-specifier} shall be a type, namespace, enumerator,
-    variable, structured binding, data member, function parameter, captured
+    variable, data member, function parameter, captured
     entity, parenthesized expression, \grammarterm{function-call-expression} or
     \grammarterm{functional-type-conv-expression}.  Any such \tcode{T} satisfies the requirements of
     \tcode{reflect::Object} (\ref{reflect.concepts}) and other \tcode{reflect}
@@ -248,7 +248,7 @@ a \emph{reflexpr-specifier} satisfies, for a given \emph{reflexpr-operand}.}}{ta
             &                                                                         & \added{and \tcode{reflect::Alias}}       \\ \cline{2-3}
             & \added{any other \grammarterm{namespace-name}}                          & \added{\tcode{reflect::Namespace}}       \\ \cline{1-3}
 \added{Expression} & \added{the name of a data member}                                               & \added{\tcode{reflect::Variable}} \\ \cline{2-3}
-            & \added{the name of a variable or structured binding}                            & \added{\tcode{reflect::Variable}}        \\ \cline{2-3}
+            & \added{the name of a variable}                                                  & \added{\tcode{reflect::Variable}}        \\ \cline{2-3}
             & \added{the name of an enumerator}                                               & \added{\tcode{reflect::Enumerator}}      \\ \cline{2-3}
             & \added{the name of a function parameter}                                        & \added{\tcode{reflect::FunctionParameter}} \\ \cline{2-3}
             & \added{the name of a captured entity}                                           & \added{\tcode{reflect::LambdaCapture}} \\ \cline{2-3}
