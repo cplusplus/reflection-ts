@@ -1195,13 +1195,13 @@ If the entity reflected by \tcode{T} is a static data member that is declared to
 For
 \begin{codeblock}
 struct C {
-   static int arr[17][];
+   static int arr[][17];
 };
-int C::arr[17][42];
+int C::arr[42][17];
 using C1 = get_type_t<get_element_t<0, get_data_members_t<reflexpr(C)>>>;
 using C2 = get_type_t<reflexpr(C::arr)>;
 \end{codeblock}
-\tcode{C1} reflects \tcode{int[17][]} while \tcode{C2} reflects \tcode{int[17][42]}.
+\tcode{C1} reflects \tcode{int[][17]} while \tcode{C2} reflects \tcode{int[42][17]}.
 \end{note}
 
 \end{itemdescr}
