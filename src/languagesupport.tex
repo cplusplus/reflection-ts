@@ -1098,7 +1098,7 @@ The value of \tcode{get_name_v<T>} refers to a string literal whose \grammarterm
 \item for \tcode{T} reflecting
     \begin{itemize}
     \item a namespace, its \grammarterm{namespace-name};
-    \item a variable, enumerator, data member, or function, its unqualified name;
+    \item a variable, enumerator, data member, or function (except for conversion functions, constructors, operator functions, or literal operators), its unqualified name;
     \item a function parameter, its name;
     \item a constructor, the \grammarterm{injected-class-name} of its class;
     \item a destructor, the \grammarterm{injected-class-name} of its class, prefixed by the character \tcode{’\tilde’};
