@@ -1314,7 +1314,7 @@ struct Y {
 };
 
 using X_mem_t = get_accessible_data_members_t<Y::X_t>;
-static_assert(get_size_v<X_mem_t> == 1); // passes.
+static_assert(get_size_v<X_mem_t> == 1, ""); // passes.
 \end{codeblock}\end{example}
 \end{itemize}
 
