@@ -6,7 +6,14 @@
 \rSec2[expr.prim.lambda]{Lambda expressions}
 
 \pnum
-In C++ [expr.prim.lambda], apply the following change to paragraph \cxxref{expr.prim.lambda.paragraph1}:
+In C++ [expr.prim.lambda], apply the following change to the end of paragraph \cxxref{expr.prim.lambda.paragraph0}:
+
+\begin{std.txt}
+All such implicitly captured entities shall be declared within the reaching scope of the lambda expression\added{ where, for the process of this determination, \tcode{reflexpr} operands are not considered to be unevaluated operands}.
+\end{std.txt}
+
+\pnum
+Also apply the following change to paragraph \cxxref{expr.prim.lambda.paragraph1}:
 
 \begin{std.txt}
 Every \grammarterm{id-expression} within the \grammarterm{compound-statement} of a \grammarterm{lambda-expression} that is an odr-use~(\ref{basic.def.odr}) of an entity captured by copy\added{, as well as every use of an entity captured by copy in a \grammarterm{reflexpr-operand},} is transformed into an access to the corresponding unnamed data member of the closure type.
