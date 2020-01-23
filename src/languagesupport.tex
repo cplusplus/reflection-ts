@@ -1260,7 +1260,7 @@ template <ScopeMember T> struct get_scope;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{get_scope<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is the \tcode{Scope} reflecting a scope \emph{S}. With \emph{ST} being the scope of the declaration of the entity, typedef or value reflected by \tcode{T}, \emph{S} is found as the innermost scope enclosing \emph{ST} that is either a namespace scope (including global scope), class scope, enumeration scope, function scope, or immediately enclosing closure type (for lambda captures). For members of an unnamed union, this innermost scope is the unnamed union. For enumerators of unscoped enumeration types, this innermost scope is their enumeration type.
+All specializations of \tcode{get_scope<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} is the \tcode{Scope} reflecting a scope \emph{S}. With \emph{ST} being the scope of the declaration of the entity, alias or value reflected by \tcode{T}, \emph{S} is found as the innermost scope enclosing \emph{ST} that is either a namespace scope (including global scope), class scope, enumeration scope, function scope, or immediately enclosing closure type (for lambda captures). For members of an unnamed union, this innermost scope is the unnamed union. For enumerators of unscoped enumeration types, this innermost scope is their enumeration type.
 For a template \grammarterm{type-parameter}, this innermost scope is the \tcode{TemplateParameterScope} representing the template parameter scope in which it has been declared.
 \end{itemdescr}
 
