@@ -208,20 +208,10 @@ std::experimental::reflect::get_reflected_type_t<X1_m> x; // OK: type X is compl
 \end{example}
 
 \pnum
-For the operand \tcode{::}, the type specified by the
-\grammarterm{reflexpr-specifier} satisfies \tcode{reflect::GlobalScope}.
+For the operand \tcode{::}, the type specified by the \grammarterm{reflexpr-specifier} satisfies \tcode{reflect::GlobalScope}.  Otherwise, the type specified by the \grammarterm{reflexpr-specifier} satisfies concepts depending on the result of name lookup, as shown in Table~\ref{tab:reflect.concepts}.  Any other \grammarterm{reflexpr-operand} renders the program ill-formed.
 
 \pnum
-The \grammarterm{identifier} or \grammarterm{simple-template-id} is looked up
-using the rules for name lookup (\cxxref{basic.lookup}): if a
-\grammarterm{nested-name-specifier} is included in the operand, qualified lookup
-(\cxxref{basic.lookup.qual}) of \grammarterm{nested-name-specifier identifier} or
-\grammarterm{nested-name-specifier simple-template-id} will be performed,
-otherwise unqualified lookup (\cxxref{basic.lookup.unqual}) of
-\grammarterm{identifier} or \grammarterm{simple-template-id} will be performed.
-The type specified by the \grammarterm{reflexpr-specifier} satisfies concepts
-depending on the result of name lookup, as shown in
-Table~\ref{tab:reflect.concepts}.
+TODO. Remove paragraph. Kept only for number keeping.
 
 \setcounter{table}{10}
 
@@ -283,7 +273,7 @@ TODO. Remove paragraph. Kept only for number keeping.
 TODO. Remove paragraph. Kept only for number keeping.
 
 \pnum
-Any other \grammarterm{reflexpr-operand} renders the program ill-formed.
+TODO. Remove paragraph. Kept only for number keeping.
 
 \pnum 
 If the \grammarterm{reflexpr-operand} of the form \grammarterm{id-expression} is a constant expression, the type specified by the \grammarterm{reflexpr-specifier} also satisfies \tcode{reflect::Constant}.
