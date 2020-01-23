@@ -710,7 +710,7 @@ template <class T> concept bool Scope = Object<T> && @\seebelow@;
 
 \begin{itemdescr}
 \pnum
-\tcode{Scope<T>} is true if and only if \tcode{T} reflects a namespace (including the global namespace), class, enumeration, function or closure type. \begin{note} Any such \tcode{T} that does not reflect the global namespace also satisfies \tcode{ScopeMember}. \end{note}
+\tcode{Scope<T>} is true if and only if \tcode{T} reflects a namespace (including the global namespace), class, enumeration, function, closure type, or is a \tcode{TemplateParameterScope}. \begin{note} Any such \tcode{T} that does not reflect the global namespace also satisfies \tcode{ScopeMember}. \end{note}
 
 \end{itemdescr}
 \end{std.txt}
