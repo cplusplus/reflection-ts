@@ -1297,7 +1297,7 @@ template <Record T> struct get_member_functions;
 
 \begin{itemdescr}
 \pnum
-All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates a meta-object type satisfying \tcode{ObjectSequence}, containing elements which satisfy \tcode{RecordMember} and reflect the following subset of direct non-template members of the class reflected by \tcode{T}:
+All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates a meta-object type satisfying \tcode{ObjectSequence}, containing elements which satisfy \tcode{RecordMember} and reflect the following subset of direct non-template members that are either declared in the class reflected by \tcode{T} or that are introduced by a using-declaration in the class reflected by \tcode{T}:
 \begin{itemize}
   \item for \tcode{get_data_members} (\tcode{get_member_functions}), all data (function, including constructor and destructor) members.
   \item for \tcode{get_public_data_members} (\tcode{get_public_member_functions}), all public data (function, including constructor and destructor) members;
@@ -1333,7 +1333,7 @@ template <Record T> struct get_operators;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates a meta-object type satisfying \tcode{ObjectSequence}, containing elements which satisfy \tcode{RecordMember} and reflect the following subset of function members of the class reflected by \tcode{T}:
+All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates a meta-object type satisfying \tcode{ObjectSequence}, containing elements which satisfy \tcode{RecordMember} and reflect the following subset of non-template function members that are either declared in the class reflected by \tcode{T} or that are introduced by a using-declaration in function members of the class reflected by \tcode{T}:
 \begin{itemize}
    \item for \tcode{get_constructors}, all constructors.
    \item for \tcode{get_operators}, all conversion functions (\cxxref{class.conv.fct}) and operator functions (\cxxref{over.oper}).
@@ -1352,7 +1352,7 @@ template <Record T> struct get_destructor;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{get_destructor<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates a \tcode{Destructor} type that reflects the destructor of the class reflected by \tcode{T}.
+All specializations of \tcode{get_destructor<T>} shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates a \tcode{Destructor} type that reflects the destructor declared in the class reflected by \tcode{T}.
 
 \pnum
 \remarks
@@ -1367,7 +1367,7 @@ template <Record T> struct get_member_types;
 
 \begin{itemdescr}
 \pnum
-All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates a meta-object type satisfying \tcode{ObjectSequence}, containing elements which satisfy \tcode{Type} and reflect the following subset of types declared in the class reflected by \tcode{T}:
+All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates a meta-object type satisfying \tcode{ObjectSequence}, containing elements which satisfy \tcode{Type} and reflect the following subset of non-template types that are either declared in the class reflected by \tcode{T} or that are introduced by a using declaration in the class reflected by \tcode{T}:
 \begin{itemize}
   \item for \tcode{get_public_member_types}, all public nested class types, enum types, or member typedefs;
   \item for \tcode{get_accessible_member_types}, all nested class types, enum types, or member typedefs that are accessible from the scope of the invocation of \tcode{reflexpr} which (directly or indirectly) generated \tcode{T};
