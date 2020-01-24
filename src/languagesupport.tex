@@ -1482,7 +1482,7 @@ template <Variable T> struct is_constexpr<T>;
 
 \begin{itemdescr}
 \pnum
-All specializations of \tcode{is_constexpr<T>} shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If \tcode{T} reflects a variable declared with the \grammarterm{decl-specifier} \tcode{constexpr}, the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
+All specializations of this partial template specialization shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If \tcode{T} reflects a variable declared with the \grammarterm{decl-specifier} \tcode{constexpr}, the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
 \end{itemdescr}
 
 \begin{itemdecl}
@@ -1534,7 +1534,7 @@ template <Base T> struct is_private<T>;
 
 \begin{itemdescr}
 \pnum
-All specializations of the template and of these partial template specializations shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If \tcode{T} reflects a direct base class with the \tcode{virtual} specifier (for \tcode{is_virtual}), with the \tcode{public} specifier or with an assumed (see \cxxref{class.access.base}) \tcode{public} specifier (for \tcode{is_public}), with the \tcode{protected} specifier (for \tcode{is_protected}), or with the \tcode{private} specifier or with an assumed \tcode{private} specifier (for \tcode{is_private}), then the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
+All specializations of these partial template specializations shall meet the \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If \tcode{T} reflects a direct base class with the \tcode{virtual} specifier (for \tcode{is_virtual}), with the \tcode{public} specifier or with an assumed (see \cxxref{class.access.base}) \tcode{public} specifier (for \tcode{is_public}), with the \tcode{protected} specifier (for \tcode{is_protected}), or with the \tcode{private} specifier or with an assumed \tcode{private} specifier (for \tcode{is_private}), then the base characteristic of the respective template specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
 \end{itemdescr}
 \end{std.txt}
 
@@ -1594,7 +1594,7 @@ template <Callable T> struct is_deleted;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-      All specializations of these templates shall meet the
+      All specializations of these templates and partial template specializations shall meet the
       \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}).  If their template
       parameter reflects an entity with an ellipsis terminating the
       \grammarterm{parameter-declaration-clause} (\cxxref{dcl.fct}) (for
@@ -1678,7 +1678,7 @@ template <MemberFunction T> struct is_final<T>;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-      All specializations of these templates shall meet the
+      All specializations of these templates and partial template specializations shall meet the
       \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If their template
       parameter reflects a member function that is \tcode{static} (for
       \tcode{is_static}), \tcode{const} (for \tcode{is_const}),
@@ -1720,7 +1720,7 @@ template <Constructor T> struct is_explicit<T>;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-      All specializations of this template shall meet the
+      All specializations of this partial template specialization shall meet the
       \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If the template
       parameter reflects an explicit constructor, the base characteristic of
       the respective template specialization is \tcode{true_type}, otherwise it
@@ -1737,7 +1737,7 @@ template <Destructor T> struct is_pure_virtual<T>;
 \end{itemdecl}
 \begin{itemdescr}
 \pnum
-      All specializations of these templates shall meet the
+      All specializations of these partial template specializations shall meet the
       \tcode{UnaryTypeTrait} requirements (\cxxref{meta.rqmts}). If the template
       parameter reflects a virtual (for \tcode{is_virtual}) or pure virtual
       (for \tcode{is_pure_virtual}) destructor, the base characteristic of the
