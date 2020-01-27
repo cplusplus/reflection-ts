@@ -1600,7 +1600,7 @@ template <Callable T> struct is_deleted;
       \grammarterm{parameter-declaration-clause} (\cxxref{dcl.fct}) (for
       \tcode{is_vararg}), or an entity that is (where applicable implicitly or
       explicitly) declared as \tcode{constexpr} (for \tcode{is_constexpr}),
-      as \tcode{noexcept} (for \tcode{is_noexcept}), as an inline function
+      as non-throwing (\cxxref{except.spec}) (for \tcode{is_noexcept}), as an inline function
       (\cxxref{dcl.fct.spec}) (for \tcode{is_inline}), or as deleted (for
       \tcode{is_deleted}), the base characteristic of the respective template
       specialization is \tcode{true_type}, otherwise it is \tcode{false_type}.
