@@ -1297,7 +1297,7 @@ template <Record T> struct get_member_functions;
 
 \begin{itemdescr}
 \pnum
-All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates a meta-object type satisfying \tcode{ObjectSequence}, containing elements which satisfy \tcode{RecordMember} and reflect the following subset of direct non-template members that are either declared in the class reflected by \tcode{T} or that are introduced by a using-declaration in the class reflected by \tcode{T}:
+All specializations of these templates shall meet the \tcode{TransformationTrait} requirements (\cxxref{meta.rqmts}). The nested type named \tcode{type} designates a meta-object type satisfying \tcode{ObjectSequence}, containing elements which satisfy \tcode{RecordMember} and reflect the following subset of non-template members that are either declared in the class reflected by \tcode{T} or that are introduced by a using-declaration in the class reflected by \tcode{T}:
 \begin{itemize}
   \item for \tcode{get_data_members} (\tcode{get_member_functions}), all data (function, including constructor and destructor) members.
   \item for \tcode{get_public_data_members} (\tcode{get_public_member_functions}), all public data (function, including constructor and destructor) members;
