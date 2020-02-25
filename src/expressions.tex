@@ -6,11 +6,15 @@
 \rSec2[expr.prim.lambda]{Lambda expressions}
 
 \pnum
-In C++ [expr.prim.lambda], apply the following change to the end of paragraph \cxxref{expr.prim.lambda.paragraph0}:
+In C++ [expr.prim.lambda], apply the following change to the second bullet in paragraph \cxxref{expr.prim.lambda.paragraph0}:
 
+\renewcommand{\labelitemi}{---}
 \begin{std.txt}
-All such implicitly captured entities shall be declared within the reaching scope of the lambda expression\added{ where, for the process of this determination, \tcode{reflexpr} operands are not considered to be unevaluated operands}.
+\begin{itemize}
+\item names the entity in a potentially-evaluated expression (3.2) where the enclosing full-expression depends on a generic lambda parameter declared within the reaching scope of the \grammarterm{lambda-expression}\added{ where, for the process of this determination, \tcode{reflexpr} operands are not considered to be unevaluated operands}.
+\end{itemize}
 \end{std.txt}
+\renewcommand{\labelitemi}{---\parabullnum{Bullets1}{\labelsep}}
 
 \pnum
 Also apply the following change to paragraph \cxxref{expr.prim.lambda.paragraph1}:
