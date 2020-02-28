@@ -241,13 +241,8 @@ a \emph{reflexpr-specifier} satisfies, for a given \emph{reflexpr-operand}.}}{ta
             & \added{the name of a captured entity}                                           & \added{\tcode{reflect::LambdaCapture}} \\ \cline{2-3}
             & \added{parenthesized expression\textsuperscript{a}}                             & \added{\tcode{reflect::ParenthesizedExpression}} \\ \cline{2-3}
             & \added{\grammarterm{function-call-expression\normalfont\textsuperscript{b}}}               & \added{\tcode{reflect::FunctionCallExpression}} \\ \cline{2-3}
-            & \added{\grammarterm{functional-type-conv-expression\normalfont\textsubscript{1}}}        & \added{\tcode{reflect::FunctionalTypeConversion}} \\ \capsep
+            & \added{\grammarterm{functional-type-conv-expression\normalfont\textsuperscript{c}}}        & \added{\tcode{reflect::FunctionalTypeConversion}} \\ \capsep
 
-\multicolumn{3}{|l|}{\added{\hspace{.1in}NOTE 1\hspace{.1in}
-The usual disambiguation between function-style cast and a \grammarterm{type-id} (\cxxref{dcl.ambig.res}) applies. \noteintro{Example} The default 
-}} \\
-\multicolumn{3}{|l|}{\added{constructor of class \tcode{X} can be reflected on as \tcode{reflexpr((X()))}, while \tcode{reflexpr(X())} reflects the type of a function}} \\
-\multicolumn{3}{|l|}{\added{returning \tcode{X}. \noteoutro{example}\xspace}} \\
 
 \multicolumn{3}{|l|}{\added{\hspace{.1in}\textsuperscript{a}
 For a \grammarterm{reflexpr-operand} that is a parenthesized expression \tcode{(E)}, \tcode{E} shall be a \grammarterm{function-call-expression},} } \\
@@ -257,6 +252,12 @@ For a \grammarterm{reflexpr-operand} that is a parenthesized expression \tcode{(
 If the \grammarterm{postfix-expression} of the \grammarterm{function-call-expression} is of class type, the function call shall not resolve to a}} \\
 \multicolumn{3}{|l|}{\added{surrogate call function (\cxxref{over.call.object}). Otherwise, the \grammarterm{postfix-expression} shall name a function that is the unique result of}} \\
 \multicolumn{3}{|l|}{\added{overload resolution.}} \\
+
+\multicolumn{3}{|l|}{\added{\hspace{.1in}\textsuperscript{c}
+The usual disambiguation between function-style cast and a \grammarterm{type-id} (\cxxref{dcl.ambig.res}) applies. \noteintro{Example} The default 
+}} \\
+\multicolumn{3}{|l|}{\added{constructor of class \tcode{X} can be reflected on as \tcode{reflexpr((X()))}, while \tcode{reflexpr(X())} reflects the type of a function}} \\
+\multicolumn{3}{|l|}{\added{returning \tcode{X}. \noteoutro{example}\xspace}} \\
 
 \end{floattable}
 
