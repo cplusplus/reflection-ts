@@ -3,7 +3,7 @@
 \rSec1[intro.compliance]{Implementation compliance}
 
 \pnum
-Conformance requirements for this specification are those defined in subclause
+Conformance requirements for this document are those defined in subclause
 \ref{intro.compliance} in the C++ Standard. Similarly, all references to the C++ Standard in the
 resulting document shall be taken as referring to the resulting document itself.
 \begin{note}
@@ -16,7 +16,7 @@ Conformance is defined in terms of the behavior of programs.
 Whenever a name \tcode{x} declared in subclause \ref{reflect} at namespace scope
 is mentioned, the name \tcode{x} is assumed to be fully qualified as
 \tcode{::std::experimental::reflect::v1::x}, unless otherwise specified.
-The header described in this specification (see Table~\ref{tab:info.headers})
+The header described in this document (see Table~\ref{tab:info.headers})
 shall import the contents of \tcode{::std::experimental::reflect::v1} into
 \tcode{::std::experimental::reflect} as if by:
 
@@ -40,7 +40,7 @@ mentioned, the name \tcode{x} is assumed to be fully qualified as
 \rSec1[intro.features]{Feature-testing recommendations}
 
 \pnum
-An implementation that provides support for this Technical Specification shall define each feature test macro defined in \tref{intro.features} if no associated headers are indicated for that macro, and if associated headers are indicated for a macro, that macro is defined after inclusion of one of the corresponding headers specified in the table.
+An implementation that provides support for this document shall define each feature test macro defined in \tref{intro.features} if no associated headers are indicated for that macro, and if associated headers are indicated for a macro, that macro is defined after inclusion of one of the corresponding headers specified in the table.
 
 \begin{floattable}{Feature-test macros}{tab:intro.features}
 {lll}
@@ -50,13 +50,3 @@ An implementation that provides support for this Technical Specification shall d
 \tcode{__cpp_reflection}  & \tcode{\tsver}   &  none \\
 \tcode{__cpp_lib_reflection}  & \tcode{\tsver}  & \tcode{<experimental/reflect>} \\
 \end{floattable}
-
-\rSec1[intro.ack]{Acknowledgements}
-
-\pnum
-This work is the result of a collaboration of researchers in industry and
-academia.  We wish to thank the original authors of this TS, Mat\'{u}\v{s}
-Chochl\'{i}k, Axel Naumann, and David Sankel. We also wish to thank people who
-made valuable contributions within and outside these groups, including Ricardo
-Fabiano de Andrade, Roland Bock, Chandler Carruth, Jackie Kay, A. Joël Lamotte,
-Jens Maurer, and many others not named here who contributed to the discussion.
