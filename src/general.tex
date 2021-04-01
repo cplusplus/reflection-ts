@@ -1,6 +1,8 @@
 %!TEX root = ts.tex
 
-\rSec1[intro.compliance]{Implementation compliance}
+\rSec0[general]{General}
+
+\rSec1[general.compliance]{Implementation compliance}
 
 \pnum
 Conformance requirements for this document are those defined in subclause
@@ -10,7 +12,7 @@ resulting document shall be taken as referring to the resulting document itself.
 Conformance is defined in terms of the behavior of programs.
 \end{note}
 
-\rSec1[intro.namespaces]{Namespaces and headers}
+\rSec1[general.namespaces]{Namespaces and headers}
 
 \pnum
 Whenever a name \tcode{x} declared in subclause \ref{reflect} at namespace scope
@@ -37,7 +39,7 @@ mentioned, the name \tcode{x} is assumed to be fully qualified as
 \tcode{<experimental/reflect>} \\
 \end{floattable}
 
-\rSec1[intro.features]{Feature-testing recommendations}
+\rSec1[general.features]{Feature-testing recommendations}
 
 \pnum
 An implementation that provides support for this document shall define each feature test macro defined in \tref{intro.features} if no associated headers are indicated for that macro, and if associated headers are indicated for a macro, that macro is defined after inclusion of one of the corresponding headers specified in the table.
