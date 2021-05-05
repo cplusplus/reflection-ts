@@ -3,12 +3,8 @@
 
 %%--------------------------------------------------
 %% Difference markups
-\definecolor{addclr}{rgb}{0,.6,.6}
-\definecolor{remclr}{rgb}{1,0,0}
-\definecolor{noteclr}{rgb}{0,0,1}
-
-\renewcommand{\added}[1]{\textcolor{addclr}{\uline{#1}}}
-\newcommand{\removed}[1]{\textcolor{remclr}{\sout{#1}}}
+\renewcommand{\added}[1]{\uline{#1}}
+\newcommand{\removed}[1]{\sout{#1}}
 \renewcommand{\changed}[2]{\removed{#1}\added{#2}}
 
 \newcommand{\nbc}[1]{[#1]\ }
@@ -17,19 +13,17 @@
 \newcommand{\changednb}[3]{\removednb{#1}{#2}\added{#3}}
 \newcommand{\remitem}[1]{\item\removed{#1}}
 
-\newcommand{\ednote}[1]{\textcolor{noteclr}{[Editor's note: #1] }}
+\newcommand{\ednote}[1]{[Editor's note: #1]}
 % \newcommand{\ednote}[1]{}
 
 \newenvironment{addedblock}
 {
-\color{addclr}
 }
 {
 \color{black}
 }
 \newenvironment{removedblock}
 {
-\color{remclr}
 }
 {
 \color{black}
