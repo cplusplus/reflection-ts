@@ -3,7 +3,7 @@
 
 %%--------------------------------------------------
 %% basics
-\documentclass[ebook,10pt,oneside,openany,final]{memoir}
+\documentclass[ebook,10pt,openany,final]{memoir}
 
 \usepackage[american]
            {babel}        % needed for iso dates
@@ -93,6 +93,14 @@
 %%--------------------------------------------------
 %% make overfull hboxes visible
 %\setlength\overfullrule{5pt}
+
+%%--------------------------------------------------
+%% Avoid blank page after foreword
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\@smemmain}{\cleardoublepage}{\clearpage}{}{}
+\patchcmd{\@smemmain}{\cleardoublepage}{\clearpage}{}{}
+\makeatother
 
 \begin{document}
 \chapterstyle{cppstd}
